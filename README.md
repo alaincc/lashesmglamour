@@ -1,115 +1,139 @@
-# Lashes M Glamour 🌟
+# Lashes & MGlamour Platform 🌟
 
-> A premium, modern web application for **Lashes M Glamour** — delivering an exceptional, responsive, and visually stunning digital experience for beauty services, appointments, and client portfolios.
+> Enterprise-grade, high-performance web platform for **Lashes & MGlamour** — featuring a modern frontend built with **Astro 7** and a powerful background microservice connector built with **FastAPI** synchronizing automatically with the **Square API**.
 
 ---
 
 ## 📖 Table of Contents
-1. [Overview](#-overview)
-2. [Key Features](#-key-features)
-3. [Technology Stack](#-technology-stack)
-4. [Getting Started](#-getting-started)
-5. [Project Structure](#-project-structure)
-6. [Design Aesthetics & Styling](#-design-aesthetics--styling)
-7. [SEO & Best Practices](#-seo--best-practices)
-8. [Deployment](#-deployment)
-9. [Contributing & Version Control](#-contributing--version-control)
+- [Objective](#-objective)
+- [Key Features](#-key-features)
+- [System Architecture](#-system-architecture)
+- [Tech Stack](#-tech-stack)
+- [Project Documentation Base](#-project-documentation-base)
+- [Getting Started](#-getting-started)
+- [Design Identity and Rules](#-design-identity-and-rules)
+- [Development and Coding Guidelines](#-development-and-coding-guidelines)
+- [Git branching Workflow](#-git-branching-workflow)
 
 ---
 
-## 🔍 Overview
-
-**Lashes M Glamour** is a state-of-the-art web application designed to showcase eyelash extension and beauty services. The application provides an engaging user interface that guides clients from discovering available styles to booking their appointments seamlessly. It leverages premium design principles, smooth interactions, and high-performance frontend APIs to deliver a top-tier digital experience.
+## 🎯 Objective
+To construct a premium, production-ready, highly scalable, and extremely fast platform for **Lashes & MGlamour**. The platform is optimized for local SEO, and engineered to drive customer conversions, enabling clients to secure booking appointments in under three clicks.
 
 ---
 
 ## ✨ Key Features
-
-- **Dynamic Gallery / Portfolio**: Showcase gorgeous eyelash extension mappings, lash types (Classic, Hybrid, Volume, Mega Volume), and real client transformations.
-- **Interactive Booking System**: A fluid booking flow that integrates with scheduling services, featuring step-by-step service customization.
-- **Rich Interactive Elements**: Hover effects, responsive grids, and micro-animations that make the site feel alive and engaging.
-- **SEO Optimized**: Fully optimized header hierarchies, meta tags, and structured data schema to rank beauty services locally and nationally.
-- **Mobile First & Responsive**: Designed beautifully across all viewports (mobile, tablet, desktop) to ensure client access on the go.
+- **Square API Automated Sync**: Background synchronizer checks catalog, staff, pricing, and availability loops every 15 minutes.
+- **FastAPI Core Middleware**: Custom FastAPI microservice handling booking operations, webhooks receiver, security, and cache management.
+- **Astro 7 Speed**: Astro static layouts for maximal local SEO speed (100/100 Lighthouse target score) combined with React Islands for booking wizards and dynamic feeds.
+- **Brand Guide Guardrails**: Styling generated dynamically from the visual assets located in `/designs` folder.
+- **Admin Dashboard**: Control panel for logs auditing, manual catalog synchronizations, testimonials, and blog posts management.
 
 ---
 
-## 🛠️ Technology Stack
+## 🏗️ System Architecture
 
-The project is built using:
-- **Core Structure**: HTML5 (Semantic elements)
-- **Logic & Flow**: Vanilla JavaScript (ES6+ standard modules)
-- **Styling**: Modern CSS3 (CSS Variables, Flexbox, CSS Grid, custom utility setups)
-- **Deployment**: Configured for static hosting services (e.g., Vercel, Netlify, or GitHub Pages)
+```text
+Astro (Frontend Client)
+   │
+   ▼
+FastAPI (Backend Gateway & Business Logic)
+   │
+   ├─► Redis (Caching Layer - TTL 300s)
+   ├─► PostgreSQL (Storage DB & Migration State)
+   │
+   ├─► Square API (Booking, Staff, Catalog, Catalog items, & Clients)
+   ├─► Google APIs (Maps API & Google Business Reviews)
+   └─► Instagram Graph API (Dynamic media feed)
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework**: Astro 7, Astro Content Collections, Astro Islands
+- **Logic / Dynamic**: TypeScript, React (strictly within dynamic islands), TanStack Query, React Hook Form, Zod
+- **Styles**: Tailwind CSS, shadcn/ui, Framer Motion
+
+### Backend
+- **Core API Engine**: Python 3.12, FastAPI, Pydantic v2
+- **ORM / Migrations**: SQLAlchemy 2, Alembic
+- **Database / Cache**: PostgreSQL, Redis
+- **HTTP / Auth**: httpx Async, JWT, OAuth2
+
+### Infrastructure
+- **Containerization**: Docker, Docker Compose
+- **Proxy / CDN**: Nginx (Reverse Proxy & SSL), Cloudflare
+- **Hosting**: Vercel (Frontend), VPS Ubuntu (Backend)
+
+---
+
+## 📁 Project Documentation Base
+
+The project maintains comprehensive, real-time documentation of all decisions and features:
+
+### Root Level Trackers
+- [README.md](file:///Users/alaincc/lashesmglamour/README.md) - Project overview and quick start (this file).
+- [TODO.md](file:///Users/alaincc/lashesmglamour/TODO.md) - Active task management matrix.
+- [PROJECT_STATUS.md](file:///Users/alaincc/lashesmglamour/PROJECT_STATUS.md) - Implementation checklists and recent achievements.
+- [ROADMAP.md](file:///Users/alaincc/lashesmglamour/ROADMAP.md) - Milestones and development phases.
+- [ARCHITECTURE.md](file:///Users/alaincc/lashesmglamour/ARCHITECTURE.md) - Core system design and directory structure.
+- [CHANGELOG.md](file:///Users/alaincc/lashesmglamour/CHANGELOG.md) - Version history tracker.
+
+### Specialized Documentation (`docs/`)
+- [PROMPT_MAESTRO.md](file:///Users/alaincc/lashesmglamour/docs/PROMPT_MAESTRO.md) - The master prompt rule definition.
+- [BRAND-GUIDE.md](file:///Users/alaincc/lashesmglamour/docs/BRAND-GUIDE.md) - Color typography, spacings, and asset instructions.
+- [API.md](file:///Users/alaincc/lashesmglamour/docs/API.md) - Endpoint schemes and request/response specifications.
+- [DATABASE.md](file:///Users/alaincc/lashesmglamour/docs/DATABASE.md) - Relational diagrams, indexing rules, and caching layouts.
+- [DEPLOYMENT.md](file:///Users/alaincc/lashesmglamour/docs/DEPLOYMENT.md) - Nginx configuration, Dockerfiles, and CI/CD pipelines.
+- [SQUARE.md](file:///Users/alaincc/lashesmglamour/docs/SQUARE.md) - API integrations, payload mapping, and event webhooks details.
+- [SEO.md](file:///Users/alaincc/lashesmglamour/docs/SEO.md) - Structured LocalBusiness schemas, metadata configurations, and keywords strategy.
 
 ---
 
 ## 🚀 Getting Started
 
-To get a local copy of this repository up and running, follow these steps:
+### Local Setup (Development)
 
-### Prerequisites
-- A modern web browser.
-- A local web server tool (e.g., Live Server extension in VS Code, or python: `python3 -m http.server`).
+Please refer to [docs/DEPLOYMENT.md](file:///Users/alaincc/lashesmglamour/docs/DEPLOYMENT.md) for full docker setup guidelines, database settings, and service triggers.
 
-### Installation & Run
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/lashesmglamour.git
-   cd lashesmglamour
+1. **Verify Environment Configuration**:
+   Ensure you configure the `.env` settings matching:
+   ```text
+   SQUARE_ACCESS_TOKEN=your_token
+   SQUARE_APPLICATION_ID=your_app_id
+   SQUARE_LOCATION_ID=your_location_id
+   SQUARE_ENVIRONMENT=sandbox_or_production
+   SQUARE_WEBHOOK_SIGNATURE=your_webhook_signature
+   DATABASE_URL=postgresql+psycopg2://user:password@localhost:5432/lashes_db
+   REDIS_URL=redis://localhost:6379/0
    ```
-2. Open the project folder in your preferred editor.
-3. Start your local server or open `index.html` directly in your browser.
+
+2. **Docker Quickstart**:
+   ```bash
+   docker-compose up --build
+   ```
 
 ---
 
-## 📁 Project Structure
+## 🎨 Design Identity and Rules
 
-```text
-lashesmglamour/
-├── .git/                 # Git repository configuration
-├── .gitignore            # Git exclusion rules
-├── README.md             # Project overview (this file)
-├── ARCHITECTURE.md       # Technical design and folder architecture
-├── CONTRIBUTING.md       # Contribution guidelines and workflow rules
-├── CHANGELOG.md          # Version history log
-├── index.html            # Main entrance page
-├── css/
-│   └── styles.css        # Core styling sheet
-└── js/
-    └── main.js           # Core JavaScript logic
-```
+- **Source of Truth**: The `/designs` directory is the sole visual standard.
+- **Logo Rule**: The logo file located in `designs/logo/` must never be modified. Rules:
+  - *Lashes* = Gold
+  - *MGlamour* = Black
+  - Crown: Gold; Lash: Black. No modifications are permitted.
+- **Design Tokens**: Defined strictly at `src/styles/tokens.ts` (Tailwind styles).
 
 ---
 
-## 🎨 Design Aesthetics & Styling
+## 🤝 Development and Coding Guidelines
 
-Our application utilizes **Rich Aesthetics** to wow visitors at first glance:
-- **Color Palette**: Dark-mode primary colors blended with soft, warm skin/gold/nude hues to emphasize beauty, luxury, and glamour.
-- **Typography**: Sleek google fonts matching beauty industry elegance (e.g., *Playfair Display* and *Montserrat*).
-- **Glassmorphism**: Elegant semi-transparent frosted-glass containers using `backdrop-filter: blur()`.
-- **Transitions**: Native CSS micro-animations on interactive components, cards, and buttons for fluid tactile feedback.
-
----
-
-## 📈 SEO & Best Practices
-
-- Every page has exactly one `<h1>`.
-- Semantic tags (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`) are used throughout to improve web accessibility (A11y) and search rankings.
-- Meta descriptions, OpenGraph attributes, and favicons are configured for rich previews on social shares.
-
----
-
-## 🚢 Deployment
-
-The project is structured as a zero-dependency static application. Simply drop the workspace files into a hosting provider:
-- **Vercel**: Link repository, auto-detects static directory, and deploys.
-- **Netlify**: Set build command to empty and publish directory to `.`.
-- **GitHub Pages**: Configure page deployments directly from the main branch.
-
----
-
-## 🤝 Contributing & Version Control
-
-We maintain clean git histories. For branch structure, commit formatting, and build guides, please refer to [CONTRIBUTING.md](file:///Users/alaincc/lashesmglamour/CONTRIBUTING.md).
-For architectural choices, refer to [ARCHITECTURE.md](file:///Users/alaincc/lashesmglamour/ARCHITECTURE.md).
-For the log of changes, see [CHANGELOG.md](file:///Users/alaincc/lashesmglamour/CHANGELOG.md).
+We enforce enterprise-level coding practices:
+- **SOLID** & **Clean Architecture** patterns.
+- **Repository Pattern** and **Service Pattern** on the FastAPI backend layer.
+- **Astro Islands** used strictly for dynamic modules. No page-wide React rendering.
+- Complete documentation update with every code iteration.
+- Strict Type checking (TypeScript and fully-typed Python).
+- Refer to [CONTRIBUTING.md](file:///Users/alaincc/lashesmglamour/CONTRIBUTING.md) for full branch structures and git rules.

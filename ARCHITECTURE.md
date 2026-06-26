@@ -1,88 +1,113 @@
-# Architecture & Technical Design
+# System Architecture Specification
 
-This document details the architectural decisions, design system, coding patterns, and layout guidelines for the **Lashes M Glamour** web application.
+This document details the software architecture, modular layouts, and technical specifications for the **Lashes & MGlamour Platform**.
 
 ---
 
-## 🏗️ Folder Architecture
+## 🏗️ Folder Directory Layout
 
-To keep the application highly organized, modular, and easy to maintain, the workspace follows a clean client-side layout:
+The workspace is organized into separate modules for the Frontend (Astro 7) and Backend (FastAPI microservice):
 
 ```text
 lashesmglamour/
-├── css/
-│   ├── variables.css      # Design tokens (colors, typography, spacing)
-│   ├── base.css           # Global resets and core HTML styles
-│   ├── layout.css         # Page wrappers, headers, footers, grid layouts
-│   ├── components/        # Component-specific styles (buttons, cards, modals)
-│   └── main.css           # Bundled stylesheet importing the above files
-├── js/
-│   ├── config.js          # App configurations, constants
-│   ├── components/        # Isolated JavaScript component logic (modal, bookings)
-│   ├── utils/             # Helper libraries (validation, date styling)
-│   └── main.js            # Core page bootstrap file
-├── assets/
-│   ├── images/            # Optimized images, icons, portfolio showcases
-│   └── fonts/             # Local webfont resources (if not loaded via CDN)
-├── index.html             # Main entrance layout
-└── ... (base configuration files)
+├── .github/
+│   └── workflows/          # GitHub Actions deployment and audit CI/CD pipeline
+├── backend/                # Python FastAPI Microservice
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py         # FastAPI application initializer
+│   │   ├── core/           # Configuration files, security variables, CORS
+│   │   ├── database/       # Database connectors, model bindings, connection pool
+│   │   ├── models/         # SQLAlchemy 2 declarative models
+│   │   ├── repositories/   # Database access layer pattern (Repository pattern)
+│   │   ├── services/       # Core business workflows (Service pattern)
+│   │   ├── schemas/        # Request & response data validators (Pydantic v2)
+│   │   ├── api/            # API routing handlers
+│   │   └── scheduler/      # Cron synchronization triggers (runs every 15 mins)
+│   ├── alembic/            # Alembic schema version tracking files
+│   ├── Dockerfile          # Optimized Python runtime build
+│   └── requirements.txt    # Python packaging dependencies
+├── frontend/               # Astro 7 Project
+│   ├── src/
+│   │   ├── layouts/        # Global wrappers with SEO metadata schemas
+│   │   ├── pages/          # Static layout route generation files
+│   │   ├── components/     # Astro component structures and dynamic React Islands
+│   │   ├── styles/
+│   │   │   ├── global.css  # Core Tailwind CSS imports
+│   │   │   └── tokens.ts   # Design token specifications
+│   │   ├── content/        # Content Collections for dynamic blog categories
+│   │   └── config.ts       # Frontend endpoints configuration
+│   ├── Dockerfile          # Multi-stage Astro build
+│   └── package.json        # Node.js manifest configuration
+├── designs/                # Official branding, logos, flyers, menus (Read-only)
+├── docker-compose.yml      # Local dev environment orchestrator
+└── docs/                   # Developer documentation files
 ```
 
 ---
 
-## 🎨 Design System & CSS Architecture
+## 🧭 Architectural Principles
 
-Our CSS architecture is designed to support **Rich Aesthetics** and **Premium Designs** without using massive utility frameworks.
-
-### 1. Variables & Tokens (`css/variables.css`)
-We define all design tokens using CSS Custom Properties. This allows fast theme alterations, dynamic styling, and consistent layouts.
-- **Primary Color Palette**: Curated rich dark background tones matched with delicate luxurious secondary/accent colors:
-  - `--bg-primary`: Deep off-black / warm charcoal
-  - `--bg-secondary`: Soft dark grey / warm clay
-  - `--accent-gold`: Rich champagne gold
-  - `--accent-rose`: Soft rose gold
-  - `--text-main`: Warm white / ivory
-  - `--text-muted`: Muted soft gold/grey
-- **Typography Hierarchy**: Setting font family weights, letter-spacings, and line-heights.
-- **Transitions**: Global standard values for hover transitions (`--transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)`).
-
-### 2. Layout & Responsive Design
-- We use **CSS Grid** for main structural grids (e.g., portfolio layouts, pricing tables) and **Flexbox** for alignment/direction controls.
-- **Mobile First Approach**: Media queries are constructed starting from mobile screen sizes up to ultra-wide displays:
-  - Mobile: `< 768px`
-  - Tablet: `>= 768px`
-  - Desktop: `>= 1024px`
-  - Large Desktop: `>= 1440px`
-
-### 3. Glassmorphism & Micro-animations
-- High-end UI panels use glassmorphic backdrops:
-  ```css
-  .glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  ```
-- Hover effects include smooth translations, soft shadow glows, and border-color transitions to provide subtle, tactile confirmation of interactivity.
+We implement enterprise software standards to ensure modularity and reliability:
+- **SOLID**: Standard design guidelines across TypeScript modules and Python files.
+- **Clean Architecture & Separation of Concerns**:
+  - The frontend is strictly for rendering content (Astro) and client-side scheduling wizards (React Islands).
+  - The backend is strictly a data synchronizer and a secure booking processing broker.
+- **Repository & Service Pattern**:
+  - Direct database execution queries are restricted to the `repositories/` layer.
+  - Business workflows (catalog mapping, booking validations, staff assignment) are located in the `services/` layer.
+- **Strict Typing**: Strict mode configuration for TypeScript (`tsconfig.json`) and type-hinted methods for Python.
 
 ---
 
-## 🧠 Javascript Architecture
+## 🔄 Core Data Flow
 
-We use modern **ES6 Modules** (`type="module"`) to organize scripts and maintain clean scope.
-- **Component Isolation**: Each interactive piece (e.g., booking form validator, image carousel, testimonial slider) resides in its own class or module under `js/components/`.
-- **Event Delegation**: To handle dynamic interaction efficiently, events are delegated to root nodes wherever possible.
-- **DOM Queries Cache**: Components must cache their queried DOM elements to optimize performance and prevent repeated tree searches.
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client
+    participant Frontend as Astro 7 UI
+    participant Backend as FastAPI Gateway
+    participant Redis as Redis Cache
+    participant DB as PostgreSQL
+    participant Square as Square API Engine
+
+    Client->>Frontend: Visitar catálogo
+    Frontend->>Backend: Request GET /services
+    Backend->>Redis: Query cache
+    alt Cache hit (TTL 300s)
+        Redis-->>Backend: Return services array
+    else Cache miss
+        Backend->>DB: Query catalog services
+        DB-->>Backend: Return data
+        Backend->>Redis: Set cache (300s)
+    end
+    Backend-->>Frontend: Return catalog JSON
+    Frontend-->>Client: Render static + dynamic components
+
+    Client->>Frontend: Seleccionar cita & Reservar
+    Frontend->>Backend: Request POST /booking (payload)
+    Backend->>Square: Submit reservation data
+    Square-->>Backend: Return Booking Confirmation
+    Backend->>DB: Save booking & update sync state
+    Backend-->>Frontend: Success Response (JSON)
+    Frontend-->>Client: Render success screen
+```
 
 ---
 
-## 📈 SEO & Performance Best Practices
+## 🔒 Security Infrastructure
 
-### SEO Optimization
-- A strict heading structure is maintained. A page must have one and only one `<h1>`.
-- Semantic HTML tags are mandatory for key sections (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, `<footer>`).
-- Images must include descriptive `alt` tags.
+To secure transactions and administrator operations:
+- **HTTPS & TLS**: Enforced on all communication channels.
+- **Cross-Origin Resource Sharing (CORS)**: Restricts API calls to authorized domains (Vercel frontend domain).
+- **JWT & OAuth2**: Access to administrative endpoints (panel status, log tracking) is protected via encrypted tokens.
+- **Rate Limiting**: Configured at Nginx and FastAPI middleware levels to prevent denial-of-service attempts.
+- **Secret Management**: API keys (`SQUARE_ACCESS_TOKEN`, database passwords, JWT salts) are isolated via environment variables.
 
-### Performance
-- **Image Optimization**: All images must be optimized (WebP format where possible) and include width/height attributes to prevent layout shifts.
-- **Resource Loading**: Font styles and key css are loaded immediately; heavy visual logic is deferred until page interaction or DOM completion.
+---
+
+## 📈 Performance Targets
+- **Lighthouse Score**: Target `100/100` on Performance, Accessibility, Best Practices, and SEO.
+- **Astro Islands**: Interactive islands are deferred using `client:visible` or `client:idle` directives to prevent blocking main-thread rendering.
+- **Redis Cache**: 300-second TTL limits API database trips for repeated visitors.
