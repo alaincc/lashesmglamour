@@ -153,3 +153,12 @@ dist-ssr/
 # Cypress videos/screenshots
 cypress/screenshots/
 cypress/videos/
+
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+*.pyc
+__pycache__/
+
