@@ -1,0 +1,35 @@
+name: CI/CD Deployment
+
+on:
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  audit-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify compilation and syntax checks
+        run: |
+          cd backend
+          python -m py_compile app/main.py app/core/*.py app/database/*.py app/models/*.py app/schemas/*.py app/services/*.py app/scheduler/*.py app/api/v1/*.py app/api/v1/endpoints/*.py
+
+  deploy-backend:
+    needs: audit-and-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate SSH Deploy Hook to VPS Ubuntu Server
+        run: |
+          echo "Connecting to production server..."
+          echo "git pull origin main"
+          echo "docker-compose up -d --build backend"
+          echo "docker-compose exec -T backend alembic upgrade head"
+          echo "Deployment simulated successfully!"
