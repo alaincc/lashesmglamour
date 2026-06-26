@@ -1,0 +1,33 @@
+---
+interface Props {
+  beforeImage: string;
+  afterImage: string;
+  title: string;
+  description?: string;
+}
+
+const { beforeImage, afterImage, title, description } = Astro.props;
+---
+
+<div class="glass-card p-4 rounded-lg space-y-4">
+  <!-- Side by side images wrapper -->
+  <div class="grid grid-cols-2 gap-2 relative rounded-md overflow-hidden aspect-video">
+    <div class="relative">
+      <img src={beforeImage} alt={`${title} Before`} class="w-full h-full object-cover" />
+      <span class="absolute top-2 left-2 bg-brand-black/70 border border-brand-gold/10 px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest text-brand-grey-muted">
+        Before
+      </span>
+    </div>
+    <div class="relative">
+      <img src={afterImage} alt={`${title} After`} class="w-full h-full object-cover" />
+      <span class="absolute top-2 right-2 bg-brand-gold text-brand-black px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest">
+        After
+      </span>
+    </div>
+  </div>
+
+  <div class="text-center md:text-left space-y-1">
+    <h3 class="font-heading text-base font-semibold text-brand-ivory tracking-wide">{title}</h3>
+    {description && <p class="text-xs text-brand-grey-muted">{description}</p>}
+  </div>
+</div>

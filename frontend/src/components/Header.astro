@@ -1,0 +1,62 @@
+---
+---
+<header class="sticky top-0 z-50 bg-brand-black/80 backdrop-blur-md border-b border-brand-gold/10">
+  <div class="container-custom flex items-center justify-between py-4">
+    <!-- Brand Logo -->
+    <a href="/" class="flex items-center space-x-2 transition-opacity hover:opacity-90">
+      <img src="/logo.png" alt="Lashes & MGlamour Logo" class="h-12 w-auto object-contain" />
+    </a>
+
+    <!-- Navigation Menu (Desktop) -->
+    <nav class="hidden md:flex items-center space-x-8 font-medium tracking-wide text-sm">
+      <a href="/" class="hover:text-brand-gold transition-colors">Home</a>
+      <a href="/services" class="hover:text-brand-gold transition-colors">Services</a>
+      <a href="/about" class="hover:text-brand-gold transition-colors">About Us</a>
+      <a href="/gallery" class="hover:text-brand-gold transition-colors">Gallery</a>
+      <a href="/blog" class="hover:text-brand-gold transition-colors">Blog</a>
+      <a href="/faq" class="hover:text-brand-gold transition-colors">FAQ</a>
+      <a href="/contact" class="hover:text-brand-gold transition-colors">Contact</a>
+    </nav>
+
+    <!-- Header CTA -->
+    <div class="hidden md:flex items-center">
+      <a href="/book" class="bg-brand-gold hover:bg-brand-champagne text-brand-black font-bold uppercase tracking-wider text-xs px-5 py-2.5 rounded-brand transition-all shadow-gold hover:scale-[1.02]">
+        Book Now
+      </a>
+    </div>
+
+    <!-- Mobile Navigation Toggle -->
+    <button id="menu-toggle" class="md:hidden text-brand-ivory hover:text-brand-gold focus:outline-none" aria-label="Toggle Navigation Menu">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-brand-black border-b border-brand-gold/10">
+    <div class="px-4 pt-2 pb-6 space-y-3 flex flex-col font-medium tracking-wider text-sm">
+      <a href="/" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Home</a>
+      <a href="/services" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Services</a>
+      <a href="/about" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">About Us</a>
+      <a href="/gallery" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Gallery</a>
+      <a href="/blog" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Blog</a>
+      <a href="/faq" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">FAQ</a>
+      <a href="/contact" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Contact</a>
+      <a href="/book" class="w-full text-center bg-brand-gold hover:bg-brand-champagne text-brand-black font-bold uppercase py-3 rounded-brand block mt-4 transition-colors">
+        Book Now
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggleBtn = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if (toggleBtn && mobileMenu) {
+    toggleBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  }
+</script>

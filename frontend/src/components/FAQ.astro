@@ -1,0 +1,22 @@
+---
+interface Props {
+  question: string;
+  answer: string;
+}
+
+const { question, answer } = Astro.props;
+---
+
+<details class="group glass-card rounded-lg p-5 [&_summary::-webkit-details-marker]:hidden transition-colors duration-300 open:border-brand-gold/30">
+  <summary class="flex justify-between items-center cursor-pointer focus:outline-none">
+    <h3 class="text-base font-semibold text-brand-ivory group-open:text-brand-gold transition-colors tracking-wide pr-4">
+      {question}
+    </h3>
+    <span class="text-brand-gold group-open:rotate-180 transition-transform duration-300 text-lg">
+      ▼
+    </span>
+  </summary>
+  <p class="mt-4 text-sm text-brand-grey-muted leading-relaxed border-t border-brand-gold/5 pt-4">
+    {answer}
+  </p>
+</details>

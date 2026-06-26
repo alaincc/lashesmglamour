@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contact & Location | Lashes & MGlamour">
+  <section class="py-24 bg-brand-black">
+    <div class="container-custom max-w-4xl mx-auto space-y-12">
+      <!-- Heading block -->
+      <div class="text-center space-y-4 mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Get in Touch</span>
+        <h1 class="font-heading text-4xl text-brand-ivory">Contact & Location</h1>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Contact details -->
+        <div class="space-y-8">
+          <h2 class="font-heading text-2xl text-brand-gold">Reach Out to Us</h2>
+          <p class="text-sm text-brand-grey-muted leading-relaxed">
+            Have questions about our lash mappings, services, or bookings? Feel free to contact our support coordinators via phone, email, or by visiting our location in Kendall.
+          </p>
+
+          <address class="not-italic space-y-4 text-sm text-brand-grey-muted">
+            <p class="flex items-center gap-3">📍 <span>8700 SW 137th Ave, Miami, FL 33186</span></p>
+            <p class="flex items-center gap-3">📞 <span><a href="tel:+13055550199" class="hover:text-brand-gold">+1 (305) 555-0199</a></span></p>
+            <p class="flex items-center gap-3">✉️ <span><a href="mailto:info@lashesmglamour.com" class="hover:text-brand-gold">info@lashesmglamour.com</a></span></p>
+          </address>
+
+          <!-- Opening hours summary -->
+          <div class="border-t border-brand-gold/10 pt-6 space-y-3">
+            <h3 class="font-heading text-lg text-brand-gold">Working Shifts</h3>
+            <p class="text-sm text-brand-grey-muted flex justify-between max-w-xs">
+              <span>Monday - Saturday:</span> <span>9:00 AM - 8:00 PM</span>
+            </p>
+            <p class="text-sm text-brand-grey-muted flex justify-between max-w-xs">
+              <span>Sunday:</span> <span class="text-brand-gold">Closed</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Static placeholder for Google Maps iframe -->
+        <div class="glass-card rounded-lg overflow-hidden h-[350px] border border-brand-gold/10 relative">
+          <!-- Google map mock iframe -->
+          <div class="absolute inset-0 bg-brand-grey-dark flex items-center justify-center text-center p-6 space-y-4 flex-col">
+            <span class="text-3xl">📍</span>
+            <div>
+              <h3 class="font-semibold text-brand-ivory text-sm">Lashes & MGlamour Kendall</h3>
+              <p class="text-xs text-brand-grey-muted mt-1">8700 SW 137th Ave, Miami, FL 33186</p>
+            </div>
+            <a href="https://maps.google.com" target="_blank" class="bg-brand-gold text-brand-black text-xs font-bold uppercase py-2 px-5 rounded-brand transition-colors hover:bg-brand-champagne">
+              Open Google Maps &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

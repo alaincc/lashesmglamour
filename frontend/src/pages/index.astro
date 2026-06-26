@@ -1,0 +1,78 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BrandHero from "../components/BrandHero.astro";
+import BeforeAfter from "../components/BeforeAfter.astro";
+import PriceCard from "../components/PriceCard.astro";
+
+// Static price lists for featured beauty items
+const featuredServices = [
+  { name: "Classic Lash Extensions Full Set", price: "$120.00", duration: "90 mins" },
+  { name: "Hybrid Lash Extensions Full Set", price: "$140.00", duration: "100 mins" },
+  { name: "Volume Lash Extensions Full Set", price: "$160.00", duration: "120 mins" },
+  { name: "Brow Lamination & Shaping", price: "$85.00", duration: "45 mins" },
+];
+---
+
+<Layout title="Lashes & MGlamour | Luxe Lash Extensions & Brows Miami">
+  <!-- Hero Section -->
+  <BrandHero />
+
+  <!-- Services highlights -->
+  <section class="py-24 bg-brand-grey-dark border-t border-b border-brand-gold/5">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Our Menu Highlights</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-ivory">Popular Luxe Services</h2>
+        <p class="text-sm text-brand-grey-muted leading-relaxed">
+          Select from our signature mapping variants designed to showcase your natural assets.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {featuredServices.map(service => (
+          <PriceCard name={service.name} price={service.price} duration={service.duration} />
+        ))}
+      </div>
+
+      <div class="text-center pt-12">
+        <a href="/services" class="inline-flex items-center gap-2 border border-brand-gold/30 hover:border-brand-gold text-brand-gold font-bold uppercase tracking-wider text-xs px-8 py-3.5 rounded-brand transition-all hover:bg-brand-gold/5">
+          View All Services &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before & After Portfolio Section -->
+  <section class="py-24 bg-brand-black">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Visual Portfolio</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-ivory">Real Client Transformations</h2>
+        <p class="text-sm text-brand-grey-muted leading-relaxed">
+          See the mapping results of our premium volume extensions and brow restorations.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <BeforeAfter 
+          beforeImage="/designs/website/lashes.png" 
+          afterImage="/designs/website/lashes.png" 
+          title="Classic Lash Full Set" 
+          description="Subtle, natural extension enhancement"
+        />
+        <BeforeAfter 
+          beforeImage="/designs/website/brows.png" 
+          afterImage="/designs/website/brows.png" 
+          title="Brow Lamination & Tint" 
+          description="Symmetric brow shape definition"
+        />
+        <BeforeAfter 
+          beforeImage="/designs/website/skincare.png" 
+          afterImage="/designs/website/skincare.png" 
+          title="Premium Glycolic Facial" 
+          description="Deep cleansing skin exfoliation"
+        />
+      </div>
+    </div>
+  </section>
+</Layout>

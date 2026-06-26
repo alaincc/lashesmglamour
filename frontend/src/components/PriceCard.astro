@@ -1,0 +1,18 @@
+---
+interface Props {
+  name: string;
+  price: string;
+  duration?: string;
+}
+
+const { name, price, duration } = Astro.props;
+---
+
+<div class="flex items-baseline justify-between border-b border-brand-gold/10 pb-3">
+  <div class="space-y-1 pr-4">
+    <span class="text-sm sm:text-base font-semibold text-brand-ivory tracking-wide">{name}</span>
+    {duration && <p class="text-xs text-brand-grey-muted">⏱️ {duration}</p>}
+  </div>
+  <div class="flex-grow border-b border-dotted border-brand-gold/20 mx-2 h-1 min-w-[20px]"></div>
+  <span class="text-brand-gold font-bold text-sm sm:text-base tracking-wider whitespace-nowrap">{price}</span>
+</div>

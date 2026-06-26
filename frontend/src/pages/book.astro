@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BookingWizard from "../components/BookingWizard";
+---
+
+<Layout title="Book Online Appointment | Lashes & MGlamour">
+  <section class="py-16 bg-brand-black min-h-[80vh] flex items-center justify-center">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Secure Scheduling</span>
+        <h1 class="font-heading text-3xl sm:text-4xl text-brand-ivory">Reserve your treatment</h1>
+        <p class="text-sm text-brand-grey-muted leading-relaxed">
+          Select a service, stylist, and date. Your slot will be locked instantly in our booking engine.
+        </p>
+      </div>
+
+      <!-- Mount the React Booking Wizard client-side island -->
+      <BookingWizard client:load />
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,69 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+const {
+  title = "Enhance Your Natural Glamour",
+  subtitle = "Experience Miami's most exclusive eyelash extensions and brow shaping services in a luxurious, relaxing atmosphere.",
+  ctaText = "Book Appointment",
+  ctaLink = "/book",
+} = Astro.props;
+---
+
+<section class="relative min-h-[85vh] flex items-center justify-center bg-brand-black overflow-hidden py-24">
+  <!-- Glowing gold background element -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-gold/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+  <!-- Hero Content Grid -->
+  <div class="container-custom relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    
+    <!-- Copy Text Pillar -->
+    <div class="space-y-8 text-center lg:text-left">
+      <div class="inline-flex items-center space-x-2 border border-brand-gold/20 bg-brand-gold/5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-brand-gold">
+        ✨ Premier Beauty Salon in Miami
+      </div>
+      
+      <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-brand-ivory leading-tight tracking-wide">
+        {title.split(" ").slice(0, -2).join(" ")} <span class="text-brand-gold italic font-normal">{title.split(" ").slice(-2).join(" ")}</span>
+      </h1>
+
+      <p class="text-brand-grey-muted text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
+        {subtitle}
+      </p>
+
+      <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 pt-4">
+        <a href={ctaLink} class="w-full sm:w-auto text-center bg-brand-gold hover:bg-brand-champagne text-brand-black font-bold uppercase tracking-wider text-xs px-8 py-4 rounded-brand transition-all shadow-gold hover:scale-[1.03]">
+          {ctaText}
+        </a>
+        <a href="/services" class="w-full sm:w-auto text-center border border-brand-gold/30 hover:border-brand-gold text-brand-gold font-bold uppercase tracking-wider text-xs px-8 py-4 rounded-brand transition-all hover:bg-brand-gold/5">
+          Explore Services
+        </a>
+      </div>
+    </div>
+
+    <!-- Visual Portfolio Showcase Card -->
+    <div class="relative mx-auto lg:ml-auto w-full max-w-md lg:max-w-none flex justify-center">
+      <div class="relative glass-card p-4 rounded-lg w-full aspect-[4/5] max-w-[380px] overflow-hidden group shadow-2xl">
+        <!-- Main Portfolio Image -->
+        <img 
+          src="/designs/website/home.png" 
+          alt="Lashes & MGlamour Showcase" 
+          class="w-full h-full object-cover rounded-md transition-transform duration-700 group-hover:scale-105" 
+        />
+        <!-- Overlay Card -->
+        <div class="absolute bottom-8 left-8 right-8 glass-card p-5 rounded-md flex justify-between items-center border border-brand-gold/10">
+          <div>
+            <h3 class="font-heading text-brand-gold text-base font-semibold">Volume Lash Full Set</h3>
+            <p class="text-xs text-brand-grey-muted">Our most popular glam mapping</p>
+          </div>
+          <span class="text-xs font-bold text-brand-gold tracking-wide">$150+</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

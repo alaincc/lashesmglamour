@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Visual showcases mapping
+const galleryItems = [
+  { image: "/designs/website/lashes.png", title: "Mega Volume Lash Mapping", category: "Lashes" },
+  { image: "/designs/website/brows.png", title: "Microblading Restoration", category: "Brows" },
+  { image: "/designs/website/skincare.png", title: "Hyaluronic Rejuvenation Facial", category: "Skin Care" },
+  { image: "/designs/website/waxing.png", title: "Leg Waxing Treatment", category: "Waxing" },
+  { image: "/designs/website/aboutus.png", title: "Brow Lamination Treatment", category: "Brows" },
+  { image: "/designs/website/home.png", title: "Hybrid Set Mapping", category: "Lashes" },
+];
+---
+
+<Layout title="Visual Showcase Gallery | Lashes & MGlamour">
+  <section class="py-24 bg-brand-black">
+    <div class="container-custom">
+      <!-- Heading block -->
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Our Showcase</span>
+        <h1 class="font-heading text-4xl text-brand-ivory">Visual Portfolio</h1>
+        <p class="text-sm text-brand-grey-muted leading-relaxed">
+          Take a look at real transformations performed at our Miami beauty studio. Clean designs, high-end materials, and customized mappings.
+        </p>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {galleryItems.map(item => (
+          <div class="glass-card p-3 rounded-lg overflow-hidden group hover:border-brand-gold/20 transition-all duration-300">
+            <div class="aspect-[4/5] rounded overflow-hidden relative">
+              <img src={item.image} alt={item.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <span class="absolute top-3 left-3 bg-brand-black/80 border border-brand-gold/10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-brand-gold">
+                {item.category}
+              </span>
+            </div>
+            <h3 class="font-heading text-base font-semibold text-brand-ivory mt-4 tracking-wide group-hover:text-brand-gold transition-colors pl-2">
+              {item.title}
+            </h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
