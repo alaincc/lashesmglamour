@@ -1,0 +1,45 @@
+---
+interface BreadcrumbItem {
+  name: string;
+  url?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+
+// Generate BreadcrumbList structured data schema
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url ? `https://lashesmglamour.com${item.url}` : undefined
+  }))
+};
+---
+
+<!-- Inject Breadcrumbs schema -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+
+<nav class="flex py-3 text-xs tracking-wider uppercase font-bold text-brand-grey-muted" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center space-x-1 md:space-x-2">
+    <li class="inline-flex items-center">
+      <a href="/" class="hover:text-brand-gold transition-colors">Home</a>
+    </li>
+    {items.map((item) => (
+      <li class="flex items-center">
+        <span class="mx-2 text-brand-gold/30">/</span>
+        {item.url ? (
+          <a href={item.url} class="hover:text-brand-gold transition-colors">{item.name}</a>
+        ) : (
+          <span class="text-brand-gold">{item.name}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

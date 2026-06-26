@@ -1,0 +1,33 @@
+---
+const reviews = [
+  { author: "Samantha R.", rating: 5, text: "Absolutely in love with my mega volume lash set! The studio is clean, gorgeous, and very professional. It's the only place I trust in Kendall.", source: "Google Maps" },
+  { author: "Valerie D.", rating: 5, text: "Brow Lamination here is outstanding. The mapping is symmetric and matches my face shape perfectly. Will be coming back every 4 weeks!", source: "Google Reviews" },
+  { author: "Sophia M.", rating: 5, text: "Excellent facial and skin care services. High quality hyaluronics, very calming, and noticeable results immediately. Staff is extremely skilled.", source: "Google Reviews" },
+];
+---
+
+<div class="space-y-8">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {reviews.map(review => (
+      <div class="glass-card p-6 rounded-lg flex flex-col justify-between border border-brand-gold/10">
+        <div class="space-y-4">
+          <!-- Stars block -->
+          <div class="flex text-brand-gold gap-0.5">
+            {Array.from({ length: review.rating }).map(() => (
+              <span>★</span>
+            ))}
+          </div>
+          <p class="text-sm text-brand-grey-muted leading-relaxed italic">
+            "{review.text}"
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-brand-gold/5 flex justify-between items-center text-xs">
+          <span class="font-bold text-brand-ivory">{review.author}</span>
+          <span class="text-brand-gold font-semibold uppercase tracking-wider text-[9px] bg-brand-gold/5 border border-brand-gold/10 px-2 py-0.5 rounded">
+            {review.source}
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

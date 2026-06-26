@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import BrandHero from "../components/BrandHero.astro";
 import BeforeAfter from "../components/BeforeAfter.astro";
 import PriceCard from "../components/PriceCard.astro";
+import GoogleReviews from "../components/GoogleReviews.astro";
+import InstagramFeed from "../components/InstagramFeed.astro";
 
 // Static price lists for featured beauty items
 const featuredServices = [
@@ -73,6 +75,36 @@ const featuredServices = [
           description="Deep cleansing skin exfoliation"
         />
       </div>
+    </div>
+  </section>
+
+  <!-- Google Reviews Testimonials Section -->
+  <section class="py-24 bg-brand-grey-dark border-t border-b border-brand-gold/5">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Reviews Feed</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-ivory">What Our Clients Say</h2>
+        <p class="text-sm text-brand-grey-muted leading-relaxed">
+          Read top-rated five-star reviews shared directly from our Google business page profile.
+        </p>
+      </div>
+
+      <GoogleReviews />
+    </div>
+  </section>
+
+  <!-- Instagram Social Feed Section -->
+  <section class="py-24 bg-brand-black">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Social Portfolio</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-ivory">Follow Us on Instagram</h2>
+        <p class="text-sm text-brand-grey-muted leading-relaxed">
+          Stay connected for promotional discounts, style updates, and lash care advice at <a href="https://instagram.com/lashesmglamour" target="_blank" class="text-brand-gold font-bold hover:underline">@lashesmglamour</a>.
+        </p>
+      </div>
+
+      <InstagramFeed />
     </div>
   </section>
 </Layout>

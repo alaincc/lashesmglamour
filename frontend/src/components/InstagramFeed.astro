@@ -1,0 +1,27 @@
+---
+const posts = [
+  { image: "/designs/website/lashes.png", link: "https://www.instagram.com/p/lashes1", likes: "124" },
+  { image: "/designs/website/brows.png", link: "https://www.instagram.com/p/brows2", likes: "89" },
+  { image: "/designs/website/skincare.png", link: "https://www.instagram.com/p/skin3", likes: "142" },
+  { image: "/designs/website/waxing.png", link: "https://www.instagram.com/p/wax4", likes: "95" },
+];
+---
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+  {posts.map(post => (
+    <a 
+      href={post.link} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="group relative aspect-square rounded-lg overflow-hidden border border-brand-gold/10 block shadow-lg hover:border-brand-gold/30 transition-all duration-300"
+    >
+      <img src={post.image} alt="Instagram Post" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+      <!-- Hover overlay details -->
+      <div class="absolute inset-0 bg-brand-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300 z-10">
+        <span class="text-brand-gold font-bold tracking-widest text-xs uppercase flex items-center gap-1.5">
+          ❤️ {post.likes} Likes
+        </span>
+      </div>
+    </a>
+  ))}
+</div>
