@@ -15,6 +15,7 @@ designs/
 ├── business_cards/     # Business card designs
 ├── trifold/            # Service trifold brochures
 ├── menus/              # Service menu assets
+├── website/            # Website design mockups and digital UI layouts
 └── advertising/        # General advertising & promotional materials
 ```
 
