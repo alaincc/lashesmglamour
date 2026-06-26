@@ -21,16 +21,16 @@ There is exactly one official logo for the brand. It is located at `designs/logo
 
 ## 🎨 Color Palette (Design Tokens)
 
-The colors communicate luxury, high-end care, and absolute beauty.
+The colors communicate luxury, high-end care, and absolute beauty in a warm light-themed profile.
 
 | Token | CSS Variable | Hex Code | Visual Application |
 | :--- | :--- | :--- | :--- |
-| **Velvet Black** | `--color-black` | `#0B0B0B` | Deep background, primary text in light components. |
-| **Luxe Gold** | `--color-gold` | `#D4AF37` | Headings, active states, premium borders. |
-| **Champagne Gold**| `--color-champagne`| `#F0E6D2` | Accent text, hover borders, subtle backgrounds. |
-| **Warm Clay** | `--color-grey-dark`| `#1D1D1F` | Section background, card containers. |
-| **Soft Muted Grey**| `--color-grey-mute`| `#8E8E93` | Muted descriptions, borders. |
-| **Pure Ivory** | `--color-ivory` | `#F9F6F0` | Content text. |
+| **Beauty Pink** | `--color-brand-pink` | `#D12E66` | Primary action buttons, active links, header strip. |
+| **Pink Hover** | `--color-brand-pink-hover`| `#E13D7A` | Accent interactive hover status. |
+| **Soft Warm Rose** | `--color-brand-light-pink`| `#FFF5F7` | Section backgrounds, card backgrounds. |
+| **Luxe Gold** | `--color-brand-gold` | `#C5A880` | Accent borders, dotted menu leads, benefit icons. |
+| **Deep Charcoal** | `--color-brand-charcoal` | `#111111` | Primary text and heading color. |
+| **Velvet Dark** | `--color-brand-dark` | `#0E0D0B` | Footer background. |
 
 ---
 
@@ -40,11 +40,13 @@ We use elegant, high-contrast fonts matching luxury salon aesthetics.
 
 - **Primary Heading Font**: *Playfair Display* (Serif). Used for main headers, section titles, and service names. Expresses elegance and sophistication.
 - **Body & Action Font**: *Montserrat* (Sans-serif). Used for readability in lists, paragraphs, menus, and button labels.
+- **Accent Script Font**: *Alex Brush* (Cursive). Used for decorative subtitle highlights (e.g. "Natural Glamour").
 - **Scale Rules**:
   - `h1`: `Playfair Display`, Bold, `3.25rem` (Mobile: `2.25rem`), letter-spacing: `0.02em`.
   - `h2`: `Playfair Display`, Semi-Bold, `2.25rem` (Mobile: `1.75rem`), letter-spacing: `0.01em`.
   - `h3`: `Playfair Display`, Regular, `1.5rem`, letter-spacing: `0.01em`.
   - `body`: `Montserrat`, Light/Regular, `1rem` (Line-height: `1.6`).
+
 
 ---
 
@@ -52,26 +54,19 @@ We use elegant, high-contrast fonts matching luxury salon aesthetics.
 
 ### 1. Buttons (`BookingButton`, `FloatingBookButton`)
 - **Primary Action (Call to Action)**:
-  - Background: Luxe Gold (`--color-gold`).
-  - Text: Velvet Black (`--color-black`), Bold, uppercase.
+  - Background: Beauty Pink (`--color-brand-pink`).
+  - Text: White, Bold, uppercase.
   - Radius: Minimal (`4px` / subtle roundness).
-  - Hover: Background color transitions to Champagne Gold (`--color-champagne`) with a subtle glow shadow.
-- **Secondary Action**:
+  - Hover: Background color transitions to Pink Hover (`--color-brand-pink-hover`) with a shadow drop.
+- **Secondary/Outline Action**:
   - Background: Transparent.
-  - Border: `1px solid --color-gold`.
-  - Text: Luxe Gold (`--color-gold`).
-  - Hover: Background fills with Luxe Gold, text changes to Velvet Black.
+  - Border: `1px solid --color-brand-gold`.
+  - Text: Luxe Gold (`--color-brand-gold`).
+  - Hover: Background fills with Luxe Gold, text changes to White.
 
 ### 2. Service & Price Cards
-- Background: Warm Clay (`#1D1D1F`) with a thin border (`1px solid rgba(212, 175, 55, 0.08)`).
-- **Glassmorphism panels**:
-  ```css
-  .card-premium {
-    background: rgba(29, 29, 31, 0.6);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(212, 175, 55, 0.15);
-  }
-  ```
+- Background: Pure White (`#FFFFFF`) with a thin border (`1px solid --color-brand-border`).
+- Interactive hovers: Soft lift (`transform: translateY(-4px)`) combined with a pink border hover glow adjustment.
 
 ---
 
@@ -87,5 +82,5 @@ We use standard layout spacing rules to maintain visual breathing room:
 
 Keep all motions subtle and micro-targeted to convey premium quality.
 - **Transitions**: Every interactive state changes using `transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)`.
-- **Card Hover**: Soft lift (`transform: translateY(-4px)`) combined with a faint gold border glow adjustment.
+- **Card Hover**: Soft lift (`transform: translateY(-4px)`) combined with a faint border highlight.
 - **Page Load Transits**: Fade-ins powered by Framer Motion or Astro native View Transitions.
