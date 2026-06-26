@@ -1,7 +1,7 @@
 ---
 interface Props {
-  id: str;
-  name: str;
+  id: string;
+  name: string;
   description?: string;
   price_cents: number;
   duration_minutes: number;
@@ -12,35 +12,36 @@ const { id, name, description, price_cents, duration_minutes, image_url } = Astr
 const formattedPrice = (price_cents / 100).toFixed(2);
 ---
 
-<div class="glass-card flex flex-col justify-between p-6 rounded-lg transition-all duration-300 hover:translate-y-[-4px] hover:border-brand-gold/30">
+<div class="bg-white border border-brand-border/50 flex flex-col justify-between p-6 rounded-xl transition-all duration-300 hover:translate-y-[-4px] hover:border-brand-pink/20 hover:shadow-md shadow-sm">
   <div class="space-y-4">
     <!-- Service Image representation if available -->
     {image_url && (
-      <div class="w-full aspect-video rounded-md overflow-hidden mb-4 border border-brand-gold/5">
+      <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 border border-brand-border/40">
         <img src={image_url} alt={name} class="w-full h-full object-cover" />
       </div>
     )}
     
     <div class="flex justify-between items-start gap-4">
-      <h3 class="font-heading text-lg font-semibold text-brand-ivory tracking-wide group-hover:text-brand-gold">
+      <h3 class="font-heading text-lg font-bold text-brand-charcoal tracking-wide">
         {name}
       </h3>
-      <span class="text-brand-gold font-bold text-lg tracking-wider">${formattedPrice}</span>
+      <span class="text-brand-pink font-bold text-lg tracking-wider">${formattedPrice}</span>
     </div>
 
     {description && (
-      <p class="text-sm text-brand-grey-muted leading-relaxed">
+      <p class="text-sm text-zinc-500 leading-relaxed">
         {description}
       </p>
     )}
   </div>
 
-  <div class="mt-6 pt-4 border-t border-brand-gold/5 flex justify-between items-center text-xs">
-    <span class="text-brand-grey-muted flex items-center gap-1.5">
+  <div class="mt-6 pt-4 border-t border-brand-border/50 flex justify-between items-center text-xs">
+    <span class="text-zinc-500 flex items-center gap-1.5 font-medium">
       ⏱️ {duration_minutes} mins
     </span>
-    <a href={`/book?service=${id}`} class="text-brand-gold hover:text-brand-champagne font-bold uppercase tracking-wider transition-colors flex items-center gap-1">
+    <a href={`/book?service=${id}`} class="text-brand-pink hover:text-brand-pink-hover font-bold uppercase tracking-wider transition-colors flex items-center gap-1">
       Book Slot &rarr;
     </a>
   </div>
 </div>
+

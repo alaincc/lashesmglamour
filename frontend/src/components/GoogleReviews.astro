@@ -9,21 +9,21 @@ const reviews = [
 <div class="space-y-8">
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     {reviews.map(review => (
-      <div class="glass-card p-6 rounded-lg flex flex-col justify-between border border-brand-gold/10">
+      <div class="bg-white p-6 rounded-xl flex flex-col justify-between border border-brand-border shadow-sm">
         <div class="space-y-4">
           <!-- Stars block -->
-          <div class="flex text-brand-gold gap-0.5">
+          <div class="flex text-amber-400 gap-0.5">
             {Array.from({ length: review.rating }).map(() => (
               <span>★</span>
             ))}
           </div>
-          <p class="text-sm text-brand-grey-muted leading-relaxed italic">
+          <p class="text-sm text-zinc-600 leading-relaxed italic">
             "{review.text}"
           </p>
         </div>
-        <div class="mt-6 pt-4 border-t border-brand-gold/5 flex justify-between items-center text-xs">
-          <span class="font-bold text-brand-ivory">{review.author}</span>
-          <span class="text-brand-gold font-semibold uppercase tracking-wider text-[9px] bg-brand-gold/5 border border-brand-gold/10 px-2 py-0.5 rounded">
+        <div class="mt-6 pt-4 border-t border-brand-border flex justify-between items-center text-xs">
+          <span class="font-bold text-brand-charcoal">{review.author}</span>
+          <span class="text-brand-pink font-semibold uppercase tracking-wider text-[9px] bg-brand-pink/5 border border-brand-pink/10 px-2 py-0.5 rounded">
             {review.source}
           </span>
         </div>
@@ -31,3 +31,4 @@ const reviews = [
     ))}
   </div>
 </div>
+

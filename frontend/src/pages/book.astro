@@ -1,21 +1,66 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import BookingWizard from "../components/BookingWizard";
+import FAQ from "../components/FAQ.astro";
+
+const faqs = [
+  { question: "How long do lash extensions last?", answer: "Normally, lash extensions can last between 4 to 6 weeks depending on your natural lash growth cycle and aftercare routine. We recommend getting fills every 2 to 3 weeks to keep them looking full." },
+  { question: "What is the difference between Classic, Hybrid, and Volume sets?", answer: "Classic sets apply one single extension to one natural lash. Volume sets use lightweight fans of multiple extensions to each lash for a fuller look. Hybrid sets blend both techniques for a texturized appearance." },
+  { question: "Will extensions damage my natural lashes?", answer: "No, when applied correctly by our certified eyelash technicians using high-quality materials and appropriate weights, your natural lashes will remain healthy." },
+  { question: "What should I do to prepare for my lash appointment?", answer: "Please arrive with clean eyes, completely free of makeup, mascara, or oily skin products. If you wear contact lenses, we recommend removing them before application." },
+  { question: "What is Brow Lamination?", answer: "Brow Lamination is a treatment that relaxes and shapes brow hairs for a fuller, brushed-up symmetrical look." },
+];
 ---
 
 <Layout title="Book Online Appointment | Lashes & MGlamour">
-  <section class="py-16 bg-brand-black min-h-[80vh] flex items-center justify-center">
-    <div class="container-custom">
-      <div class="text-center space-y-4 max-w-xl mx-auto mb-12">
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Secure Scheduling</span>
-        <h1 class="font-heading text-3xl sm:text-4xl text-brand-ivory">Reserve your treatment</h1>
-        <p class="text-sm text-brand-grey-muted leading-relaxed">
-          Select a service, stylist, and date. Your slot will be locked instantly in our booking engine.
-        </p>
+  <!-- Booking Hero Banner -->
+  <section class="py-16 bg-gradient-to-tr from-brand-light-pink via-white to-brand-light-pink/40 border-b border-brand-border">
+    <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6 text-center lg:text-left">
+        <span class="inline-flex items-center space-x-2 border border-brand-pink/20 bg-brand-pink/5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-brand-pink">
+          ✨ Secure & Instant Booking
+        </span>
+        <h1 class="font-heading text-4xl sm:text-5xl text-brand-charcoal font-extrabold leading-tight">
+          Book Your Appointment
+          <span class="font-script text-brand-pink text-4xl sm:text-5xl lg:text-6xl block mt-2 normal-case font-normal leading-none">Your Beauty. Our Priority.</span>
+        </h1>
+        <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 text-xs font-semibold tracking-wider uppercase text-zinc-500 pt-2">
+          <span class="flex items-center gap-1.5">✓ Easy Online Booking</span>
+          <span class="hidden sm:inline text-zinc-300">|</span>
+          <span class="flex items-center gap-1.5">✓ Flexible Scheduling</span>
+          <span class="hidden sm:inline text-zinc-300">|</span>
+          <span class="flex items-center gap-1.5">✓ Secure & Confirmed</span>
+        </div>
       </div>
+      <div class="hidden lg:block max-w-md ml-auto rounded-2xl overflow-hidden border border-brand-border/40 shadow-lg aspect-video">
+        <img src="/images/skincare_service.png" alt="Client receiving beauty service at Lashes & MGlamour" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
 
+  <!-- Booking Wizard Section -->
+  <section class="py-16 bg-white min-h-[70vh]">
+    <div class="container-custom">
       <!-- Mount the React Booking Wizard client-side island -->
       <BookingWizard client:load />
     </div>
   </section>
+
+  <!-- FAQ Accordion Section -->
+  <section class="py-20 bg-brand-light-pink border-t border-brand-border">
+    <div class="container-custom max-w-3xl">
+      <div class="text-center space-y-4 mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">Common Queries</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-charcoal font-bold">Frequently Asked Questions</h2>
+        <p class="font-script text-brand-pink text-3xl normal-case font-normal block leading-none">Clarify your concerns</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <FAQ question={faq.question} answer={faq.answer} />
+        ))}
+      </div>
+    </div>
+  </section>
 </Layout>
+

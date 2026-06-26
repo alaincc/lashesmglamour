@@ -1,25 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-black: #0B0B0B;
-  --color-brand-gold: #D4AF37;
-  --color-brand-champagne: #F0E6D2;
-  --color-brand-grey-dark: #1D1D1F;
-  --color-brand-grey-muted: #8E8E93;
-  --color-brand-ivory: #F9F6F0;
+  /* Brand Theme Colors */
+  --color-brand-pink: #D12E66;
+  --color-brand-pink-hover: #E13D7A;
+  --color-brand-light-pink: #FFF5F7;
+  --color-brand-gold: #C5A880;
+  --color-brand-dark: #0E0D0B;
+  --color-brand-charcoal: #111111;
+  --color-brand-grey-muted: #71717A;
+  --color-brand-border: #E4E4E7;
 
+  /* Typography */
   --font-heading: "Playfair Display", Georgia, serif;
   --font-body: "Montserrat", sans-serif;
+  --font-script: "Alex Brush", cursive;
 
   --radius-brand: 4px;
-
-  --animate-gold-glow: gold-glow 2s infinite ease-in-out;
 }
 
 @utility glass-card {
-  background: rgba(29, 29, 31, 0.6);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(197, 168, 128, 0.15);
 }
 
 @utility container-custom {
@@ -28,4 +31,19 @@
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FFF5F7;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A880;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D12E66;
 }

@@ -1,14 +1,16 @@
 export const tokens = {
   colors: {
-    black: "#0B0B0B",       // Velvet Black (primary background)
-    gold: "#D4AF37",        // Luxe Gold (primary brand color)
-    champagne: "#F0E6D2",   // Champagne Gold (light accents/text)
+    white: "#FFFFFF",
+    pink: "#D12E66",
+    pinkHover: "#E13D7A",
+    lightPink: "#FFF5F7",
+    gold: "#C5A880",
+    dark: "#0E0D0B",
+    charcoal: "#111111",
     grey: {
-      dark: "#1D1D1F",      // Warm Clay (secondary backgrounds/cards)
-      muted: "#8E8E93",     // Soft Muted Grey (descriptions/borders)
-      light: "#3A3A3C",     // Mid-grey borders
-    },
-    ivory: "#F9F6F0",       // Pure Ivory (readable content text)
+      muted: "#71717A",
+      border: "#E4E4E7",
+    }
   },
   radius: {
     none: "0px",
@@ -20,8 +22,8 @@ export const tokens = {
   shadows: {
     sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
     md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-    gold: "0 4px 20px 0 rgba(212, 175, 55, 0.15)", // Premium soft gold glow
-    glass: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+    pink: "0 4px 20px 0 rgba(209, 46, 102, 0.15)",
+    glass: "0 8px 32px 0 rgba(255, 255, 255, 0.1)",
   },
   spacing: {
     xs: "0.5rem",
@@ -44,6 +46,7 @@ export const tokens = {
     fonts: {
       heading: "'Playfair Display', Georgia, serif",
       body: "'Montserrat', Helvetica, Arial, sans-serif",
+      script: "'Alex Brush', cursive",
     },
     sizes: {
       h1: {
@@ -64,3 +67,4 @@ export const tokens = {
   },
 };
 export type Tokens = typeof tokens;
+

@@ -1,6 +1,46 @@
 ---
 ---
-<header class="sticky top-0 z-50 bg-brand-black/80 backdrop-blur-md border-b border-brand-gold/10">
+<!-- Top Contact Bar -->
+<div class="bg-brand-pink text-white text-xs py-2 hidden lg:block border-b border-white/10">
+  <div class="container-custom flex justify-between items-center">
+    <!-- Contact Info -->
+    <div class="flex items-center space-x-6">
+      <span class="flex items-center gap-1.5">
+        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-line-cap="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        8700 SW 137th Ave, Miami, FL
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+        </svg>
+        +1 (305) 555-0199
+      </span>
+    </div>
+    <!-- Socials & Button -->
+    <div class="flex items-center space-x-6">
+      <div class="flex items-center space-x-4">
+        <a href="https://instagram.com/lashesmglamour" target="_blank" class="hover:text-brand-gold transition-colors" aria-label="Instagram">
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <a href="https://facebook.com/lashesmglamour" target="_blank" class="hover:text-brand-gold transition-colors" aria-label="Facebook">
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+          </svg>
+        </a>
+      </div>
+      <a href="/book" class="border border-white hover:bg-white hover:text-brand-pink font-bold uppercase tracking-wider text-[10px] px-4 py-1.5 rounded transition-all">
+        Book Appointment
+      </a>
+    </div>
+  </div>
+</div>
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border">
   <div class="container-custom flex items-center justify-between py-4">
     <!-- Brand Logo -->
     <a href="/" class="flex items-center space-x-2 transition-opacity hover:opacity-90">
@@ -8,25 +48,25 @@
     </a>
 
     <!-- Navigation Menu (Desktop) -->
-    <nav class="hidden md:flex items-center space-x-8 font-medium tracking-wide text-sm">
-      <a href="/" class="hover:text-brand-gold transition-colors">Home</a>
-      <a href="/services" class="hover:text-brand-gold transition-colors">Services</a>
-      <a href="/about" class="hover:text-brand-gold transition-colors">About Us</a>
-      <a href="/gallery" class="hover:text-brand-gold transition-colors">Gallery</a>
-      <a href="/blog" class="hover:text-brand-gold transition-colors">Blog</a>
-      <a href="/faq" class="hover:text-brand-gold transition-colors">FAQ</a>
-      <a href="/contact" class="hover:text-brand-gold transition-colors">Contact</a>
+    <nav class="hidden md:flex items-center space-x-8 font-medium tracking-wide text-sm text-brand-charcoal">
+      <a href="/" class="hover:text-brand-pink transition-colors">Home</a>
+      <a href="/services" class="hover:text-brand-pink transition-colors">Services</a>
+      <a href="/about" class="hover:text-brand-pink transition-colors">About Us</a>
+      <a href="/gallery" class="hover:text-brand-pink transition-colors">Gallery</a>
+      <a href="/blog" class="hover:text-brand-pink transition-colors">Blog</a>
+      <a href="/faq" class="hover:text-brand-pink transition-colors">FAQ</a>
+      <a href="/contact" class="hover:text-brand-pink transition-colors">Contact</a>
     </nav>
 
     <!-- Header CTA -->
     <div class="hidden md:flex items-center">
-      <a href="/book" class="bg-brand-gold hover:bg-brand-champagne text-brand-black font-bold uppercase tracking-wider text-xs px-5 py-2.5 rounded-brand transition-all shadow-gold hover:scale-[1.02]">
+      <a href="/book" class="bg-brand-charcoal hover:bg-brand-pink text-white font-bold uppercase tracking-wider text-xs px-6 py-3 rounded transition-all shadow-md hover:scale-[1.02]">
         Book Now
       </a>
     </div>
 
     <!-- Mobile Navigation Toggle -->
-    <button id="menu-toggle" class="md:hidden text-brand-ivory hover:text-brand-gold focus:outline-none" aria-label="Toggle Navigation Menu">
+    <button id="menu-toggle" class="md:hidden text-brand-charcoal hover:text-brand-pink focus:outline-none" aria-label="Toggle Navigation Menu">
       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
       </svg>
@@ -34,16 +74,16 @@
   </div>
 
   <!-- Mobile Drawer Menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-brand-black border-b border-brand-gold/10">
-    <div class="px-4 pt-2 pb-6 space-y-3 flex flex-col font-medium tracking-wider text-sm">
-      <a href="/" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Home</a>
-      <a href="/services" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Services</a>
-      <a href="/about" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">About Us</a>
-      <a href="/gallery" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Gallery</a>
-      <a href="/blog" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Blog</a>
-      <a href="/faq" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">FAQ</a>
-      <a href="/contact" class="py-2 border-b border-brand-gold/5 hover:text-brand-gold">Contact</a>
-      <a href="/book" class="w-full text-center bg-brand-gold hover:bg-brand-champagne text-brand-black font-bold uppercase py-3 rounded-brand block mt-4 transition-colors">
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-brand-border">
+    <div class="px-4 pt-2 pb-6 space-y-3 flex flex-col font-medium tracking-wider text-sm text-brand-charcoal">
+      <a href="/" class="py-2 border-b border-brand-border hover:text-brand-pink">Home</a>
+      <a href="/services" class="py-2 border-b border-brand-border hover:text-brand-pink">Services</a>
+      <a href="/about" class="py-2 border-b border-brand-border hover:text-brand-pink">About Us</a>
+      <a href="/gallery" class="py-2 border-b border-brand-border hover:text-brand-pink">Gallery</a>
+      <a href="/blog" class="py-2 border-b border-brand-border hover:text-brand-pink">Blog</a>
+      <a href="/faq" class="py-2 border-b border-brand-border hover:text-brand-pink">FAQ</a>
+      <a href="/contact" class="py-2 border-b border-brand-border hover:text-brand-pink">Contact</a>
+      <a href="/book" class="w-full text-center bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase py-3 rounded block mt-4 transition-colors">
         Book Now
       </a>
     </div>
@@ -60,3 +100,4 @@
     });
   }
 </script>
+

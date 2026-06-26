@@ -14,56 +14,73 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative min-h-[85vh] flex items-center justify-center bg-brand-black overflow-hidden py-24">
-  <!-- Glowing gold background element -->
-  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-gold/5 blur-[120px] rounded-full pointer-events-none"></div>
+<section class="relative min-h-[85vh] flex items-center justify-center bg-gradient-to-tr from-brand-light-pink via-white to-brand-light-pink/40 overflow-hidden py-20 border-b border-brand-border">
+  <!-- Soft glowing pink element -->
+  <div class="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-brand-pink/5 blur-[100px] rounded-full pointer-events-none"></div>
 
   <!-- Hero Content Grid -->
   <div class="container-custom relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
     
     <!-- Copy Text Pillar -->
     <div class="space-y-8 text-center lg:text-left">
-      <div class="inline-flex items-center space-x-2 border border-brand-gold/20 bg-brand-gold/5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-brand-gold">
+      <div class="inline-flex items-center space-x-2 border border-brand-pink/20 bg-brand-pink/5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-brand-pink">
         ✨ Premier Beauty Salon in Miami
       </div>
       
-      <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-brand-ivory leading-tight tracking-wide">
-        {title.split(" ").slice(0, -2).join(" ")} <span class="text-brand-gold italic font-normal">{title.split(" ").slice(-2).join(" ")}</span>
+      <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-brand-charcoal leading-tight tracking-wide font-bold">
+        Enhance Your <span class="font-script text-brand-pink text-5xl sm:text-6xl lg:text-7xl block mt-2 normal-case font-normal leading-none">Natural Glamour</span>
       </h1>
 
-      <p class="text-brand-grey-muted text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
+      <p class="text-zinc-600 text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
         {subtitle}
       </p>
 
+      <!-- Action Button List -->
       <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 pt-4">
-        <a href={ctaLink} class="w-full sm:w-auto text-center bg-brand-gold hover:bg-brand-champagne text-brand-black font-bold uppercase tracking-wider text-xs px-8 py-4 rounded-brand transition-all shadow-gold hover:scale-[1.03]">
+        <a href={ctaLink} class="w-full sm:w-auto text-center bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase tracking-wider text-xs px-8 py-4 rounded transition-all shadow-lg shadow-brand-pink/20 hover:scale-[1.03]">
           {ctaText}
         </a>
-        <a href="/services" class="w-full sm:w-auto text-center border border-brand-gold/30 hover:border-brand-gold text-brand-gold font-bold uppercase tracking-wider text-xs px-8 py-4 rounded-brand transition-all hover:bg-brand-gold/5">
-          Explore Services
+        <a href="tel:+13055550199" class="w-full sm:w-auto text-center border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white font-bold uppercase tracking-wider text-xs px-8 py-4 rounded transition-all">
+          Call Now
         </a>
+        <a href="https://wa.me/13055550199" target="_blank" class="w-full sm:w-auto text-center border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white font-bold uppercase tracking-wider text-xs px-8 py-4 rounded transition-all">
+          WhatsApp Us
+        </a>
+      </div>
+
+      <!-- Google Review Badge -->
+      <div class="flex items-center justify-center lg:justify-start space-x-2 pt-2 text-sm text-zinc-500">
+        <div class="flex text-amber-400">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <span><strong>5.0 Rated</strong> (120+ Google Reviews)</span>
       </div>
     </div>
 
     <!-- Visual Portfolio Showcase Card -->
     <div class="relative mx-auto lg:ml-auto w-full max-w-md lg:max-w-none flex justify-center">
-      <div class="relative glass-card p-4 rounded-lg w-full aspect-[4/5] max-w-[380px] overflow-hidden group shadow-2xl">
+      <div class="relative border-4 border-brand-light-pink p-3 bg-white rounded-2xl w-full aspect-[4/5] max-w-[380px] overflow-hidden group shadow-xl">
         <!-- Main Portfolio Image -->
         <img 
-          src="/designs/website/home.png" 
+          src="/images/hero_model.png" 
           alt="Lashes & MGlamour Showcase" 
-          class="w-full h-full object-cover rounded-md transition-transform duration-700 group-hover:scale-105" 
+          class="w-full h-full object-cover rounded-xl transition-transform duration-700 group-hover:scale-105" 
         />
         <!-- Overlay Card -->
-        <div class="absolute bottom-8 left-8 right-8 glass-card p-5 rounded-md flex justify-between items-center border border-brand-gold/10">
+        <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-xl flex justify-between items-center border border-brand-pink/10 shadow-lg">
           <div>
-            <h3 class="font-heading text-brand-gold text-base font-semibold">Volume Lash Full Set</h3>
-            <p class="text-xs text-brand-grey-muted">Our most popular glam mapping</p>
+            <h3 class="font-heading text-brand-pink text-sm font-semibold">Volume Lash Full Set</h3>
+            <p class="text-[11px] text-zinc-500">Our most popular glam mapping</p>
           </div>
-          <span class="text-xs font-bold text-brand-gold tracking-wide">$150+</span>
+          <span class="text-xs font-bold text-brand-pink tracking-wide">$150+</span>
         </div>
       </div>
     </div>
 
   </div>
 </section>
+

@@ -207,295 +207,360 @@ export default function BookingWizard() {
     : services;
 
   return (
-    <div class="w-full max-w-2xl mx-auto glass-card rounded-lg p-6 sm:p-8 shadow-2xl relative">
-      {/* Steps Indicator */}
-      <div class="flex items-center justify-between border-b border-brand-gold/10 pb-6 mb-8 text-xs tracking-wider uppercase font-bold text-brand-grey-muted">
-        <span class={step === 1 ? "text-brand-gold" : ""}>1. Service</span>
-        <span class="text-brand-gold/30">&rarr;</span>
-        <span class={step === 2 ? "text-brand-gold" : ""}>2. Stylist</span>
-        <span class="text-brand-gold/30">&rarr;</span>
-        <span class={step === 3 ? "text-brand-gold" : ""}>3. Slot</span>
-        <span class="text-brand-gold/30">&rarr;</span>
-        <span class={step === 4 ? "text-brand-gold" : ""}>4. Client</span>
-        <span class="text-brand-gold/30">&rarr;</span>
-        <span class={step === 5 ? "text-brand-gold" : ""}>5. Done</span>
-      </div>
-
-      {loading && (
-        <div class="absolute inset-0 bg-brand-black/70 backdrop-blur-sm rounded-lg flex items-center justify-center z-30">
-          <div class="flex flex-col items-center space-y-4">
-            <span class="animate-spin text-brand-gold text-3xl">⏳</span>
-            <span class="text-brand-gold font-bold tracking-widest text-sm uppercase">Securing data...</span>
-          </div>
-        </div>
-      )}
-
-      {error && (
-        <div class="bg-red-500/10 border border-red-500/30 text-red-400 p-4 rounded-md mb-6 text-sm">
-          ⚠️ {error}
-        </div>
-      )}
-
-      {/* STEP 1: SERVICE CHOICE */}
-      {step === 1 && (
-        <div class="space-y-6">
-          <h2 class="font-heading text-2xl text-brand-gold tracking-wide">Select your Service</h2>
-          
-          {/* Categories filter */}
-          <div class="flex flex-wrap gap-2">
-            <button
-              onClick={() => setSelectedCategory("")}
-              class={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors ${
-                selectedCategory === ""
-                  ? "bg-brand-gold text-brand-black"
-                  : "border border-brand-gold/20 hover:bg-brand-gold/10"
-              }`}
-            >
-              All
-            </button>
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                class={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors ${
-                  selectedCategory === cat.id
-                    ? "bg-brand-gold text-brand-black"
-                    : "border border-brand-gold/20 hover:bg-brand-gold/10"
-                }`}
-              >
-                {cat.name}
-              </button>
-            ))}
+    <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 relative text-brand-charcoal">
+      
+      {/* Left 2 columns: Booking Flow Wizard Card */}
+      <div className="lg:col-span-2 bg-white border border-brand-border p-6 sm:p-8 rounded-2xl shadow-sm relative flex flex-col justify-between min-h-[500px]">
+        <div>
+          {/* Steps Indicator */}
+          <div className="flex items-center justify-between border-b border-brand-border pb-6 mb-8 text-[11px] sm:text-xs tracking-wider uppercase font-bold text-zinc-400">
+            <span className={step === 1 ? "text-brand-pink" : ""}>1. Service</span>
+            <span className="text-zinc-300">&rarr;</span>
+            <span className={step === 2 ? "text-brand-pink" : ""}>2. Stylist</span>
+            <span className="text-zinc-300">&rarr;</span>
+            <span className={step === 3 ? "text-brand-pink" : ""}>3. Slot</span>
+            <span className="text-zinc-300">&rarr;</span>
+            <span className={step === 4 ? "text-brand-pink" : ""}>4. Client</span>
+            <span className="text-zinc-300">&rarr;</span>
+            <span className={step === 5 ? "text-brand-pink" : ""}>5. Done</span>
           </div>
 
-          <div class="grid grid-cols-1 gap-4 pt-4">
-            {activeServices.map(service => (
-              <div
-                key={service.id}
-                onClick={() => handleServiceSelect(service)}
-                class="glass-card p-5 rounded-md flex justify-between items-center cursor-pointer transition-all hover:border-brand-gold/30 hover:translate-y-[-2px]"
-              >
-                <div class="space-y-1 pr-6">
-                  <h3 class="font-heading text-lg text-brand-ivory">{service.name}</h3>
-                  <p class="text-xs text-brand-grey-muted leading-relaxed line-clamp-2">
-                    {service.description}
-                  </p>
-                  <span class="text-xs text-brand-gold/80 block pt-1">⏱️ {service.duration_minutes} mins</span>
-                </div>
-                <div class="text-right">
-                  <span class="text-brand-gold font-bold text-lg tracking-wider block">
-                    ${(service.price_cents / 100).toFixed(2)}
-                  </span>
-                  <span class="text-[10px] text-brand-grey-muted uppercase tracking-widest block font-bold mt-1">
-                    Select
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* STEP 2: STYLIST CHOICE */}
-      {step === 2 && selectedService && (
-        <div class="space-y-6">
-          <div class="flex justify-between items-center">
-            <h2 class="font-heading text-2xl text-brand-gold tracking-wide">Choose your Stylist</h2>
-            <button onClick={() => setStep(1)} class="text-xs text-brand-gold hover:underline">&larr; Back</button>
-          </div>
-
-          <div class="grid grid-cols-1 gap-4 pt-4">
-            {/* Any specialist option */}
-            <div
-              onClick={() => handleStaffSelect("any")}
-              class="glass-card p-5 rounded-md flex items-center cursor-pointer transition-all hover:border-brand-gold/30 hover:translate-y-[-2px]"
-            >
-              <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center text-lg mr-4 border border-brand-gold/10">
-                ✨
-              </div>
-              <div>
-                <h3 class="font-semibold text-brand-ivory">Any Available Specialist</h3>
-                <p class="text-xs text-brand-grey-muted">Select to get the quickest appointment slot</p>
+          {loading && (
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-2xl flex items-center justify-center z-30">
+              <div className="flex flex-col items-center space-y-4">
+                <span className="animate-spin text-brand-pink text-3xl">⏳</span>
+                <span className="text-brand-pink font-bold tracking-widest text-sm uppercase">Securing data...</span>
               </div>
             </div>
+          )}
 
-            {/* Custom staff members */}
-            {staffList.map(staff => (
-              <div
-                key={staff.id}
-                onClick={() => handleStaffSelect(staff.id)}
-                class="glass-card p-5 rounded-md flex items-center cursor-pointer transition-all hover:border-brand-gold/30 hover:translate-y-[-2px]"
-              >
-                <div class="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center text-lg mr-4 border border-brand-gold/20 text-brand-gold font-bold uppercase overflow-hidden">
-                  {staff.first_name[0]}{staff.last_name ? staff.last_name[0] : ""}
-                </div>
-                <div>
-                  <h3 class="font-semibold text-brand-ivory">{staff.first_name} {staff.last_name || ""}</h3>
-                  <p class="text-xs text-brand-grey-muted leading-relaxed line-clamp-1">{staff.bio}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* STEP 3: SLOT CHOICE */}
-      {step === 3 && selectedService && (
-        <div class="space-y-6">
-          <div class="flex justify-between items-center">
-            <h2 class="font-heading text-2xl text-brand-gold tracking-wide">Select Date & Time</h2>
-            <button onClick={() => setStep(2)} class="text-xs text-brand-gold hover:underline">&larr; Back</button>
-          </div>
-
-          {availability.length === 0 ? (
-            <div class="text-center py-8 text-brand-grey-muted text-sm">
-              No slots available for the next 14 days. Try selecting another specialist.
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl mb-6 text-sm">
+              ⚠️ {error}
             </div>
-          ) : (
-            <div class="space-y-6 max-h-[400px] overflow-y-auto pr-2">
-              {availability.map(day => (
-                <div key={day.date} class="space-y-3">
-                  <h3 class="text-xs font-bold uppercase tracking-widest text-brand-gold border-b border-brand-gold/5 pb-1">
-                    {new Date(day.date).toLocaleDateString("en-US", {
-                      weekday: "long",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </h3>
-                  <div class="grid grid-cols-4 sm:grid-cols-6 gap-2">
-                    {day.slots.map(slot => (
-                      <button
-                        key={slot}
-                        onClick={() => handleSlotSelect(day.date, slot)}
-                        class="border border-brand-gold/10 bg-brand-gold/5 text-brand-ivory hover:bg-brand-gold hover:text-brand-black text-xs font-semibold py-2 rounded transition-colors text-center"
-                      >
-                        {slot.split(":").slice(0, 2).join(":")}
-                      </button>
-                    ))}
+          )}
+
+          {/* STEP 1: SERVICE CHOICE */}
+          {step === 1 && (
+            <div className="space-y-6">
+              <h2 className="font-heading text-2xl text-brand-charcoal font-bold tracking-wide">Select your Service</h2>
+              
+              {/* Categories filter */}
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setSelectedCategory("")}
+                  className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors ${
+                    selectedCategory === ""
+                      ? "bg-brand-pink text-white"
+                      : "border border-brand-border hover:bg-brand-light-pink text-brand-charcoal"
+                  }`}
+                >
+                  All
+                </button>
+                {categories.map(cat => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setSelectedCategory(cat.id)}
+                    className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors ${
+                      selectedCategory === cat.id
+                        ? "bg-brand-pink text-white"
+                        : "border border-brand-border hover:bg-brand-light-pink text-brand-charcoal"
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 pt-2 max-h-[400px] overflow-y-auto pr-1">
+                {activeServices.map(service => (
+                  <div
+                    key={service.id}
+                    onClick={() => handleServiceSelect(service)}
+                    className="bg-white border border-brand-border p-5 rounded-xl flex justify-between items-center cursor-pointer transition-all hover:border-brand-pink/30 hover:shadow-sm hover:translate-y-[-2px]"
+                  >
+                    <div className="space-y-1 pr-6">
+                      <h3 className="font-heading font-bold text-base text-brand-charcoal">{service.name}</h3>
+                      <p className="text-xs text-zinc-500 leading-relaxed line-clamp-2">
+                        {service.description}
+                      </p>
+                      <span className="text-xs text-brand-pink font-semibold block pt-1">⏱️ {service.duration_minutes} mins</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-brand-pink font-bold text-lg tracking-wider block">
+                        ${(service.price_cents / 100).toFixed(2)}
+                      </span>
+                      <span className="text-[10px] text-zinc-400 uppercase tracking-widest block font-bold mt-1">
+                        Select
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* STEP 2: STYLIST CHOICE */}
+          {step === 2 && selectedService && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="font-heading text-2xl text-brand-charcoal font-bold tracking-wide">Choose your Stylist</h2>
+                <button onClick={() => setStep(1)} className="text-xs text-brand-pink hover:underline font-bold">&larr; Back</button>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 pt-2">
+                {/* Any specialist option */}
+                <div
+                  onClick={() => handleStaffSelect("any")}
+                  className="bg-white border border-brand-border p-5 rounded-xl flex items-center cursor-pointer transition-all hover:border-brand-pink/30 hover:shadow-sm hover:translate-y-[-2px]"
+                >
+                  <div className="w-12 h-12 bg-brand-pink/10 rounded-full flex items-center justify-center text-lg mr-4 border border-brand-pink/20">
+                    ✨
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-brand-charcoal text-base">Any Available Specialist</h3>
+                    <p className="text-xs text-zinc-500">Select to get the quickest appointment slot</p>
                   </div>
                 </div>
-              ))}
+
+                {/* Custom staff members */}
+                {staffList.map(staff => (
+                  <div
+                    key={staff.id}
+                    onClick={() => handleStaffSelect(staff.id)}
+                    className="bg-white border border-brand-border p-5 rounded-xl flex items-center cursor-pointer transition-all hover:border-brand-pink/30 hover:shadow-sm hover:translate-y-[-2px]"
+                  >
+                    <div className="w-12 h-12 bg-brand-pink/10 rounded-full flex items-center justify-center text-sm mr-4 border border-brand-pink/20 text-brand-pink font-bold uppercase overflow-hidden">
+                      {staff.first_name[0]}{staff.last_name ? staff.last_name[0] : ""}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-brand-charcoal text-base">{staff.first_name} {staff.last_name || ""}</h3>
+                      <p className="text-xs text-zinc-500 leading-relaxed line-clamp-1">{staff.bio}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* STEP 3: SLOT CHOICE */}
+          {step === 3 && selectedService && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="font-heading text-2xl text-brand-charcoal font-bold tracking-wide">Select Date & Time</h2>
+                <button onClick={() => setStep(2)} className="text-xs text-brand-pink hover:underline font-bold">&larr; Back</button>
+              </div>
+
+              {availability.length === 0 ? (
+                <div className="text-center py-8 text-zinc-400 text-sm">
+                  No slots available for the next 14 days. Try selecting another specialist.
+                </div>
+              ) : (
+                <div className="space-y-6 max-h-[380px] overflow-y-auto pr-1">
+                  {availability.map(day => (
+                    <div key={day.date} className="space-y-3">
+                      <h3 className="text-xs font-bold uppercase tracking-widest text-brand-pink border-b border-brand-border pb-1">
+                        {new Date(day.date).toLocaleDateString("en-US", {
+                          weekday: "long",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </h3>
+                      <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                        {day.slots.map(slot => (
+                          <button
+                            key={slot}
+                            onClick={() => handleSlotSelect(day.date, slot)}
+                            className="border border-brand-pink/15 bg-brand-pink/5 text-brand-charcoal hover:bg-brand-pink hover:text-white text-xs font-semibold py-2 rounded transition-colors text-center"
+                          >
+                            {slot.split(":").slice(0, 2).join(":")}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* STEP 4: CLIENT DETAILS */}
+          {step === 4 && selectedService && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="font-heading text-2xl text-brand-charcoal font-bold tracking-wide">Contact Details</h2>
+                <button onClick={() => setStep(3)} className="text-xs text-brand-pink hover:underline font-bold">&larr; Back</button>
+              </div>
+
+              <form onSubmit={handleCustomerSubmit} className="space-y-4 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">First Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={customer.first_name}
+                      onChange={e => setCustomer({ ...customer, first_name: e.target.value })}
+                      className="w-full bg-white border border-brand-border rounded-lg p-3 text-sm focus:outline-none focus:border-brand-pink text-brand-charcoal"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Last Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={customer.last_name}
+                      onChange={e => setCustomer({ ...customer, last_name: e.target.value })}
+                      className="w-full bg-white border border-brand-border rounded-lg p-3 text-sm focus:outline-none focus:border-brand-pink text-brand-charcoal"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Email Address</label>
+                  <input
+                    type="email"
+                    required
+                    value={customer.email}
+                    onChange={e => setCustomer({ ...customer, email: e.target.value })}
+                    className="w-full bg-white border border-brand-border rounded-lg p-3 text-sm focus:outline-none focus:border-brand-pink text-brand-charcoal"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Phone Number</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+13055550199"
+                    value={customer.phone}
+                    onChange={e => setCustomer({ ...customer, phone: e.target.value })}
+                    className="w-full bg-white border border-brand-border rounded-lg p-3 text-sm focus:outline-none focus:border-brand-pink text-brand-charcoal"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase tracking-wider py-4 rounded transition-colors text-sm shadow-lg shadow-brand-pink/20 mt-6"
+                >
+                  Confirm Appointment
+                </button>
+              </form>
+            </div>
+          )}
+
+          {/* STEP 5: SUCCESS BOOKED */}
+          {step === 5 && bookingResult && (
+            <div className="text-center py-8 space-y-6">
+              <div className="w-16 h-16 bg-brand-pink/10 text-brand-pink border border-brand-pink/20 rounded-full flex items-center justify-center text-3xl mx-auto font-bold">
+                ✓
+              </div>
+              <div className="space-y-2">
+                <h2 className="font-heading text-3xl text-brand-pink font-bold tracking-wide">Appointment Secured!</h2>
+                <p className="text-sm text-zinc-500 max-w-md mx-auto">
+                  Thank you! Your appointment has been registered. A confirmation email has been sent.
+                </p>
+              </div>
+
+              <div className="bg-brand-light-pink p-6 rounded-xl border border-brand-pink/10 max-w-sm mx-auto space-y-3 text-sm">
+                <div className="flex justify-between border-b border-brand-pink/5 pb-2">
+                  <span className="text-zinc-500">Booking Reference:</span>
+                  <span className="font-mono text-brand-pink font-bold">{bookingResult.id.slice(-8).toUpperCase()}</span>
+                </div>
+                <div className="flex justify-between border-b border-brand-pink/5 pb-2">
+                  <span className="text-zinc-500">Service:</span>
+                  <span className="text-brand-charcoal font-semibold">{selectedService?.name}</span>
+                </div>
+                <div className="flex justify-between pb-2">
+                  <span className="text-zinc-500">Appointment Time:</span>
+                  <span className="text-brand-charcoal font-semibold">
+                    {new Date(bookingResult.start_time).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })} at {new Date(bookingResult.start_time).toLocaleTimeString("en-US", {
+                      hour: "2-digit",
+                      minute: "2-digit"
+                    })}
+                  </span>
+                </div>
+              </div>
+
+              <a href="/" className="inline-block bg-brand-charcoal hover:bg-brand-pink text-white font-bold uppercase tracking-wider text-xs px-8 py-3.5 rounded transition-all shadow-md">
+                Return Home
+              </a>
             </div>
           )}
         </div>
-      )}
+      </div>
 
-      {/* STEP 4: CLIENT DETAILS */}
-      {step === 4 && selectedService && (
-        <div class="space-y-6">
-          <div class="flex justify-between items-center">
-            <h2 class="font-heading text-2xl text-brand-gold tracking-wide">Contact Details</h2>
-            <button onClick={() => setStep(3)} class="text-xs text-brand-gold hover:underline">&larr; Back</button>
-          </div>
-
-          <form onSubmit={handleCustomerSubmit} class="space-y-4 pt-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="space-y-2">
-                <label class="text-xs font-bold uppercase tracking-widest text-brand-grey-muted">First Name</label>
-                <input
-                  type="text"
-                  required
-                  value={customer.first_name}
-                  onChange={e => setCustomer({ ...customer, first_name: e.target.value })}
-                  class="w-full bg-brand-black border border-brand-gold/20 rounded p-3 text-sm focus:outline-none focus:border-brand-gold"
-                />
+      {/* Right Column: Persistent Booking Summary Sidebar */}
+      <div className="lg:col-span-1 space-y-6">
+        <div className="bg-brand-light-pink border border-brand-pink/15 p-6 rounded-2xl shadow-sm space-y-6 sticky top-28">
+          <h3 className="font-heading text-lg font-bold text-brand-charcoal border-b border-brand-pink/10 pb-3 uppercase tracking-wide">
+            Your Booking Summary
+          </h3>
+          
+          {selectedService ? (
+            <div className="space-y-4 text-sm text-zinc-600">
+              {/* Selected Service Row */}
+              <div className="border-b border-brand-pink/5 pb-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-brand-pink block">Service</span>
+                <span className="font-bold text-brand-charcoal block text-base mt-1 leading-tight">{selectedService.name}</span>
+                <span className="text-xs text-zinc-400 block mt-0.5">⏱️ {selectedService.duration_minutes} mins</span>
               </div>
-              <div class="space-y-2">
-                <label class="text-xs font-bold uppercase tracking-widest text-brand-grey-muted">Last Name</label>
-                <input
-                  type="text"
-                  required
-                  value={customer.last_name}
-                  onChange={e => setCustomer({ ...customer, last_name: e.target.value })}
-                  class="w-full bg-brand-black border border-brand-gold/20 rounded p-3 text-sm focus:outline-none focus:border-brand-gold"
-                />
+              
+              {/* Specialist Row */}
+              <div className="border-b border-brand-pink/5 pb-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-brand-pink block">Specialist</span>
+                <span className="font-semibold text-brand-charcoal block mt-1">
+                  {selectedStaff === "any" ? "Any Available Specialist" : staffList.find(s => s.id === selectedStaff)?.first_name || "Specialist Selected"}
+                </span>
+              </div>
+              
+              {/* Date & Time Row */}
+              {selectedDate && selectedSlot && (
+                <div className="border-b border-brand-pink/5 pb-3">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand-pink block">Date & Time</span>
+                  <span className="font-semibold text-brand-charcoal block mt-1">
+                    {new Date(selectedDate).toLocaleDateString("en-US", {
+                      weekday: "short",
+                      month: "short",
+                      day: "numeric"
+                    })} at {selectedSlot.split(":").slice(0, 2).join(":")}
+                  </span>
+                </div>
+              )}
+
+              {/* Location Row */}
+              <div className="border-b border-brand-pink/5 pb-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-brand-pink block">Location</span>
+                <span className="text-xs block mt-1">📍 8700 SW 137th Ave, Miami, FL</span>
+              </div>
+
+              {/* Total Price Box */}
+              <div className="pt-2 flex justify-between items-baseline">
+                <span className="font-bold text-brand-charcoal">Total Price:</span>
+                <span className="text-brand-pink font-extrabold text-2xl">
+                  ${(selectedService.price_cents / 100).toFixed(2)}
+                </span>
               </div>
             </div>
-
-            <div class="space-y-2">
-              <label class="text-xs font-bold uppercase tracking-widest text-brand-grey-muted">Email Address</label>
-              <input
-                type="email"
-                required
-                value={customer.email}
-                onChange={e => setCustomer({ ...customer, email: e.target.value })}
-                class="w-full bg-brand-black border border-brand-gold/20 rounded p-3 text-sm focus:outline-none focus:border-brand-gold"
-              />
+          ) : (
+            <div className="text-center py-8 text-zinc-400 text-xs italic">
+              Please select a beauty service to begin summarizing your booking details.
             </div>
-
-            <div class="space-y-2">
-              <label class="text-xs font-bold uppercase tracking-widest text-brand-grey-muted">Phone Number</label>
-              <input
-                type="tel"
-                required
-                placeholder="+13055550199"
-                value={customer.phone}
-                onChange={e => setCustomer({ ...customer, phone: e.target.value })}
-                class="w-full bg-brand-black border border-brand-gold/20 rounded p-3 text-sm focus:outline-none focus:border-brand-gold"
-              />
-            </div>
-
-            <div class="bg-brand-gold/5 p-4 rounded-md border border-brand-gold/10 space-y-2 text-xs leading-relaxed text-brand-grey-muted">
-              <span class="font-bold text-brand-gold block">SUMMARY OF SELECTION</span>
-              <p>💆 {selectedService.name} (${(selectedService.price_cents / 100).toFixed(2)})</p>
-              <p>📅 {new Date(selectedDate).toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric"
-              })} at {selectedSlot.split(":").slice(0, 2).join(":")}</p>
-            </div>
-
-            <button
-              type="submit"
-              class="w-full bg-brand-gold hover:bg-brand-champagne text-brand-black font-bold uppercase tracking-wider py-4 rounded-brand transition-colors text-sm shadow-gold mt-6"
-            >
-              Confirm Appointment
-            </button>
-          </form>
+          )}
+          
+          {/* Trust badges */}
+          <div className="border-t border-brand-pink/10 pt-4 space-y-2.5 text-xs text-zinc-500">
+            <p className="flex items-center gap-2"><span className="text-emerald-500 font-bold">✓</span> Free Parking Available</p>
+            <p className="flex items-center gap-2"><span className="text-emerald-500 font-bold">✓</span> Certified Aestheticians</p>
+            <p className="flex items-center gap-2"><span className="text-emerald-500 font-bold">✓</span> Clean & Sterilized Environment</p>
+          </div>
         </div>
-      )}
+      </div>
 
-      {/* STEP 5: SUCCESS BOOKED */}
-      {step === 5 && bookingResult && (
-        <div class="text-center py-8 space-y-6">
-          <div class="w-16 h-16 bg-brand-gold/10 text-brand-gold border border-brand-gold/20 rounded-full flex items-center justify-center text-3xl mx-auto">
-            ✓
-          </div>
-          <div class="space-y-2">
-            <h2 class="font-heading text-3xl text-brand-gold tracking-wide">Appointment Secured!</h2>
-            <p class="text-sm text-brand-grey-muted max-w-md mx-auto">
-              Thank you! Your appointment has been registered. A confirmation email has been sent.
-            </p>
-          </div>
-
-          <div class="bg-brand-grey-dark p-6 rounded-md border border-brand-gold/5 max-w-sm mx-auto space-y-3 text-sm">
-            <div class="flex justify-between border-b border-brand-gold/5 pb-2">
-              <span class="text-brand-grey-muted">Booking Reference:</span>
-              <span class="font-mono text-brand-gold font-bold">{bookingResult.id.slice(-8).toUpperCase()}</span>
-            </div>
-            <div class="flex justify-between border-b border-brand-gold/5 pb-2">
-              <span class="text-brand-grey-muted">Service:</span>
-              <span class="text-brand-ivory font-semibold">{selectedService?.name}</span>
-            </div>
-            <div class="flex justify-between pb-2">
-              <span class="text-brand-grey-muted">Appointment Time:</span>
-              <span class="text-brand-ivory font-semibold">
-                {new Date(bookingResult.start_time).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })} at {new Date(bookingResult.start_time).toLocaleTimeString("en-US", {
-                  hour: "2-digit",
-                  minute: "2-digit"
-                })}
-              </span>
-            </div>
-          </div>
-
-          <a href="/" class="inline-block bg-brand-gold hover:bg-brand-champagne text-brand-black font-bold uppercase tracking-wider text-xs px-8 py-3 rounded-brand transition-colors">
-            Return Home
-          </a>
-        </div>
-      )}
     </div>
   );
 }
+

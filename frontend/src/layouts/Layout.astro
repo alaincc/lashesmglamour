@@ -19,7 +19,7 @@ const {
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="bg-brand-black text-brand-ivory font-body">
+<html lang="en" class="bg-white text-brand-charcoal font-body">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,7 +49,7 @@ const {
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
 
     <!-- Structured Data (LocalBusiness) -->
     <script type="application/ld+json" is:inline>
@@ -122,18 +122,18 @@ const {
       fbq('track', 'PageView');
     </script>
   </head>
-  <body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-brand-gold selection:text-brand-black pb-16 md:pb-0">
+  <body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-brand-pink/20 selection:text-brand-pink pb-16 md:pb-0">
     <!-- Google Tag Manager (noscript fallback) -->
     <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-
+ 
     <Header />
     <main class="flex-grow">
       <slot />
     </main>
     <Footer />
-
+ 
     <!-- CRO WhatsApp Click-to-Chat Floating Button -->
     <a 
       href="https://wa.me/13055550199?text=Hello%21%20I%20would%20like%20to%20ask%20about%20your%20lash%20extensions%20appointment%20slots." 
@@ -146,14 +146,14 @@ const {
         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.835-4.113c1.558.924 3.42 1.411 5.316 1.412 5.586.002 10.134-4.542 10.138-10.13.002-2.707-1.05-5.253-2.962-7.168C17.472 2.083 14.921.986 12.21.986c-5.59 0-10.136 4.543-10.141 10.134-.002 1.957.513 3.868 1.492 5.548l-1.02 3.722 3.818-1.002c1.597.87 3.393 1.328 5.197 1.329zM16.633 13.7c-.266-.134-1.58-.78-1.824-.868-.243-.088-.42-.133-.596.133-.176.265-.68.868-.832 1.042-.152.176-.305.198-.572.065-.266-.134-1.127-.415-2.147-1.327-.79-.705-1.324-1.577-1.48-1.842-.155-.266-.017-.41.115-.543.12-.118.266-.31.4-.464.133-.155.176-.265.266-.442.088-.176.044-.33-.022-.464-.066-.134-.596-1.436-.816-1.966-.215-.518-.432-.446-.596-.446-.154-.002-.33-.002-.507-.002-.176 0-.464.066-.707.33-.243.265-.928.906-.928 2.21s.95 2.562 1.082 2.74c.133.176 1.87 2.854 4.53 4.004.633.273 1.127.436 1.513.56.636.202 1.213.174 1.67.106.509-.077 1.58-.645 1.802-1.237.22-.592.22-1.1.155-1.237-.066-.137-.243-.223-.509-.356z"/>
       </svg>
     </a>
-
+ 
     <!-- Mobile Sticky Book Now CTA footer -->
-    <div class="fixed bottom-0 left-0 right-0 z-40 bg-brand-grey-dark/95 backdrop-blur-md border-t border-brand-gold/20 p-3 flex md:hidden items-center justify-between shadow-2xl">
+    <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-brand-border p-3 flex md:hidden items-center justify-between shadow-2xl">
       <div>
-        <span class="text-xs text-brand-gold font-bold uppercase tracking-wider block">Reserve online</span>
+        <span class="text-xs text-brand-pink font-bold uppercase tracking-wider block">Reserve online</span>
         <span class="text-[10px] text-brand-grey-muted">Secure your slot in under 3 clicks</span>
       </div>
-      <a href="/book" class="bg-brand-gold hover:bg-brand-champagne text-brand-black font-bold uppercase tracking-wider text-xs px-5 py-2.5 rounded-brand transition-colors shadow-gold">
+      <a href="/book" class="bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase tracking-wider text-xs px-5 py-2.5 rounded-brand transition-all shadow-lg shadow-brand-pink/20">
         Book Now
       </a>
     </div>

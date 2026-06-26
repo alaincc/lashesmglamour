@@ -7,27 +7,34 @@ interface Props {
 }
 
 const { beforeImage, afterImage, title, description } = Astro.props;
+const isSingleImage = beforeImage === afterImage;
 ---
 
-<div class="glass-card p-4 rounded-lg space-y-4">
-  <!-- Side by side images wrapper -->
-  <div class="grid grid-cols-2 gap-2 relative rounded-md overflow-hidden aspect-video">
-    <div class="relative">
-      <img src={beforeImage} alt={`${title} Before`} class="w-full h-full object-cover" />
-      <span class="absolute top-2 left-2 bg-brand-black/70 border border-brand-gold/10 px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest text-brand-grey-muted">
-        Before
-      </span>
+<div class="bg-white border border-brand-border/50 p-4 rounded-xl space-y-4 shadow-sm">
+  {isSingleImage ? (
+    <div class="relative rounded-lg overflow-hidden aspect-square border border-brand-border/40">
+      <img src={beforeImage} alt={title} class="w-full h-full object-cover" />
     </div>
-    <div class="relative">
-      <img src={afterImage} alt={`${title} After`} class="w-full h-full object-cover" />
-      <span class="absolute top-2 right-2 bg-brand-gold text-brand-black px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest">
-        After
-      </span>
+  ) : (
+    <div class="grid grid-cols-2 gap-2 relative rounded-lg overflow-hidden aspect-video border border-brand-border/40">
+      <div class="relative">
+        <img src={beforeImage} alt={`${title} Before`} class="w-full h-full object-cover" />
+        <span class="absolute top-2 left-2 bg-brand-charcoal/70 px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest text-zinc-300">
+          Before
+        </span>
+      </div>
+      <div class="relative">
+        <img src={afterImage} alt={`${title} After`} class="w-full h-full object-cover" />
+        <span class="absolute top-2 right-2 bg-brand-pink text-white px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest">
+          After
+        </span>
+      </div>
     </div>
-  </div>
+  )}
 
   <div class="text-center md:text-left space-y-1">
-    <h3 class="font-heading text-base font-semibold text-brand-ivory tracking-wide">{title}</h3>
-    {description && <p class="text-xs text-brand-grey-muted">{description}</p>}
+    <h3 class="font-heading text-base font-bold text-brand-charcoal tracking-wide">{title}</h3>
+    {description && <p class="text-xs text-zinc-500">{description}</p>}
   </div>
 </div>
+
