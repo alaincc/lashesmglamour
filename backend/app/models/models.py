@@ -1,5 +1,5 @@
 from datetime import date, datetime, time
-from sqlalchemy import Boolean, Column, Date, DateTime, ForeignKey, Integer, String, Time, text
+from sqlalchemy import Boolean, Column, Date, DateTime, ForeignKey, Integer, String, Time, text, BigInteger
 from sqlalchemy.orm import relationship
 from backend.app.database.session import Base
 
@@ -27,6 +27,7 @@ class Service(Base):
     duration_minutes = Column(Integer, nullable=False)
     image_url = Column(String, nullable=True)
     is_active = Column(Boolean, default=True, nullable=False)
+    version = Column(BigInteger, nullable=True)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships

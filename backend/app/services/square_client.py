@@ -108,7 +108,7 @@ class SquareAsyncClient:
         return response.get("availabilities", [])
 
     async def create_booking(
-        self, service_id: str, staff_id: str, start_time: str, customer_id: str, customer_note: Optional[str] = None
+        self, service_id: str, service_version: int, staff_id: str, start_time: str, customer_id: str, customer_note: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Creates a new reservation slot inside the Square Booking system.
@@ -124,6 +124,7 @@ class SquareAsyncClient:
                     {
                         "duration_minutes": 60,  # fallback duration, Square override based on service_variation
                         "service_variation_id": service_id,
+                        "service_variation_version": service_version,
                         "team_member_id": staff_id
                     }
                 ]

@@ -76,6 +76,9 @@ async def sync_square_data() -> bool:
                 active_service_ids.append(var_id)
                 var_data = var.get("item_variation_data", {})
                 
+                # Retrieve version
+                version = var.get("version")
+                
                 # Retrieve price
                 price_money = var_data.get("price_money", {})
                 price_cents = price_money.get("amount", 0)
@@ -106,6 +109,7 @@ async def sync_square_data() -> bool:
                     db_service.currency = currency
                     db_service.duration_minutes = duration_minutes
                     db_service.image_url = image_url or db_service.image_url
+                    db_service.version = version
                     db_service.is_active = True
                 else:
                     db_service = Service(
@@ -117,6 +121,7 @@ async def sync_square_data() -> bool:
                         currency=currency,
                         duration_minutes=duration_minutes,
                         image_url=image_url,
+                        version=version,
                         is_active=True
                     )
                     db.add(db_service)

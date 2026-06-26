@@ -40,6 +40,7 @@ async def create_booking(
         start_time_iso = payload.start_time.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
         sq_booking = await client.create_booking(
             service_id=payload.service_id,
+            service_version=service.version,
             staff_id=payload.staff_id,
             start_time=start_time_iso,
             customer_id=customer_id
