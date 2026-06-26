@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AdminDashboard from "../components/AdminDashboard";
+---
+
+<Layout title="Admin Panel | Lashes & MGlamour">
+  <section class="py-16 bg-white min-h-[80vh] flex items-center">
+    <!-- Mount the React Admin Dashboard client-side island -->
+    <AdminDashboard client:load />
+  </section>
+</Layout>

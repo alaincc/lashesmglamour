@@ -2,10 +2,27 @@
 import Layout from "../../layouts/Layout.astro";
 import ServiceCard from "../../components/ServiceCard.astro";
 
-const services = [
+const WAXING_CATEGORY_ID = "OQU44RFO6P3HKZPDMHNBVGR2";
+
+const fallbackServices = [
   { id: "var_wax_brow", name: "Brow Wax & Threading", description: "Precision hair removal for a clean and sleek definition.", price_cents: 3500, duration_minutes: 20 },
   { id: "var_wax_legs", name: "Full Legs Waxing Set", description: "Medical-grade organic wax applied for smooth, soft legs.", price_cents: 6500, duration_minutes: 40 },
 ];
+
+let services = fallbackServices;
+
+try {
+  const response = await fetch("http://localhost:8000/api/v1/services");
+  if (response.ok) {
+    const allServices = await response.json();
+    const dynamicServices = allServices.filter((s: any) => s.category_id === WAXING_CATEGORY_ID);
+    if (dynamicServices.length > 0) {
+      services = dynamicServices;
+    }
+  }
+} catch (error) {
+  console.warn("Failed to fetch dynamic services from backend during build, using static fallback.");
+}
 ---
 
 <Layout title="Premium Waxing Services | Lashes & MGlamour">

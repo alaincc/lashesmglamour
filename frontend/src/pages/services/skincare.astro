@@ -2,9 +2,26 @@
 import Layout from "../../layouts/Layout.astro";
 import ServiceCard from "../../components/ServiceCard.astro";
 
-const services = [
+const SKINCARE_CATEGORY_ID = "57KEPCHJWE6SI3YSTX5B26Z7";
+
+const fallbackServices = [
   { id: "var_skincare_facial", name: "Luxe Rejuvenating Facial", description: "Deep hydration treatment utilizing premium hyaluronic serums.", price_cents: 11000, duration_minutes: 60 },
 ];
+
+let services = fallbackServices;
+
+try {
+  const response = await fetch("http://localhost:8000/api/v1/services");
+  if (response.ok) {
+    const allServices = await response.json();
+    const dynamicServices = allServices.filter((s: any) => s.category_id === SKINCARE_CATEGORY_ID);
+    if (dynamicServices.length > 0) {
+      services = dynamicServices;
+    }
+  }
+} catch (error) {
+  console.warn("Failed to fetch dynamic services from backend during build, using static fallback.");
+}
 ---
 
 <Layout title="Premium Skin Care Facials | Lashes & MGlamour">

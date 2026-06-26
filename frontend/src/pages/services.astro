@@ -11,6 +11,20 @@ const servicesFallback = [
   { id: "var_skincare_facial", name: "Luxe Rejuvenating Facial", description: "Deep hydration treatment utilizing premium hyaluronic serums.", price_cents: 11000, duration_minutes: 60 },
   { id: "var_wax_brow", name: "Brow Wax & Threading", description: "Precision hair removal for a clean and sleek definition.", price_cents: 3500, duration_minutes: 20 },
 ];
+
+let services = servicesFallback;
+
+try {
+  const response = await fetch("http://localhost:8000/api/v1/services");
+  if (response.ok) {
+    const allServices = await response.json();
+    if (allServices.length > 0) {
+      services = allServices;
+    }
+  }
+} catch (error) {
+  console.warn("Failed to fetch dynamic services from backend during build, using static fallback.");
+}
 ---
 
 <Layout title="Luxe Services Menu | Lashes & MGlamour">
@@ -28,7 +42,7 @@ const servicesFallback = [
 
       <!-- Services List Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {servicesFallback.map(service => (
+        {services.map(service => (
           <ServiceCard
             id={service.id}
             name={service.name}

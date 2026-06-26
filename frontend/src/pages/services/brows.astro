@@ -2,10 +2,27 @@
 import Layout from "../../layouts/Layout.astro";
 import ServiceCard from "../../components/ServiceCard.astro";
 
-const services = [
+const BROWS_CATEGORY_ID = "2ONB73YKA67J2I4XWXVQWSCF";
+
+const fallbackServices = [
   { id: "var_brow_lam", name: "Brow Lamination & Shaping", description: "Relaxes and shapes brow hairs for a fuller, brushed-up symmetrical look.", price_cents: 8500, duration_minutes: 45 },
   { id: "var_wax_brow", name: "Brow Wax & Threading", description: "Precision hair removal for a clean and sleek definition.", price_cents: 3500, duration_minutes: 20 },
 ];
+
+let services = fallbackServices;
+
+try {
+  const response = await fetch("http://localhost:8000/api/v1/services");
+  if (response.ok) {
+    const allServices = await response.json();
+    const dynamicServices = allServices.filter((s: any) => s.category_id === BROWS_CATEGORY_ID);
+    if (dynamicServices.length > 0) {
+      services = dynamicServices;
+    }
+  }
+} catch (error) {
+  console.warn("Failed to fetch dynamic services from backend during build, using static fallback.");
+}
 ---
 
 <Layout title="Brow Shaping & Lamination | Lashes & MGlamour">
