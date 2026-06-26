@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+
+const services = [
+  { id: "var_wax_brow", name: "Brow Wax & Threading", description: "Precision hair removal for a clean and sleek definition.", price_cents: 3500, duration_minutes: 20 },
+  { id: "var_wax_legs", name: "Full Legs Waxing Set", description: "Medical-grade organic wax applied for smooth, soft legs.", price_cents: 6500, duration_minutes: 40 },
+];
+---
+
+<Layout title="Premium Waxing Services | Lashes & MGlamour">
+  <!-- Hero Section -->
+  <section class="py-16 bg-gradient-to-tr from-brand-light-pink via-white to-brand-light-pink/40 border-b border-brand-border">
+    <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6 text-center lg:text-left">
+        <span class="inline-flex items-center space-x-2 border border-brand-pink/20 bg-brand-pink/5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-brand-pink">
+          ✨ Organic Waxing
+        </span>
+        <h1 class="font-heading text-4xl sm:text-5xl text-brand-charcoal font-extrabold leading-tight">
+          Waxing & Threading
+          <span class="font-script text-brand-pink text-4xl sm:text-5xl lg:text-6xl block mt-2 normal-case font-normal leading-none">Smooth. Soft. Clean.</span>
+        </h1>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          Remove hair safely and painlessly. We use premium honey organic wax formulas to protect your skin barriers.
+        </p>
+      </div>
+      <div class="hidden lg:block max-w-md ml-auto rounded-2xl overflow-hidden border border-brand-border/40 shadow-lg aspect-video">
+        <img src="/images/waxing_service.png" alt="Waxing Service" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Service List Grid -->
+  <section class="py-16 bg-white min-h-[50vh]">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <h2 class="font-heading text-3xl text-brand-charcoal font-bold">Select Your Waxing Treatment</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {services.map(service => (
+          <ServiceCard
+            id={service.id}
+            name={service.name}
+            description={service.description}
+            price_cents={service.price_cents}
+            duration_minutes={service.duration_minutes}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,54 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+
+const services = [
+  { id: "var_classic_full", name: "Classic Lash Extensions Full Set", description: "One single premium extension applied to each natural lash. Extremely natural look.", price_cents: 12000, duration_minutes: 90 },
+  { id: "var_hybrid_full", name: "Hybrid Lash Extensions Full Set", description: "Blend of classic and volume extensions. Texturized and fuller look.", price_cents: 14000, duration_minutes: 100 },
+  { id: "var_volume_full", name: "Volume Lash Extensions Full Set", description: "Lightweight fans applied to each natural lash. Fluffy and full glamour set.", price_cents: 16000, duration_minutes: 120 },
+];
+---
+
+<Layout title="Eyelash Extensions | Lashes & MGlamour">
+  <!-- Hero Section -->
+  <section class="py-16 bg-gradient-to-tr from-brand-light-pink via-white to-brand-light-pink/40 border-b border-brand-border">
+    <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6 text-center lg:text-left">
+        <span class="inline-flex items-center space-x-2 border border-brand-pink/20 bg-brand-pink/5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-brand-pink">
+          ✨ Premium Mappings
+        </span>
+        <h1 class="font-heading text-4xl sm:text-5xl text-brand-charcoal font-extrabold leading-tight">
+          Lash Extensions
+          <span class="font-script text-brand-pink text-4xl sm:text-5xl lg:text-6xl block mt-2 normal-case font-normal leading-none">Embrace Your Glamour.</span>
+        </h1>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          Enhance your look with our professional mapping configurations. We offer Classic, Hybrid, and Volume extensions tailored to complement your natural features.
+        </p>
+      </div>
+      <div class="hidden lg:block max-w-md ml-auto rounded-2xl overflow-hidden border border-brand-border/40 shadow-lg aspect-video">
+        <img src="/images/lashes_service.png" alt="Lash Extensions Service" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Service List Grid -->
+  <section class="py-16 bg-white min-h-[50vh]">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <h2 class="font-heading text-3xl text-brand-charcoal font-bold">Select Your Lash Set</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map(service => (
+          <ServiceCard
+            id={service.id}
+            name={service.name}
+            description={service.description}
+            price_cents={service.price_cents}
+            duration_minutes={service.duration_minutes}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

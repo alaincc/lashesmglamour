@@ -50,7 +50,25 @@
     <!-- Navigation Menu (Desktop) -->
     <nav class="hidden md:flex items-center space-x-8 font-medium tracking-wide text-sm text-brand-charcoal">
       <a href="/" class="hover:text-brand-pink transition-colors">Home</a>
-      <a href="/services" class="hover:text-brand-pink transition-colors">Services</a>
+      
+      <!-- Services Hover Dropdown -->
+      <div class="relative group py-2">
+        <a href="/services" class="hover:text-brand-pink transition-colors flex items-center gap-1">
+          Services
+          <svg class="h-3 w-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </a>
+        <div class="absolute left-0 top-full hidden group-hover:block bg-white border border-brand-border rounded-xl shadow-lg py-2 w-48 mt-1 z-50 animate-fade-in">
+          <a href="/services/lashes" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">Lash Extensions</a>
+          <a href="/services/brows" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">Brows & Shaping</a>
+          <a href="/services/skincare" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">Skin Care Facials</a>
+          <a href="/services/waxing" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">Waxing & Threading</a>
+          <div class="border-t border-brand-border my-1"></div>
+          <a href="/services" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">All Services Menu</a>
+        </div>
+      </div>
+
       <a href="/about" class="hover:text-brand-pink transition-colors">About Us</a>
       <a href="/gallery" class="hover:text-brand-pink transition-colors">Gallery</a>
       <a href="/blog" class="hover:text-brand-pink transition-colors">Blog</a>
@@ -77,7 +95,19 @@
   <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-brand-border">
     <div class="px-4 pt-2 pb-6 space-y-3 flex flex-col font-medium tracking-wider text-sm text-brand-charcoal">
       <a href="/" class="py-2 border-b border-brand-border hover:text-brand-pink">Home</a>
-      <a href="/services" class="py-2 border-b border-brand-border hover:text-brand-pink">Services</a>
+      
+      <!-- Mobile Submenu representation -->
+      <div class="py-2 border-b border-brand-border">
+        <span class="font-bold text-[10px] uppercase tracking-widest text-zinc-400 block mb-2">Services</span>
+        <div class="grid grid-cols-2 gap-2 pl-2">
+          <a href="/services/lashes" class="py-1 hover:text-brand-pink text-xs font-bold uppercase">Lashes</a>
+          <a href="/services/brows" class="py-1 hover:text-brand-pink text-xs font-bold uppercase">Brows</a>
+          <a href="/services/skincare" class="py-1 hover:text-brand-pink text-xs font-bold uppercase">Skin Care</a>
+          <a href="/services/waxing" class="py-1 hover:text-brand-pink text-xs font-bold uppercase">Waxing</a>
+          <a href="/services" class="col-span-2 py-1 text-brand-pink text-xs font-bold uppercase border-t border-brand-border/40 mt-1">View All Menu &rarr;</a>
+        </div>
+      </div>
+
       <a href="/about" class="py-2 border-b border-brand-border hover:text-brand-pink">About Us</a>
       <a href="/gallery" class="py-2 border-b border-brand-border hover:text-brand-pink">Gallery</a>
       <a href="/blog" class="py-2 border-b border-brand-border hover:text-brand-pink">Blog</a>
