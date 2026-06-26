@@ -104,7 +104,7 @@ class SquareAsyncClient:
         if not staff_id:
             payload["query"]["filter"]["segment_filters"][0].pop("team_member_id_filter")
 
-        response = await self._request("POST", "/v2/bookings/search-availability", json_data=payload)
+        response = await self._request("POST", "/v2/bookings/availability/search", json_data=payload)
         return response.get("availabilities", [])
 
     async def create_booking(

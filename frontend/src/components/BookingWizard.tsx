@@ -63,16 +63,23 @@ export default function BookingWizard() {
       setLoading(true);
       try {
         const [catsRes, servsRes] = await Promise.all([
-          fetch(`${API_BASE}/categories`).then(r => r.json()),
-          fetch(`${API_BASE}/services`).then(r => r.json()),
+          fetch(`${API_BASE}/categories`).then(r => {
+            if (!r.ok) throw new Error("Failed to load categories");
+            return r.json();
+          }),
+          fetch(`${API_BASE}/services`).then(r => {
+            if (!r.ok) throw new Error("Failed to load services");
+            return r.json();
+          }),
         ]);
-        setCategories(catsRes);
-        setServices(servsRes);
+        
+        setCategories(Array.isArray(catsRes) ? catsRes : []);
+        setServices(Array.isArray(servsRes) ? servsRes : []);
         
         // If query param lists specific service, set it
         const urlParams = new URLSearchParams(window.location.search);
         const preselectedServiceId = urlParams.get("service");
-        if (preselectedServiceId && servsRes.length) {
+        if (preselectedServiceId && Array.isArray(servsRes) && servsRes.length) {
           const found = servsRes.find((s: Service) => s.id === preselectedServiceId);
           if (found) {
             setSelectedService(found);
@@ -80,9 +87,9 @@ export default function BookingWizard() {
             setStep(2); // Go to staff selection
           }
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error("Failed to load catalog:", err);
-        setError("Failed to connect to catalog database. Make sure backend is running.");
+        setError(err.message || "Failed to connect to catalog database. Make sure backend is running.");
       } finally {
         setLoading(false);
       }
@@ -96,10 +103,12 @@ export default function BookingWizard() {
       async function loadStaff() {
         setLoading(true);
         try {
-          const res = await fetch(`${API_BASE}/staff`).then(r => r.json());
-          setStaffList(res);
-        } catch (err) {
-          setError("Failed to load staff list.");
+          const response = await fetch(`${API_BASE}/staff`);
+          if (!response.ok) throw new Error("Failed to load staff list.");
+          const res = await response.json();
+          setStaffList(Array.isArray(res) ? res : []);
+        } catch (err: any) {
+          setError(err.message || "Failed to load staff list.");
         } finally {
           setLoading(false);
         }
@@ -128,10 +137,19 @@ export default function BookingWizard() {
             url += `&staff_id=${selectedStaff}`;
           }
 
-          const res = await fetch(url).then(r => r.json());
-          setAvailability(res);
-        } catch (err) {
-          setError("Failed to load availability slots.");
+          const response = await fetch(url);
+          if (!response.ok) {
+            const errJson = await response.json();
+            throw new Error(errJson.detail || "Failed to load availability slots.");
+          }
+          const res = await response.json();
+          if (Array.isArray(res)) {
+            setAvailability(res);
+          } else {
+            setAvailability([]);
+          }
+        } catch (err: any) {
+          setError(err.message || "Failed to load availability slots.");
         } finally {
           setLoading(false);
         }

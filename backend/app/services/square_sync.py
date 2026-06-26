@@ -49,6 +49,26 @@ async def sync_square_data() -> bool:
             item_name = item_data.get("name", "")
             description = item_data.get("description", "")
             
+            # Fallback category mapping by name keywords if not set in Square catalog
+            if not category_id:
+                name_lower = item_name.lower()
+                if any(x in name_lower for x in ["lash", "volumen", "classic", "hybrid", "refill", "set"]):
+                    cat = db.query(Category).filter(Category.name.ilike("%lash%")).first()
+                    if cat:
+                        category_id = cat.id
+                elif "brow" in name_lower or "lamin" in name_lower:
+                    cat = db.query(Category).filter(Category.name.ilike("%brow%")).first()
+                    if cat:
+                        category_id = cat.id
+                elif "facial" in name_lower or "skin" in name_lower or "acne" in name_lower:
+                    cat = db.query(Category).filter(Category.name.ilike("%skin%")).first() or db.query(Category).filter(Category.name.ilike("%facial%")).first()
+                    if cat:
+                        category_id = cat.id
+                elif "wax" in name_lower or "thread" in name_lower:
+                    cat = db.query(Category).filter(Category.name.ilike("%wax%")).first()
+                    if cat:
+                        category_id = cat.id
+            
             # Variations represent the individual service mappings (Classic full, etc.)
             variations = item_data.get("variations", [])
             for var in variations:
