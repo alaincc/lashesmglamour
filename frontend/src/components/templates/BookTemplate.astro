@@ -1,0 +1,105 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BookingWizard from "../BookingWizard";
+import FAQ from "../FAQ.astro";
+
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const texts = {
+  en: {
+    title: "Book Online Appointment | Lashes & MGlamour",
+    badge: "✨ Secure & Instant Booking",
+    heading: "Book Your Appointment",
+    subheading: "Your Beauty. Our Priority.",
+    bullet1: "✓ Easy Online Booking",
+    bullet2: "✓ Flexible Scheduling",
+    bullet3: "✓ Secure & Confirmed",
+    faqBadge: "Common Queries",
+    faqTitle: "Frequently Asked Questions",
+    faqSub: "Clarify your concerns",
+    faqs: [
+      { question: "How long do lash extensions last?", answer: "Normally, lash extensions can last between 4 to 6 weeks depending on your natural lash growth cycle and aftercare routine. We recommend getting fills every 2 to 3 weeks to keep them looking full." },
+      { question: "What is the difference between Classic, Hybrid, and Volume sets?", answer: "Classic sets apply one single extension to one natural lash. Volume sets use lightweight fans of multiple extensions to each lash for a fuller look. Hybrid sets blend both techniques for a texturized appearance." },
+      { question: "Will extensions damage my natural lashes?", answer: "No, when applied correctly by our certified eyelash technicians using high-quality materials and appropriate weights, your natural lashes will remain healthy." },
+      { question: "What should I do to prepare for my lash appointment?", answer: "Please arrive with clean eyes, completely free of makeup, mascara, or oily skin products. If you wear contact lenses, we recommend removing them before application." },
+      { question: "What is Brow Lamination?", answer: "Brow Lamination is a treatment that relaxes and shapes brow hairs for a fuller, brushed-up symmetrical look." }
+    ]
+  },
+  es: {
+    title: "Reserva Tu Cita Online | Lashes & MGlamour",
+    badge: "✨ Reserva Segura e Instantánea",
+    heading: "Reserva Tu Cita",
+    subheading: "Tu Belleza. Nuestra Prioridad.",
+    bullet1: "✓ Reserva Fácil en Línea",
+    bullet2: "✓ Horarios Flexibles",
+    bullet3: "✓ Segura y Confirmada",
+    faqBadge: "Dudas Comunes",
+    faqTitle: "Preguntas Frecuentes",
+    faqSub: "Aclara tus inquietudes",
+    faqs: [
+      { question: "¿Cuánto duran las extensiones de pestañas?", answer: "Normalmente, las extensiones de pestañas pueden durar de 4 a 6 semanas dependiendo del ciclo de crecimiento de tus pestañas naturales y de tu rutina de cuidado. Recomendamos retoques cada 2 o 3 semanas para mantenerlas con aspecto completo." },
+      { question: "¿Cuál es la diferencia entre los sets Clásico, Híbrido y de Volumen?", answer: "Los sets clásicos aplican una sola extensión sobre una pestaña natural. Los de volumen usan abanicos ligeros de múltiples extensiones sobre cada pestaña para un aspecto más tupido. Los sets híbridos mezclan ambas técnicas para una apariencia texturizada." },
+      { question: "¿Las extensiones dañarán mis pestañas naturales?", answer: "No, cuando son aplicadas correctamente por nuestros técnicos certificados utilizando materiales de alta calidad y pesos apropiados, tus pestañas naturales permanecerán saludables." },
+      { question: "¿Cómo debo prepararme para mi cita de pestañas?", answer: "Por favor llega con los ojos limpios, completamente libres de maquillaje, rímel o productos oleosos. Si usas lentes de contacto, te recomendamos retirarlos antes de la aplicación." },
+      { question: "¿Qué es la Laminación de Cejas?", answer: "La laminación de cejas es un tratamiento que relaja y da forma a los vellos de las cejas para un aspecto simétrico, cepillado y más tupido." }
+    ]
+  }
+};
+
+const pageText = texts[lang];
+---
+<Layout title={pageText.title} lang={lang}>
+  <!-- Booking Hero Banner -->
+  <section class="py-16 bg-gradient-to-tr from-brand-light-pink via-white to-brand-light-pink/40 border-b border-brand-border">
+    <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6 text-center lg:text-left">
+        <span class="inline-flex items-center space-x-2 border border-brand-pink/20 bg-brand-pink/5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-brand-pink">
+          {pageText.badge}
+        </span>
+        <h1 class="font-heading text-4xl sm:text-5xl text-brand-charcoal font-extrabold leading-tight">
+          {pageText.heading}
+          <span class="font-script text-brand-pink text-4xl sm:text-5xl lg:text-6xl block mt-2 normal-case font-normal leading-none">{pageText.subheading}</span>
+        </h1>
+        <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 text-xs font-semibold tracking-wider uppercase text-zinc-500 pt-2">
+          <span class="flex items-center gap-1.5">{pageText.bullet1}</span>
+          <span class="hidden sm:inline text-zinc-300">|</span>
+          <span class="flex items-center gap-1.5">{pageText.bullet2}</span>
+          <span class="hidden sm:inline text-zinc-300">|</span>
+          <span class="flex items-center gap-1.5">{pageText.bullet3}</span>
+        </div>
+      </div>
+      <div class="hidden lg:block max-w-md ml-auto rounded-2xl overflow-hidden border border-brand-border/40 shadow-lg aspect-video">
+        <img src="/images/skincare_service.png" alt="Client receiving beauty service at Lashes & MGlamour" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Wizard Section -->
+  <section class="py-16 bg-white min-h-[70vh]">
+    <div class="container-custom">
+      <!-- Mount the React Booking Wizard client-side island -->
+      <BookingWizard client:load lang={lang} />
+    </div>
+  </section>
+
+  <!-- FAQ Accordion Section -->
+  <section class="py-20 bg-brand-light-pink border-t border-brand-border">
+    <div class="container-custom max-w-3xl">
+      <div class="text-center space-y-4 mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">{pageText.faqBadge}</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-charcoal font-bold">{pageText.faqTitle}</h2>
+        <p class="font-script text-brand-pink text-3xl normal-case font-normal block leading-none">{pageText.faqSub}</p>
+      </div>
+
+      <div class="space-y-4">
+        {pageText.faqs.map(faq => (
+          <FAQ question={faq.question} answer={faq.answer} />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

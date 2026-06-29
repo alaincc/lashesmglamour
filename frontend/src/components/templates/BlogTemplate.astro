@@ -1,0 +1,83 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const fallbackPosts = {
+  en: [
+    { title: "The Ultimate Eyelash Extensions Aftercare Guide", excerpt: "Learn how to clean, brush, and protect your lash extensions to make them last up to 6 weeks.", date: "2026-06-25", category: "Lashes" },
+    { title: "Everything You Need to Know About Brow Lamination", excerpt: "Discover how brow lamination relaxes brow hairs to give you a thick, fluffy look without daily styling.", date: "2026-06-22", category: "Brows" },
+    { title: "Daily Skincare Routines for Summer in Miami", excerpt: "Professional tips to hydrate your skin and prevent sunscreen build-up during hot Florida months.", date: "2026-06-18", category: "Skin Care" }
+  ],
+  es: [
+    { title: "La Guía Definitiva para el Cuidado de las Extensiones de Pestañas", excerpt: "Aprende cómo limpiar, cepillar y proteger tus extensiones de pestañas para que duren hasta 6 semanas.", date: "2026-06-25", category: "Pestañas" },
+    { title: "Todo lo que Necesitas Saber sobre la Laminación de Cejas", excerpt: "Descubre cómo la laminación de cejas relaja los vellos para darte un aspecto grueso y denso sin peinado diario.", date: "2026-06-22", category: "Cejas" },
+    { title: "Rutinas Diarias de Cuidado de la Piel para el Verano en Miami", excerpt: "Consejos profesionales para hidratar tu piel y prevenir la acumulación de protector solar durante los calurosos meses de Florida.", date: "2026-06-18", category: "Piel" }
+  ]
+};
+
+const texts = {
+  en: {
+    title: "Beauty Blog & Tips | Lashes & MGlamour",
+    badge: "Beauty Tips & News",
+    heading: "The MGlamour Blog",
+    subheading: "Stay up to date with the latest trends in eyelash extension mapping, brow styling, facials, and beauty routines.",
+    readMore: "Read More →"
+  },
+  es: {
+    title: "Blog de Belleza y Consejos | Lashes & MGlamour",
+    badge: "Consejos y Noticias de Belleza",
+    heading: "El Blog de MGlamour",
+    subheading: "Mantente al día con las últimas tendencias en diseño de extensiones de pestañas, estilismo de cejas, faciales y rutinas de belleza.",
+    readMore: "Leer Más →"
+  }
+};
+
+const pageText = texts[lang];
+const posts = fallbackPosts[lang];
+---
+<Layout title={pageText.title} lang={lang}>
+  <section class="py-24 bg-white">
+    <div class="container-custom max-w-4xl mx-auto space-y-16">
+      
+      <!-- Heading block -->
+      <div class="text-center space-y-4 max-w-xl mx-auto">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">{pageText.badge}</span>
+        <h1 class="font-heading text-4xl text-brand-charcoal font-bold">{pageText.heading}</h1>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          {pageText.subheading}
+        </p>
+      </div>
+
+      <!-- Blog post lists -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {posts.map(post => (
+          <div class="bg-white border border-brand-border p-6 rounded-2xl flex flex-col justify-between hover:border-brand-pink/20 hover:shadow-md shadow-sm transition-all duration-300">
+            <div class="space-y-4">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-brand-pink bg-brand-pink/5 border border-brand-pink/10 px-2 py-0.5 rounded">
+                {post.category}
+              </span>
+              <h2 class="font-heading text-lg font-bold text-brand-charcoal leading-tight hover:text-brand-pink transition-colors">
+                {post.title}
+              </h2>
+              <p class="text-xs text-zinc-500 leading-relaxed line-clamp-3">
+                {post.excerpt}
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-brand-border flex justify-between items-center text-[10px] text-zinc-400 font-semibold">
+              <span>📅 {post.date}</span>
+              <a href="#" class="text-brand-pink hover:text-brand-pink-hover font-bold uppercase transition-colors">
+                {pageText.readMore}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+</Layout>

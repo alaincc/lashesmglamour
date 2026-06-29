@@ -19,8 +19,9 @@ export default function AdminDashboard() {
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  const API_BASE = "http://localhost:8000/api/v1";
+  const API_BASE = import.meta.env.PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
   // Check if token exists in localStorage on mount
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function AdminDashboard() {
     if (savedToken) {
       setToken(savedToken);
     }
+    setIsInitialized(true);
     fetchStatus();
   }, []);
 
@@ -110,6 +112,15 @@ export default function AdminDashboard() {
       setIsSyncing(false);
     }
   };
+
+  if (!isInitialized) {
+    return (
+      <div className="w-full max-w-4xl mx-auto py-12 px-4 flex flex-col items-center justify-center min-h-[300px]">
+        <span className="animate-spin text-brand-pink text-3xl">⏳</span>
+        <span className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-4">Loading dashboard...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto py-12 px-4 sm:px-6">

@@ -1,4 +1,10 @@
 ---
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
 const posts = [
   { image: "/images/lashes_service.png", link: "https://www.instagram.com/p/lashes1", likes: "124" },
   { image: "/images/brows_service.png", link: "https://www.instagram.com/p/brows2", likes: "89" },
@@ -19,7 +25,7 @@ const posts = [
       <!-- Hover overlay details -->
       <div class="absolute inset-0 bg-brand-pink/70 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300 z-10">
         <span class="text-white font-bold tracking-widest text-xs uppercase flex items-center gap-1.5">
-          ❤️ {post.likes} Likes
+          ❤️ {post.likes} {lang === "es" ? "Me gusta" : "Likes"}
         </span>
       </div>
     </a>

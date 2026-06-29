@@ -2,12 +2,14 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { useTranslations } from "../i18n/utils";
 
 interface Props {
   title?: string;
   description?: string;
   canonical?: string;
   image?: string;
+  lang?: "en" | "es";
 }
 
 const {
@@ -15,11 +17,14 @@ const {
   description = "Discover Miami's premier beauty studio. Professional Classic, Hybrid, and Volume lash extensions, brow shaping, and skin care services. Book your appointment online.",
   canonical = "https://lashesmglamour.com",
   image = "/designs/logo/logo.png",
+  lang = "en",
 } = Astro.props;
+
+const t = useTranslations(lang);
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="bg-white text-brand-charcoal font-body">
+<html lang={lang} class="bg-white text-brand-charcoal font-body">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,19 +65,19 @@ const {
         "image": "https://lashesmglamour.com/designs/logo/logo.png",
         "@id": "https://lashesmglamour.com/#salon",
         "url": "https://lashesmglamour.com",
-        "telephone": "+13055550199",
+        "telephone": ["+17864606580", "+13058330302"],
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "8700 SW 137th Ave",
+          "streetAddress": "4095 SW 137th Ave #3",
           "addressLocality": "Miami",
           "addressRegion": "FL",
-          "postalCode": "33186",
+          "postalCode": "33175",
           "addressCountry": "US"
         },
         "geo": {
           "@type": "GeoCoordinates",
-          "latitude": 25.6888,
+          "latitude": 25.7303,
           "longitude": -80.4172
         },
         "openingHoursSpecification": [
@@ -85,7 +90,8 @@ const {
         ],
         "sameAs": [
           "https://www.instagram.com/lashesmglamour",
-          "https://www.facebook.com/lashesmglamour"
+          "https://www.facebook.com/lashesmglamour",
+          "https://www.tiktok.com/@lashes_mglamour"
         ]
       }
     </script>
@@ -128,19 +134,19 @@ const {
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
  
-    <Header />
+    <Header lang={lang} />
     <main class="flex-grow">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
  
     <!-- CRO WhatsApp Click-to-Chat Floating Button -->
     <a 
-      href="https://wa.me/13055550199?text=Hello%21%20I%20would%20like%20to%20ask%20about%20your%20lash%20extensions%20appointment%20slots." 
+      href={lang === "es" ? "https://wa.me/17864606580?text=%C2%A1Hola%21%20Me%20gustar%C3%ADa%20preguntar%20sobre%20sus%20horarios%20disponibles%20para%20extensiones%20de%20pesta%C3%B1as." : "https://wa.me/17864606580?text=Hello%21%20I%20would%20like%20to%20ask%20about%20your%20lash%20extensions%20appointment%20slots."}
       target="_blank" 
       rel="noopener noreferrer" 
       class="fixed bottom-20 right-6 z-40 bg-[#25D366] hover:bg-[#128C7E] text-white p-3.5 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center border border-white/10"
-      aria-label="Chat with Lashes & MGlamour on WhatsApp"
+      aria-label={lang === "es" ? "Chatear con Lashes & MGlamour en WhatsApp" : "Chat with Lashes & MGlamour on WhatsApp"}
     >
       <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.835-4.113c1.558.924 3.42 1.411 5.316 1.412 5.586.002 10.134-4.542 10.138-10.13.002-2.707-1.05-5.253-2.962-7.168C17.472 2.083 14.921.986 12.21.986c-5.59 0-10.136 4.543-10.141 10.134-.002 1.957.513 3.868 1.492 5.548l-1.02 3.722 3.818-1.002c1.597.87 3.393 1.328 5.197 1.329zM16.633 13.7c-.266-.134-1.58-.78-1.824-.868-.243-.088-.42-.133-.596.133-.176.265-.68.868-.832 1.042-.152.176-.305.198-.572.065-.266-.134-1.127-.415-2.147-1.327-.79-.705-1.324-1.577-1.48-1.842-.155-.266-.017-.41.115-.543.12-.118.266-.31.4-.464.133-.155.176-.265.266-.442.088-.176.044-.33-.022-.464-.066-.134-.596-1.436-.816-1.966-.215-.518-.432-.446-.596-.446-.154-.002-.33-.002-.507-.002-.176 0-.464.066-.707.33-.243.265-.928.906-.928 2.21s.95 2.562 1.082 2.74c.133.176 1.87 2.854 4.53 4.004.633.273 1.127.436 1.513.56.636.202 1.213.174 1.67.106.509-.077 1.58-.645 1.802-1.237.22-.592.22-1.1.155-1.237-.066-.137-.243-.223-.509-.356z"/>
@@ -150,11 +156,11 @@ const {
     <!-- Mobile Sticky Book Now CTA footer -->
     <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-brand-border p-3 flex md:hidden items-center justify-between shadow-2xl">
       <div>
-        <span class="text-xs text-brand-pink font-bold uppercase tracking-wider block">Reserve online</span>
-        <span class="text-[10px] text-brand-grey-muted">Secure your slot in under 3 clicks</span>
+        <span class="text-xs text-brand-pink font-bold uppercase tracking-wider block">{t("cta.reserveOnline")}</span>
+        <span class="text-[10px] text-brand-grey-muted">{t("cta.secureSlot")}</span>
       </div>
-      <a href="/book" class="bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase tracking-wider text-xs px-5 py-2.5 rounded-brand transition-all shadow-lg shadow-brand-pink/20">
-        Book Now
+      <a href={lang === "es" ? "/es/book" : "/book"} class="bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase tracking-wider text-xs px-5 py-2.5 rounded-brand transition-all shadow-lg shadow-brand-pink/20">
+        {t("cta.bookNow")}
       </a>
     </div>
   </body>

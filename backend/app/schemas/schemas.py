@@ -124,6 +124,7 @@ class BookingCreateRequest(BaseModel):
     staff_id: str
     start_time: datetime
     customer: CustomerInfo
+    lang: Optional[str] = "en"
 
 
 class BookingCreate(BookingBase):

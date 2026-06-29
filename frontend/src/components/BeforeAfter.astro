@@ -4,9 +4,10 @@ interface Props {
   afterImage: string;
   title: string;
   description?: string;
+  lang?: "en" | "es";
 }
 
-const { beforeImage, afterImage, title, description } = Astro.props;
+const { beforeImage, afterImage, title, description, lang = "en" } = Astro.props;
 const isSingleImage = beforeImage === afterImage;
 ---
 
@@ -20,13 +21,13 @@ const isSingleImage = beforeImage === afterImage;
       <div class="relative">
         <img src={beforeImage} alt={`${title} Before`} class="w-full h-full object-cover" />
         <span class="absolute top-2 left-2 bg-brand-charcoal/70 px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest text-zinc-300">
-          Before
+          {lang === "es" ? "Antes" : "Before"}
         </span>
       </div>
       <div class="relative">
         <img src={afterImage} alt={`${title} After`} class="w-full h-full object-cover" />
         <span class="absolute top-2 right-2 bg-brand-pink text-white px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest">
-          After
+          {lang === "es" ? "Después" : "After"}
         </span>
       </div>
     </div>

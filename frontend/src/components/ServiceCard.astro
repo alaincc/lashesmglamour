@@ -6,9 +6,10 @@ interface Props {
   price_cents: number;
   duration_minutes: number;
   image_url?: string;
+  lang?: "en" | "es";
 }
 
-const { id, name, description, price_cents, duration_minutes, image_url } = Astro.props;
+const { id, name, description, price_cents, duration_minutes, image_url, lang = "en" } = Astro.props;
 const formattedPrice = (price_cents / 100).toFixed(2);
 ---
 
@@ -37,10 +38,10 @@ const formattedPrice = (price_cents / 100).toFixed(2);
 
   <div class="mt-6 pt-4 border-t border-brand-border/50 flex justify-between items-center text-xs">
     <span class="text-zinc-500 flex items-center gap-1.5 font-medium">
-      ⏱️ {duration_minutes} mins
+      ⏱️ {duration_minutes} {lang === "es" ? "min" : "mins"}
     </span>
-    <a href={`/book?service=${id}`} class="text-brand-pink hover:text-brand-pink-hover font-bold uppercase tracking-wider transition-colors flex items-center gap-1">
-      Book Slot &rarr;
+    <a href={lang === "es" ? `/es/book?service=${id}` : `/book?service=${id}`} class="text-brand-pink hover:text-brand-pink-hover font-bold uppercase tracking-wider transition-colors flex items-center gap-1">
+      {lang === "es" ? "Reservar" : "Book Slot"} &rarr;
     </a>
   </div>
 </div>

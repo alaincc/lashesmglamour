@@ -1,0 +1,179 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BrandHero from "../BrandHero.astro";
+import BeforeAfter from "../BeforeAfter.astro";
+import PriceCard from "../PriceCard.astro";
+import GoogleReviews from "../GoogleReviews.astro";
+import InstagramFeed from "../InstagramFeed.astro";
+import WhyChooseUs from "../WhyChooseUs.astro";
+
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const featuredServices = {
+  en: [
+    { name: "Classic Lash Extensions Full Set", price: "$120.00", duration: "90 mins" },
+    { name: "Hybrid Lash Extensions Full Set", price: "$140.00", duration: "100 mins" },
+    { name: "Volume Lash Extensions Full Set", price: "$160.00", duration: "120 mins" },
+    { name: "Brow Lamination & Shaping", price: "$85.00", duration: "45 mins" }
+  ],
+  es: [
+    { name: "Ext. de Pestañas Clásicas - Set Completo", price: "$120.00", duration: "90 min" },
+    { name: "Ext. de Pestañas Híbridas - Set Completo", price: "$140.00", duration: "100 min" },
+    { name: "Ext. de Pestañas de Volumen - Set Completo", price: "$160.00", duration: "120 min" },
+    { name: "Laminación y Diseño de Cejas", price: "$85.00", duration: "45 min" }
+  ]
+};
+
+const texts = {
+  en: {
+    title: "Lashes & MGlamour | Luxe Lash Extensions & Brows Miami",
+    menuBadge: "Our Menu Highlights",
+    menuTitle: "Popular Luxe Services",
+    menuSub: "Select from our signature mapping variants designed to showcase your natural assets.",
+    viewAllBtn: "View All Services →",
+    portfolioBadge: "Visual Portfolio",
+    portfolioTitle: "Real Client Transformations",
+    portfolioSub: "See the mapping results of our premium volume extensions and brow restorations.",
+    portfolioT1: "Volume Lash Extensions",
+    portfolioD1: "Symmetric, full volume lash restoration",
+    portfolioT2: "Brow Lamination & Tint",
+    portfolioD2: "Symmetric brow shape definition",
+    portfolioT3: "Premium Facial Care",
+    portfolioD3: "Deep cleansing skin treatment",
+    reviewsBadge: "Reviews Feed",
+    reviewsTitle: "What Our Clients Say",
+    reviewsSub: "Read top-rated five-star reviews shared directly from our Google business page profile.",
+    instaBadge: "Social Portfolio",
+    instaTitle: "Follow Us on Instagram",
+    instaSub: "Stay connected for promotional discounts, style updates, and lash care advice at"
+  },
+  es: {
+    title: "Lashes & MGlamour | Extensiones de Pestañas y Cejas de Lujo en Miami",
+    menuBadge: "Servicios Destacados",
+    menuTitle: "Servicios Populares de Lujo",
+    menuSub: "Selecciona entre nuestras variantes de diseño diseñadas para resaltar tu belleza natural.",
+    viewAllBtn: "Ver Todos los Servicios →",
+    portfolioBadge: "Portafolio Visual",
+    portfolioTitle: "Resultados Reales de Clientes",
+    portfolioSub: "Mira los resultados del diseño de nuestras extensiones de volumen y cejas.",
+    portfolioT1: "Extensiones de Pestañas de Volumen",
+    portfolioD1: "Restauración de pestañas de volumen completo y simétrico",
+    portfolioT2: "Laminación y Tinte de Cejas",
+    portfolioD2: "Definición y simetría en el diseño de cejas",
+    portfolioT3: "Cuidado Facial Premium",
+    portfolioD3: "Tratamiento de limpieza profunda para la piel",
+    reviewsBadge: "Reseñas de Clientes",
+    reviewsTitle: "Lo Que Dicen Nuestras Clientas",
+    reviewsSub: "Lee las opiniones de cinco estrellas compartidas directamente en nuestro perfil comercial de Google.",
+    instaBadge: "Portafolio Social",
+    instaTitle: "Síguenos en Instagram",
+    instaSub: "Mantente conectada para enterarte de descuentos promocionales, consejos y nuevos diseños en"
+  }
+};
+
+const pageText = texts[lang];
+const servicesList = featuredServices[lang];
+---
+<Layout title={pageText.title} lang={lang}>
+  <!-- Hero Section -->
+  <BrandHero lang={lang} />
+
+  <!-- Services highlights -->
+  <section class="py-24 bg-white border-b border-brand-border">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">{pageText.menuBadge}</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-charcoal font-bold">{pageText.menuTitle}</h2>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          {pageText.menuSub}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {servicesList.map(service => (
+          <PriceCard name={service.name} price={service.price} duration={service.duration} />
+        ))}
+      </div>
+
+      <div class="text-center pt-12">
+        <a href={lang === "es" ? "/es/services" : "/services"} class="inline-flex items-center gap-2 border border-brand-pink/30 hover:border-brand-pink text-brand-pink font-bold uppercase tracking-wider text-xs px-8 py-3.5 rounded transition-all hover:bg-brand-pink/5">
+          {pageText.viewAllBtn}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Pillars -->
+  <WhyChooseUs lang={lang} />
+
+  <!-- Before & After Portfolio Section -->
+  <section class="py-24 bg-white">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">{pageText.portfolioBadge}</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-charcoal font-bold">{pageText.portfolioTitle}</h2>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          {pageText.portfolioSub}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <BeforeAfter 
+          beforeImage="/images/before_after_eye.png" 
+          afterImage="/images/before_after_eye.png" 
+          title={pageText.portfolioT1} 
+          description={pageText.portfolioD1}
+          lang={lang}
+        />
+        <BeforeAfter 
+          beforeImage="/images/brows_service.png" 
+          afterImage="/images/brows_service.png" 
+          title={pageText.portfolioT2} 
+          description={pageText.portfolioD2}
+          lang={lang}
+        />
+        <BeforeAfter 
+          beforeImage="/images/skincare_service.png" 
+          afterImage="/images/skincare_service.png" 
+          title={pageText.portfolioT3} 
+          description={pageText.portfolioD3}
+          lang={lang}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Reviews Testimonials Section -->
+  <section class="py-24 bg-brand-light-pink border-t border-b border-brand-border">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">{pageText.reviewsBadge}</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-charcoal font-bold">{pageText.reviewsTitle}</h2>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          {pageText.reviewsSub}
+        </p>
+      </div>
+
+      <GoogleReviews lang={lang} />
+    </div>
+  </section>
+
+  <!-- Instagram Social Feed Section -->
+  <section class="py-24 bg-white">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">{pageText.instaBadge}</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-charcoal font-bold">{pageText.instaTitle}</h2>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          {pageText.instaSub} <a href="https://instagram.com/lashesmglamour" target="_blank" class="text-brand-pink font-bold hover:underline">@lashesmglamour</a>.
+        </p>
+      </div>
+
+      <InstagramFeed lang={lang} />
+    </div>
+  </section>
+</Layout>

@@ -1,5 +1,5 @@
 import json
-from typing import List, Union
+from typing import List, Union, Optional
 from pydantic import AnyHttpUrl, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -40,6 +40,14 @@ class Settings(BaseSettings):
     # Admin portal login configuration
     ADMIN_USERNAME: str = "admin"
     ADMIN_PASSWORD_HASH: str = "$2b$12$EixZaYVK1fsYi1FnQsOgleJ9o.Edf0w7nI96W5E.1/U2d2z2c.W4W"  # default: 'admin123'
+
+    # SMTP configurations
+    SMTP_HOST: Optional[str] = None
+    SMTP_PORT: int = 587
+    SMTP_USER: Optional[str] = None
+    SMTP_PASSWORD: Optional[str] = None
+    EMAILS_FROM_EMAIL: Optional[str] = None
+    EMAILS_FROM_NAME: str = "Lashes & MGlamour"
 
     model_config = SettingsConfigDict(
         env_file=".env",

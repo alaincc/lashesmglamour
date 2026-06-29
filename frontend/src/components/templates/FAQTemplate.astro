@@ -1,0 +1,77 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import FAQ from "../FAQ.astro";
+
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const texts = {
+  en: {
+    title: "FAQ - Frequently Asked Questions | Lashes & MGlamour",
+    badge: "Common Queries",
+    heading: "Frequently Asked Questions",
+    subheading: "Clarify your concerns",
+    faqs: [
+      { question: "How long do lash extensions last?", answer: "Normally, lash extensions can last between 4 to 6 weeks depending on your natural lash growth cycle and aftercare routine. We recommend getting fills every 2 to 3 weeks to keep them looking full." },
+      { question: "What is the difference between Classic, Hybrid, and Volume sets?", answer: "Classic sets apply one single extension to one natural lash. Volume sets use lightweight fans of multiple extensions to each lash for a fuller look. Hybrid sets blend both techniques for a texturized appearance." },
+      { question: "Will extensions damage my natural lashes?", answer: "No, when applied correctly by our certified eyelash technicians using high-quality materials and appropriate weights, your natural lashes will remain healthy." },
+      { question: "What should I do to prepare for my lash appointment?", answer: "Please arrive with clean eyes, completely free of makeup, mascara, or oily skin products. If you wear contact lenses, we recommend removing them before application." },
+      { question: "What is Brow Lamination?", answer: "Brow Lamination is a treatment that relaxes and shapes brow hairs for a fuller, brushed-up symmetrical look." }
+    ]
+  },
+  es: {
+    title: "Preguntas Frecuentes | Lashes & MGlamour",
+    badge: "Dudas Comunes",
+    heading: "Preguntas Frecuentes",
+    subheading: "Aclara tus inquietudes",
+    faqs: [
+      { question: "¿Cuánto duran las extensiones de pestañas?", answer: "Normalmente, las extensiones de pestañas pueden durar de 4 a 6 semanas dependiendo del ciclo de crecimiento de tus pestañas naturales y de tu rutina de cuidado. Recomendamos retoques cada 2 o 3 semanas para mantenerlas con aspecto completo." },
+      { question: "¿Cuál es la diferencia entre los sets Clásico, Híbrido y de Volumen?", answer: "Los sets clásicos aplican una sola extensión sobre una pestaña natural. Los de volumen usan abanicos ligeros de múltiples extensiones sobre cada pestaña para un aspecto más tupido. Los sets híbridos mezclan ambas técnicas para una apariencia texturizada." },
+      { question: "¿Las extensiones dañarán mis pestañas naturales?", answer: "No, cuando son aplicadas correctamente por nuestros técnicos certificados utilizando materiales de alta calidad y pesos apropiados, tus pestañas naturales permanecerán saludables." },
+      { question: "¿Cómo debo prepararme para mi cita de pestañas?", answer: "Por favor llega con los ojos limpios, completamente libres de maquillaje, rímel o productos oleosos. Si usas lentes de contacto, te recomendamos retirarlos antes de la aplicación." },
+      { question: "¿Qué es la Laminación de Cejas?", answer: "La laminación de cejas es un tratamiento que relaja y da forma a los vellos de las cejas para un aspecto simétrico, cepillado y más tupido." }
+    ]
+  }
+};
+
+const pageText = texts[lang];
+
+// Generate FAQPage schema structure dynamically
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": pageText.faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+<Layout title={pageText.title} lang={lang}>
+  <!-- Inject FAQPage Schema in layout head -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+  <section class="py-24 bg-white">
+    <div class="container-custom max-w-3xl mx-auto space-y-12">
+      <!-- Heading block -->
+      <div class="text-center space-y-4 mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">{pageText.badge}</span>
+        <h1 class="font-heading text-4xl text-brand-charcoal font-bold">{pageText.heading}</h1>
+        <p class="font-script text-brand-pink text-3xl normal-case font-normal block leading-none">{pageText.subheading}</p>
+      </div>
+
+      <!-- FAQs list -->
+      <div class="space-y-4">
+        {pageText.faqs.map(faq => (
+          <FAQ question={faq.question} answer={faq.answer} />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

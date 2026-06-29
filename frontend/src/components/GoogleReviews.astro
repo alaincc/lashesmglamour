@@ -1,9 +1,24 @@
 ---
-const reviews = [
-  { author: "Samantha R.", rating: 5, text: "Absolutely in love with my mega volume lash set! The studio is clean, gorgeous, and very professional. It's the only place I trust in Kendall.", source: "Google Maps" },
-  { author: "Valerie D.", rating: 5, text: "Brow Lamination here is outstanding. The mapping is symmetric and matches my face shape perfectly. Will be coming back every 4 weeks!", source: "Google Reviews" },
-  { author: "Sophia M.", rating: 5, text: "Excellent facial and skin care services. High quality hyaluronics, very calming, and noticeable results immediately. Staff is extremely skilled.", source: "Google Reviews" },
-];
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const reviewsList = {
+  en: [
+    { author: "Samantha R.", rating: 5, text: "Absolutely in love with my mega volume lash set! The studio is clean, gorgeous, and very professional. It's the only place I trust in Kendall.", source: "Google Maps" },
+    { author: "Valerie D.", rating: 5, text: "Brow Lamination here is outstanding. The mapping is symmetric and matches my face shape perfectly. Will be coming back every 4 weeks!", source: "Google Reviews" },
+    { author: "Sophia M.", rating: 5, text: "Excellent facial and skin care services. High quality hyaluronics, very calming, and noticeable results immediately. Staff is extremely skilled.", source: "Google Reviews" }
+  ],
+  es: [
+    { author: "Samantha R.", rating: 5, text: "¡Absolutamente enamorada de mi set de pestañas mega volumen! El estudio está limpio, es hermoso y muy profesional. Es el único lugar en Kendall en el que confío.", source: "Google Maps" },
+    { author: "Valerie D.", rating: 5, text: "La laminación de cejas aquí es excepcional. El diseño es simétrico y se adapta perfectamente a la forma de mi rostro. ¡Volveré cada 4 semanas!", source: "Google Reviews" },
+    { author: "Sophia M.", rating: 5, text: "Excelentes servicios faciales y de cuidado de la piel. Ácido hialurónico de alta calidad, muy relajante y resultados notables de inmediato. El personal es sumamente calificado.", source: "Google Reviews" }
+  ]
+};
+
+const reviews = reviewsList[lang];
 ---
 
 <div class="space-y-8">

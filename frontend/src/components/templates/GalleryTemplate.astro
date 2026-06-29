@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const fallbackGallery = {
+  en: [
+    { image: "/images/lashes_service.png", title: "Mega Volume Lash Mapping", category: "Lashes" },
+    { image: "/images/brows_service.png", title: "Microblading Restoration", category: "Brows" },
+    { image: "/images/skincare_service.png", title: "Hyaluronic Rejuvenation Facial", category: "Skin Care" },
+    { image: "/images/before_after_eye.png", title: "Classic Lash Set Mapping", category: "Lashes" },
+    { image: "/images/hero_model.png", title: "Brow Lamination Treatment", category: "Brows" }
+  ],
+  es: [
+    { image: "/images/lashes_service.png", title: "Diseño de Pestañas Mega Volumen", category: "Pestañas" },
+    { image: "/images/brows_service.png", title: "Restauración de Microblading", category: "Cejas" },
+    { image: "/images/skincare_service.png", title: "Facial Rejuvenecedor de Ácido Hialurónico", category: "Piel" },
+    { image: "/images/before_after_eye.png", title: "Diseño de Set de Pestañas Clásicas", category: "Pestañas" },
+    { image: "/images/hero_model.png", title: "Tratamiento de Laminación de Cejas", category: "Cejas" }
+  ]
+};
+
+const texts = {
+  en: {
+    title: "Visual Showcase Gallery | Lashes & MGlamour",
+    badge: "Our Showcase",
+    heading: "Visual Portfolio",
+    subheading: "Take a look at real transformations performed at our Miami beauty studio. Clean designs, high-end materials, and customized mappings."
+  },
+  es: {
+    title: "Galería de Resultados Visuales | Lashes & MGlamour",
+    badge: "Nuestros Diseños",
+    heading: "Portafolio Visual",
+    subheading: "Echa un vistazo a transformaciones reales realizadas en nuestro estudio de belleza en Miami. Diseños limpios, materiales de primera calidad y diseños personalizados."
+  }
+};
+
+const pageText = texts[lang];
+const galleryItems = fallbackGallery[lang];
+---
+<Layout title={pageText.title} lang={lang}>
+  <section class="py-24 bg-white">
+    <div class="container-custom">
+      <!-- Heading block -->
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">{pageText.badge}</span>
+        <h1 class="font-heading text-4xl text-brand-charcoal font-bold">{pageText.heading}</h1>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          {pageText.subheading}
+        </p>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {galleryItems.map(item => (
+          <div class="bg-white border border-brand-border p-3 rounded-2xl overflow-hidden shadow-sm group hover:border-brand-pink/20 hover:shadow-md transition-all duration-300">
+            <div class="aspect-[4/5] rounded-xl overflow-hidden relative border border-brand-border/40">
+              <img src={item.image} alt={item.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <span class="absolute top-3 left-3 bg-brand-pink text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                {item.category}
+              </span>
+            </div>
+            <h3 class="font-heading text-base font-bold text-brand-charcoal mt-4 tracking-wide group-hover:text-brand-pink transition-colors pl-2">
+              {item.title}
+            </h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

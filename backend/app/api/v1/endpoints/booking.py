@@ -1,12 +1,14 @@
 from datetime import datetime, timedelta, timezone
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 
 from backend.app.database.session import get_db
 from backend.app.models.models import Booking as BookingModel
 from backend.app.models.models import Service as ServiceModel
+from backend.app.models.models import Staff as StaffModel
 from backend.app.schemas import schemas
 from backend.app.services.square_client import SquareAsyncClient
+from backend.app.services.email import send_booking_email
 
 router = APIRouter()
 
@@ -14,6 +16,7 @@ router = APIRouter()
 @router.post("", response_model=schemas.Booking, status_code=status.HTTP_201_CREATED)
 async def create_booking(
     payload: schemas.BookingCreateRequest,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
 ):
     """
@@ -66,6 +69,23 @@ async def create_booking(
         db.commit()
         db.refresh(db_booking)
 
+        # 6. Queue confirmation email
+        staff = db.query(StaffModel).filter(StaffModel.id == payload.staff_id).first()
+        staff_name = f"{staff.first_name} {staff.last_name or ''}".strip() if staff else "Specialist"
+        
+        if payload.customer.email:
+            background_tasks.add_task(
+                send_booking_email,
+                recipient_email=payload.customer.email,
+                event_type="confirmed",
+                customer_name=f"{payload.customer.first_name} {payload.customer.last_name}",
+                service_name=service.name,
+                start_time=payload.start_time,
+                staff_name=staff_name,
+                booking_id=sq_booking["id"],
+                lang=payload.lang
+            )
+
         return db_booking
 
     except Exception as e:
@@ -77,6 +97,7 @@ async def create_booking(
 async def update_booking(
     id: str,
     payload: schemas.BookingUpdateRequest,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
 ):
     """
@@ -113,6 +134,24 @@ async def update_booking(
         
         db.commit()
         db.refresh(booking)
+
+        # 4. Queue reschedule email
+        staff = db.query(StaffModel).filter(StaffModel.id == booking.staff_id).first()
+        staff_name = f"{staff.first_name} {staff.last_name or ''}".strip() if staff else "Specialist"
+        
+        if booking.customer_email:
+            background_tasks.add_task(
+                send_booking_email,
+                recipient_email=booking.customer_email,
+                event_type="rescheduled",
+                customer_name=booking.customer_name,
+                service_name=service.name if service else "Lash Service",
+                start_time=payload.start_time,
+                staff_name=staff_name,
+                booking_id=id,
+                lang="en" # default to en
+            )
+
         return booking
 
     except Exception as e:
@@ -121,7 +160,11 @@ async def update_booking(
 
 
 @router.delete("/{id}", response_model=schemas.Booking)
-async def cancel_booking(id: str, db: Session = Depends(get_db)):
+async def cancel_booking(
+    id: str,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
     """
     Cancels an active booking in Square and flags local status.
     """
@@ -139,6 +182,25 @@ async def cancel_booking(id: str, db: Session = Depends(get_db)):
         booking.status = "CANCELED"
         db.commit()
         db.refresh(booking)
+
+        # Queue cancellation email
+        service = db.query(ServiceModel).filter(ServiceModel.id == booking.service_id).first()
+        staff = db.query(StaffModel).filter(StaffModel.id == booking.staff_id).first()
+        staff_name = f"{staff.first_name} {staff.last_name or ''}".strip() if staff else "Specialist"
+        
+        if booking.customer_email:
+            background_tasks.add_task(
+                send_booking_email,
+                recipient_email=booking.customer_email,
+                event_type="cancelled",
+                customer_name=booking.customer_name,
+                service_name=service.name if service else "Lash Service",
+                start_time=booking.start_time,
+                staff_name=staff_name,
+                booking_id=id,
+                lang="en" # default to en
+            )
+
         return booking
 
     except Exception as e:

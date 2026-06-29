@@ -1,4 +1,18 @@
 ---
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
+// Language switcher link logic
+const pathname = Astro.url.pathname;
+const isEs = pathname.startsWith('/es') || pathname === '/es';
+const enUrl = isEs ? pathname.replace(/^\/es/, '') || '/' : pathname;
+const esUrl = isEs ? pathname : `/es${pathname === '/' ? '' : pathname}`;
 ---
 <!-- Top Contact Bar -->
 <div class="bg-brand-pink text-white text-xs py-2 hidden lg:block border-b border-white/10">
@@ -10,17 +24,25 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-line-cap="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
         </svg>
-        8700 SW 137th Ave, Miami, FL
+        4095 SW 137th Ave #3, Miami, FL 33175
       </span>
       <span class="flex items-center gap-1.5">
-        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg class="h-3.5 w-3.5 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
         </svg>
-        +1 (305) 555-0199
+        <a href="tel:+17864606580" class="hover:text-brand-gold transition-colors">+1 (786) 460-6580</a>
+        <span class="text-white/40">|</span>
+        <a href="tel:+13058330302" class="hover:text-brand-gold transition-colors">(305) 833-0302</a>
       </span>
     </div>
     <!-- Socials & Button -->
     <div class="flex items-center space-x-6">
+      <!-- Language switcher -->
+      <div class="flex items-center space-x-2 text-[10px] font-bold tracking-widest uppercase border-r border-white/20 pr-4">
+        <a href={enUrl} class={lang === "en" ? "text-brand-gold" : "text-white/70 hover:text-brand-gold transition-colors"}>EN</a>
+        <span class="text-white/20">|</span>
+        <a href={esUrl} class={lang === "es" ? "text-brand-gold" : "text-white/70 hover:text-brand-gold transition-colors"}>ES</a>
+      </div>
       <div class="flex items-center space-x-4">
         <a href="https://instagram.com/lashesmglamour" target="_blank" class="hover:text-brand-gold transition-colors" aria-label="Instagram">
           <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -32,9 +54,14 @@
             <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
           </svg>
         </a>
+        <a href="https://www.tiktok.com/@lashes_mglamour" target="_blank" class="hover:text-brand-gold transition-colors" aria-label="TikTok">
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.6-4.12-1.37a8.55 8.55 0 01-1.87-1.52v7.37c.05 1.56-.25 3.16-1 4.54a8.43 8.43 0 01-3.66 3.82c-1.56.84-3.37 1.14-5.13.9a8.49 8.49 0 01-5.16-2.91 8.58 8.58 0 01-2-5.74 8.49 8.49 0 012.35-5.91 8.41 8.41 0 015.65-2.61v4.04c-1.33.15-2.68.75-3.53 1.79a4.42 4.42 0 00-1.12 3.15c.03 1.25.55 2.5 1.48 3.32a4.48 4.48 0 003.58 1.34c1.1-.06 2.19-.59 2.85-1.5a4.4 4.4 0 00.75-2.73V0z"/>
+          </svg>
+        </a>
       </div>
-      <a href="/book" class="border border-white hover:bg-white hover:text-brand-pink font-bold uppercase tracking-wider text-[10px] px-4 py-1.5 rounded transition-all">
-        Book Appointment
+      <a href={lang === "es" ? "/es/book" : "/book"} class="border border-white hover:bg-white hover:text-brand-pink font-bold uppercase tracking-wider text-[10px] px-4 py-1.5 rounded transition-all">
+        {t("bar.bookAppt")}
       </a>
     </div>
   </div>
@@ -43,43 +70,45 @@
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border">
   <div class="container-custom flex items-center justify-between py-4">
     <!-- Brand Logo -->
-    <a href="/" class="flex items-center space-x-2 transition-opacity hover:opacity-90">
-      <img src="/logo.png" alt="Lashes & MGlamour Logo" class="h-12 w-auto object-contain" />
+    <a href={lang === "es" ? "/es" : "/"} class="flex items-center space-x-2 transition-opacity hover:opacity-90">
+      <img src="/logo.png" alt="Lashes & MGlamour Logo" class="h-20 w-auto object-contain md:h-24 transition-transform duration-300 hover:scale-105" />
     </a>
 
     <!-- Navigation Menu (Desktop) -->
     <nav class="hidden md:flex items-center space-x-8 font-medium tracking-wide text-sm text-brand-charcoal">
-      <a href="/" class="hover:text-brand-pink transition-colors">Home</a>
+      <a href={lang === "es" ? "/es" : "/"} class="hover:text-brand-pink transition-colors">{t("nav.home")}</a>
       
       <!-- Services Hover Dropdown -->
       <div class="relative group py-2">
-        <a href="/services" class="hover:text-brand-pink transition-colors flex items-center gap-1">
-          Services
+        <a href={lang === "es" ? "/es/services" : "/services"} class="hover:text-brand-pink transition-colors flex items-center gap-1">
+          {t("nav.services")}
           <svg class="h-3 w-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
           </svg>
         </a>
-        <div class="absolute left-0 top-full hidden group-hover:block bg-white border border-brand-border rounded-xl shadow-lg py-2 w-48 mt-1 z-50 animate-fade-in">
-          <a href="/services/lashes" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">Lash Extensions</a>
-          <a href="/services/brows" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">Brows & Shaping</a>
-          <a href="/services/skincare" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">Skin Care Facials</a>
-          <a href="/services/waxing" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">Waxing & Threading</a>
-          <div class="border-t border-brand-border my-1"></div>
-          <a href="/services" class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">All Services Menu</a>
+        <div class="absolute left-0 top-[calc(100%-18px)] hidden group-hover:block group-focus-within:block pt-4 w-48 z-50">
+          <div class="bg-white border border-brand-border rounded-xl shadow-lg py-2 animate-fade-in">
+            <a href={lang === "es" ? "/es/services/lashes" : "/services/lashes"} class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">{t("nav.lashes")}</a>
+            <a href={lang === "es" ? "/es/services/brows" : "/services/brows"} class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">{t("nav.brows")}</a>
+            <a href={lang === "es" ? "/es/services/skincare" : "/services/skincare"} class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">{t("nav.skincare")}</a>
+            <a href={lang === "es" ? "/es/services/waxing" : "/services/waxing"} class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">{t("nav.waxing")}</a>
+            <div class="border-t border-brand-border my-1"></div>
+            <a href={lang === "es" ? "/es/services" : "/services"} class="block px-4 py-2.5 hover:bg-brand-light-pink hover:text-brand-pink text-xs font-bold uppercase transition-colors">{t("nav.allServices")}</a>
+          </div>
         </div>
       </div>
 
-      <a href="/about" class="hover:text-brand-pink transition-colors">About Us</a>
-      <a href="/gallery" class="hover:text-brand-pink transition-colors">Gallery</a>
-      <a href="/blog" class="hover:text-brand-pink transition-colors">Blog</a>
-      <a href="/faq" class="hover:text-brand-pink transition-colors">FAQ</a>
-      <a href="/contact" class="hover:text-brand-pink transition-colors">Contact</a>
+      <a href={lang === "es" ? "/es/about" : "/about"} class="hover:text-brand-pink transition-colors">{t("nav.about")}</a>
+      <a href={lang === "es" ? "/es/gallery" : "/gallery"} class="hover:text-brand-pink transition-colors">{t("nav.gallery")}</a>
+      <a href={lang === "es" ? "/es/blog" : "/blog"} class="hover:text-brand-pink transition-colors">{t("nav.blog")}</a>
+      <a href={lang === "es" ? "/es/faq" : "/faq"} class="hover:text-brand-pink transition-colors">{t("nav.faq")}</a>
+      <a href={lang === "es" ? "/es/contact" : "/contact"} class="hover:text-brand-pink transition-colors">{t("nav.contact")}</a>
     </nav>
 
     <!-- Header CTA -->
     <div class="hidden md:flex items-center">
-      <a href="/book" class="bg-brand-charcoal hover:bg-brand-pink text-white font-bold uppercase tracking-wider text-xs px-6 py-3 rounded transition-all shadow-md hover:scale-[1.02]">
-        Book Now
+      <a href={lang === "es" ? "/es/book" : "/book"} class="bg-brand-charcoal hover:bg-brand-pink text-white font-bold uppercase tracking-wider text-xs px-6 py-3 rounded transition-all shadow-md hover:scale-[1.02]">
+        {t("nav.book")}
       </a>
     </div>
 
@@ -94,27 +123,37 @@
   <!-- Mobile Drawer Menu -->
   <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-brand-border">
     <div class="px-4 pt-2 pb-6 space-y-3 flex flex-col font-medium tracking-wider text-sm text-brand-charcoal">
-      <a href="/" class="py-2 border-b border-brand-border hover:text-brand-pink">Home</a>
-      
-      <!-- Mobile Submenu representation -->
-      <div class="py-2 border-b border-brand-border">
-        <span class="font-bold text-[10px] uppercase tracking-widest text-zinc-400 block mb-2">Services</span>
-        <div class="grid grid-cols-2 gap-2 pl-2">
-          <a href="/services/lashes" class="py-1 hover:text-brand-pink text-xs font-bold uppercase">Lashes</a>
-          <a href="/services/brows" class="py-1 hover:text-brand-pink text-xs font-bold uppercase">Brows</a>
-          <a href="/services/skincare" class="py-1 hover:text-brand-pink text-xs font-bold uppercase">Skin Care</a>
-          <a href="/services/waxing" class="py-1 hover:text-brand-pink text-xs font-bold uppercase">Waxing</a>
-          <a href="/services" class="col-span-2 py-1 text-brand-pink text-xs font-bold uppercase border-t border-brand-border/40 mt-1">View All Menu &rarr;</a>
+      <!-- Mobile Language switcher -->
+      <div class="py-2 border-b border-brand-border flex items-center justify-between">
+        <span class="font-bold text-[10px] uppercase tracking-widest text-zinc-400">Language / Idioma</span>
+        <div class="flex items-center space-x-3 text-xs font-bold uppercase">
+          <a href={enUrl} class={lang === "en" ? "text-brand-pink" : "text-zinc-500 hover:text-brand-pink"}>English</a>
+          <span class="text-zinc-300">|</span>
+          <a href={esUrl} class={lang === "es" ? "text-brand-pink" : "text-zinc-500 hover:text-brand-pink"}>Español</a>
         </div>
       </div>
 
-      <a href="/about" class="py-2 border-b border-brand-border hover:text-brand-pink">About Us</a>
-      <a href="/gallery" class="py-2 border-b border-brand-border hover:text-brand-pink">Gallery</a>
-      <a href="/blog" class="py-2 border-b border-brand-border hover:text-brand-pink">Blog</a>
-      <a href="/faq" class="py-2 border-b border-brand-border hover:text-brand-pink">FAQ</a>
-      <a href="/contact" class="py-2 border-b border-brand-border hover:text-brand-pink">Contact</a>
-      <a href="/book" class="w-full text-center bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase py-3 rounded block mt-4 transition-colors">
-        Book Now
+      <a href={lang === "es" ? "/es" : "/"} class="py-2 border-b border-brand-border hover:text-brand-pink">{t("nav.home")}</a>
+      
+      <!-- Mobile Submenu representation -->
+      <div class="py-2 border-b border-brand-border">
+        <span class="font-bold text-[10px] uppercase tracking-widest text-zinc-400 block mb-2">{t("nav.services")}</span>
+        <div class="grid grid-cols-2 gap-2 pl-2">
+          <a href={lang === "es" ? "/es/services/lashes" : "/services/lashes"} class="py-1 hover:text-brand-pink text-xs font-bold uppercase">{t("nav.lashes")}</a>
+          <a href={lang === "es" ? "/es/services/brows" : "/services/brows"} class="py-1 hover:text-brand-pink text-xs font-bold uppercase">{t("nav.brows")}</a>
+          <a href={lang === "es" ? "/es/services/skincare" : "/services/skincare"} class="py-1 hover:text-brand-pink text-xs font-bold uppercase">{t("nav.skincare")}</a>
+          <a href={lang === "es" ? "/es/services/waxing" : "/services/waxing"} class="py-1 hover:text-brand-pink text-xs font-bold uppercase">{t("nav.waxing")}</a>
+          <a href={lang === "es" ? "/es/services" : "/services"} class="col-span-2 py-1 text-brand-pink text-xs font-bold uppercase border-t border-brand-border/40 mt-1">{t("nav.allServices")} &rarr;</a>
+        </div>
+      </div>
+
+      <a href={lang === "es" ? "/es/about" : "/about"} class="py-2 border-b border-brand-border hover:text-brand-pink">{t("nav.about")}</a>
+      <a href={lang === "es" ? "/es/gallery" : "/gallery"} class="py-2 border-b border-brand-border hover:text-brand-pink">{t("nav.gallery")}</a>
+      <a href={lang === "es" ? "/es/blog" : "/blog"} class="py-2 border-b border-brand-border hover:text-brand-pink">{t("nav.blog")}</a>
+      <a href={lang === "es" ? "/es/faq" : "/faq"} class="py-2 border-b border-brand-border hover:text-brand-pink">{t("nav.faq")}</a>
+      <a href={lang === "es" ? "/es/contact" : "/contact"} class="py-2 border-b border-brand-border hover:text-brand-pink">{t("nav.contact")}</a>
+      <a href={lang === "es" ? "/es/book" : "/book"} class="w-full text-center bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase py-3 rounded block mt-4 transition-colors">
+        {t("nav.book")}
       </a>
     </div>
   </div>

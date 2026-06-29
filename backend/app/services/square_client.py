@@ -169,6 +169,22 @@ class SquareAsyncClient:
         response = await self._request("PUT", f"/v2/bookings/{booking_id}", json_data=payload)
         return response.get("booking", {})
 
+    async def retrieve_booking(self, booking_id: str) -> Dict[str, Any]:
+        """
+        Retrieves details of a single booking from Square Appointments API.
+        """
+        logger.info(f"Retrieving booking {booking_id} from Square")
+        response = await self._request("GET", f"/v2/bookings/{booking_id}")
+        return response.get("booking", {})
+
+    async def retrieve_customer(self, customer_id: str) -> Dict[str, Any]:
+        """
+        Retrieves details of a single customer from Square Customers API.
+        """
+        logger.info(f"Retrieving customer {customer_id} from Square")
+        response = await self._request("GET", f"/v2/customers/{customer_id}")
+        return response.get("customer", {})
+
     async def get_or_create_customer(self, first_name: str, last_name: str, email: str, phone: str) -> str:
         """
         Searches if the customer profile already exists in Square; if not, creates a new profile.

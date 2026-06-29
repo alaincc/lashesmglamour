@@ -2,6 +2,7 @@ import json
 import logging
 from typing import Any, Optional
 import redis
+from fastapi.encoders import jsonable_encoder
 from backend.app.core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -36,7 +37,7 @@ def set_cache(key: str, value: Any, ttl: int = 300) -> bool:
     if not redis_client:
         return False
     try:
-        serialized = json.dumps(value)
+        serialized = json.dumps(jsonable_encoder(value))
         redis_client.set(key, serialized, ex=ttl)
         return True
     except Exception as e:

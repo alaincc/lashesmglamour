@@ -1,0 +1,63 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const texts = {
+  en: {
+    title: "Privacy Policy | Lashes & MGlamour",
+    heading: "Privacy Policy",
+    intro: "At Lashes & MGlamour, we respect your privacy. This policy outlines how we handle personal details collected during booking.",
+    h1: "1. Information Collection",
+    p1: "We collect name, email, and phone coordinates solely to verify availability slots and secure reservations in the Square API systems.",
+    h2: "2. Data Security",
+    p2: "Your details are encrypted and transmitted directly to Square. We do not store credit cards or payment details locally on our servers.",
+    h3: "3. Third Party Services",
+    p3: "We share booking details exclusively with Square to manage appointments, schedules, and SMS/Email verification links."
+  },
+  es: {
+    title: "Política de Privacidad | Lashes & MGlamour",
+    heading: "Política de Privacidad",
+    intro: "En Lashes & MGlamour, respetamos tu privacidad. Esta política describe cómo manejamos la información personal recopilada durante la reserva.",
+    h1: "1. Recopilación de Información",
+    p1: "Recopilamos nombre, correo electrónico y teléfono únicamente para verificar los turnos disponibles y asegurar las reservas en los sistemas de Square API.",
+    h2: "2. Seguridad de Datos",
+    p2: "Tus datos se encriptan y se transmiten directamente a Square. No almacenamos tarjetas de crédito ni detalles de pago localmente en nuestros servidores.",
+    h3: "3. Servicios de Terceros",
+    p3: "Compartimos los detalles de la reserva exclusivamente con Square para gestionar citas, horarios y enlaces de verificación por SMS o correo electrónico."
+  }
+};
+
+const pageText = texts[lang];
+---
+<Layout title={pageText.title} lang={lang}>
+  <section class="py-24 bg-white">
+    <div class="container-custom max-w-2xl mx-auto space-y-8">
+      <h1 class="font-heading text-4xl text-brand-pink font-bold">{pageText.heading}</h1>
+      <p class="text-sm text-zinc-600 leading-relaxed">
+        {pageText.intro}
+      </p>
+
+      <div class="space-y-4 text-sm text-zinc-600 leading-relaxed">
+        <h2 class="font-heading text-xl text-brand-charcoal font-bold">{pageText.h1}</h2>
+        <p>
+          {pageText.p1}
+        </p>
+
+        <h2 class="font-heading text-xl text-brand-charcoal font-bold">{pageText.h2}</h2>
+        <p>
+          {pageText.p2}
+        </p>
+
+        <h2 class="font-heading text-xl text-brand-charcoal font-bold">{pageText.h3}</h2>
+        <p>
+          {pageText.p3}
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

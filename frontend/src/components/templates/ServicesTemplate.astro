@@ -1,0 +1,121 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ServiceCard from "../ServiceCard.astro";
+
+interface Props {
+  lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+// Static fallback list to ensure compile is robust even if API is starting
+const fallbackServices = {
+  en: [
+    { id: "var_classic_full", name: "Classic Lash Extensions Full Set", description: "One single premium extension applied to each natural lash. Extremely natural look.", price_cents: 12000, duration_minutes: 90 },
+    { id: "var_hybrid_full", name: "Hybrid Lash Extensions Full Set", description: "Blend of classic and volume extensions. Texturized and fuller look.", price_cents: 14000, duration_minutes: 100 },
+    { id: "var_volume_full", name: "Volume Lash Extensions Full Set", description: "Lightweight fans applied to each natural lash. Fluffy and full glamour set.", price_cents: 16000, duration_minutes: 120 },
+    { id: "var_brow_lam", name: "Brow Lamination & Shaping", description: "Relaxes and shapes brow hairs for a fuller, brushed-up symmetrical look.", price_cents: 8500, duration_minutes: 45 },
+    { id: "var_skincare_facial", name: "Luxe Rejuvenating Facial", description: "Deep hydration treatment utilizing premium hyaluronic serums.", price_cents: 11000, duration_minutes: 60 },
+    { id: "var_wax_brow", name: "Brow Wax & Threading", description: "Precision hair removal for a clean and sleek definition.", price_cents: 3500, duration_minutes: 20 },
+  ],
+  es: [
+    { id: "var_classic_full", name: "Ext. de Pestañas Clásicas - Set Completo", description: "Una sola extensión premium aplicada a cada pestaña natural. Aspecto extremadamente natural.", price_cents: 12000, duration_minutes: 90 },
+    { id: "var_hybrid_full", name: "Ext. de Pestañas Híbridas - Set Completo", description: "Mezcla de extensiones clásicas y de volumen. Aspecto texturizado y más denso.", price_cents: 14000, duration_minutes: 100 },
+    { id: "var_volume_full", name: "Ext. de Pestañas de Volumen - Set Completo", description: "Abanicos ligeros aplicados a cada pestaña natural. Set de glamour esponjoso y denso.", price_cents: 16000, duration_minutes: 120 },
+    { id: "var_brow_lam", name: "Laminación y Diseño de Cejas", description: "Relaja y da forma a los vellos de las cejas para un aspecto simétrico, cepillado y más denso.", price_cents: 8500, duration_minutes: 45 },
+    { id: "var_skincare_facial", name: "Facial Rejuvenecedor Luxe", description: "Tratamiento de hidratación profunda utilizando sueros de ácido hialurónico premium.", price_cents: 11000, duration_minutes: 60 },
+    { id: "var_wax_brow", name: "Depilación de Cejas con Cera e Hilo", description: "Eliminación precisa del vello para una definición limpia y elegante.", price_cents: 3500, duration_minutes: 20 },
+  ]
+};
+
+let services = fallbackServices[lang];
+
+try {
+  const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:8000/api/v1";
+  const response = await fetch(`${API_URL}/services`);
+  if (response.ok) {
+    const allServices = await response.json();
+    if (allServices.length > 0) {
+      // If we fetch from API, map them to translated versions if available
+      services = allServices.map((apiServ: any) => {
+        const matchingLocal = fallbackServices[lang].find((s) => s.id === apiServ.id || s.name.toLowerCase() === apiServ.name.toLowerCase());
+        if (matchingLocal) {
+          return {
+            ...apiServ,
+            name: matchingLocal.name,
+            description: matchingLocal.description
+          };
+        }
+        return apiServ;
+      });
+    }
+  }
+} catch (error) {
+  console.warn("Failed to fetch dynamic services from backend during build, using static fallback.");
+}
+
+const texts = {
+  en: {
+    title: "Luxe Services Menu | Lashes & MGlamour",
+    badge: "Service Catalog",
+    heading: "Signature Beauty Treatments",
+    subheading: "Explore our premium mapping sets, brow shapings, and skincare options. All booking prices are synchronized directly with our Square account.",
+    ctaTitle: "Ready to secure your slot?",
+    ctaSub: "Appointments book quickly. Select your service, technician, and desired date time slots in our secure wizard.",
+    ctaBtn: "Book Appointment Now"
+  },
+  es: {
+    title: "Menú de Servicios Luxe | Lashes & MGlamour",
+    badge: "Catálogo de Servicios",
+    heading: "Tratamientos de Belleza Exclusivos",
+    subheading: "Explora nuestros sets de diseño premium, perfilado de cejas y tratamientos para la piel. Todos los precios de reserva están sincronizados con nuestra cuenta de Square.",
+    ctaTitle: "¿Lista para reservar tu turno?",
+    ctaSub: "Las citas se agotan rápidamente. Selecciona tu servicio, técnico y fecha deseada en nuestro asistente seguro.",
+    ctaBtn: "Reservar Cita Ahora"
+  }
+};
+
+const pageText = texts[lang];
+---
+
+<Layout title={pageText.title} lang={lang}>
+  <section class="py-24 bg-white relative">
+    <div class="container-custom">
+      
+      <!-- Heading block -->
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-pink block">{pageText.badge}</span>
+        <h1 class="font-heading text-4xl text-brand-charcoal font-bold">{pageText.heading}</h1>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          {pageText.subheading}
+        </p>
+      </div>
+
+      <!-- Services List Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map(service => (
+          <ServiceCard
+            id={service.id}
+            name={service.name}
+            description={service.description}
+            price_cents={service.price_cents}
+            duration_minutes={service.duration_minutes}
+            lang={lang}
+          />
+        ))}
+      </div>
+
+      <!-- Booking CTA banner -->
+      <div class="mt-20 bg-brand-light-pink p-8 rounded-2xl max-w-3xl mx-auto text-center space-y-6 border border-brand-pink/15 shadow-sm">
+        <h2 class="font-heading text-2xl text-brand-pink font-bold">{pageText.ctaTitle}</h2>
+        <p class="text-sm text-zinc-600 max-w-lg mx-auto">
+          {pageText.ctaSub}
+        </p>
+        <a href={lang === "es" ? "/es/book" : "/book"} class="inline-block bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase tracking-wider text-xs px-8 py-3.5 rounded transition-all shadow-lg shadow-brand-pink/20 hover:scale-[1.02]">
+          {pageText.ctaBtn}
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>

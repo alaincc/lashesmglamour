@@ -1,0 +1,218 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ServiceCard from "../ServiceCard.astro";
+
+interface Props {
+  lang?: "en" | "es";
+  category: "lashes" | "brows" | "skincare" | "waxing";
+}
+
+const { lang = "en", category } = Astro.props;
+
+const categoryIds = {
+  lashes: "QBJYOLODYJVES7F5HEZWQC4O",
+  brows: "2ONB73YKA67J2I4XWXVQWSCF",
+  skincare: "57KEPCHJWE6SI3YSTX5B26Z7",
+  waxing: "OQU44RFO6P3HKZPDMHNBVGR2"
+};
+
+const categoryId = categoryIds[category];
+
+const fallbackServices = {
+  lashes: {
+    en: [
+      { id: "var_classic_full", name: "Classic Lash Extensions Full Set", description: "One single premium extension applied to each natural lash. Extremely natural look.", price_cents: 12000, duration_minutes: 90 },
+      { id: "var_hybrid_full", name: "Hybrid Lash Extensions Full Set", description: "Blend of classic and volume extensions. Texturized and fuller look.", price_cents: 14000, duration_minutes: 100 },
+      { id: "var_volume_full", name: "Volume Lash Extensions Full Set", description: "Lightweight fans applied to each natural lash. Fluffy and full glamour set.", price_cents: 16000, duration_minutes: 120 }
+    ],
+    es: [
+      { id: "var_classic_full", name: "Ext. de Pestañas Clásicas - Set Completo", description: "Una sola extensión premium aplicada a cada pestaña natural. Aspecto extremadamente natural.", price_cents: 12000, duration_minutes: 90 },
+      { id: "var_hybrid_full", name: "Ext. de Pestañas Híbridas - Set Completo", description: "Mezcla de extensiones clásicas y de volumen. Aspecto texturizado y más denso.", price_cents: 14000, duration_minutes: 100 },
+      { id: "var_volume_full", name: "Ext. de Pestañas de Volumen - Set Completo", description: "Abanicos ligeros aplicados a cada pestaña natural. Set de glamour esponjoso y denso.", price_cents: 16000, duration_minutes: 120 }
+    ]
+  },
+  brows: {
+    en: [
+      { id: "var_brow_lam", name: "Brow Lamination & Shaping", description: "Relaxes and shapes brow hairs for a fuller, brushed-up symmetrical look.", price_cents: 8500, duration_minutes: 45 },
+      { id: "var_wax_brow", name: "Brow Wax & Threading", description: "Precision hair removal for a clean and sleek definition.", price_cents: 3500, duration_minutes: 20 }
+    ],
+    es: [
+      { id: "var_brow_lam", name: "Laminación y Diseño de Cejas", description: "Relaja y da forma a los vellos de las cejas para un aspecto simétrico, cepillado y más denso.", price_cents: 8500, duration_minutes: 45 },
+      { id: "var_wax_brow", name: "Depilación de Cejas con Cera e Hilo", description: "Eliminación precisa del vello para una definición limpia y elegante.", price_cents: 3500, duration_minutes: 20 }
+    ]
+  },
+  skincare: {
+    en: [
+      { id: "var_skincare_facial", name: "Luxe Rejuvenating Facial", description: "Deep hydration treatment utilizing premium hyaluronic serums.", price_cents: 11000, duration_minutes: 60 }
+    ],
+    es: [
+      { id: "var_skincare_facial", name: "Facial Rejuvenecedor Luxe", description: "Tratamiento de hidratación profunda utilizando sueros de ácido hialurónico premium.", price_cents: 11000, duration_minutes: 60 }
+    ]
+  },
+  waxing: {
+    en: [
+      { id: "var_wax_brow", name: "Brow Wax & Threading", description: "Precision hair removal for a clean and sleek definition.", price_cents: 3500, duration_minutes: 20 },
+      { id: "var_wax_legs", name: "Full Legs Waxing Set", description: "Medical-grade organic wax applied for smooth, soft legs.", price_cents: 6500, duration_minutes: 40 }
+    ],
+    es: [
+      { id: "var_wax_brow", name: "Depilación de Cejas con Cera e Hilo", description: "Eliminación precisa del vello para una definición limpia y elegante.", price_cents: 3500, duration_minutes: 20 },
+      { id: "var_wax_legs", name: "Set de Depilación de Piernas Completas", description: "Cera orgánica de grado médico aplicada para obtener piernas suaves y lisas.", price_cents: 6500, duration_minutes: 40 }
+    ]
+  }
+};
+
+const texts = {
+  lashes: {
+    en: {
+      title: "Eyelash Extensions | Lashes & MGlamour",
+      badge: "✨ Premium Mappings",
+      heading: "Lash Extensions",
+      subheading: "Embrace Your Glamour.",
+      description: "Enhance your look with our professional mapping configurations. We offer Classic, Hybrid, and Volume extensions tailored to complement your natural features.",
+      gridTitle: "Select Your Lash Set",
+      image: "/images/lashes_service.png"
+    },
+    es: {
+      title: "Extensiones de Pestañas | Lashes & MGlamour",
+      badge: "✨ Diseños Premium",
+      heading: "Extensiones de Pestañas",
+      subheading: "Realza Tu Glamour.",
+      description: "Mejora tu mirada con nuestros diseños profesionales. Ofrecemos extensiones Clásicas, Híbridas y de Volumen adaptadas para complementar tus rasgos naturales.",
+      gridTitle: "Selecciona Tu Set de Pestañas",
+      image: "/images/lashes_service.png"
+    }
+  },
+  brows: {
+    en: {
+      title: "Brow Lamination & Shaping | Lashes & MGlamour",
+      badge: "✨ Sleek Definition",
+      heading: "Brows & Shaping",
+      subheading: "Framing Your Gaze.",
+      description: "Achieve the ultimate symmetry with brow mappings, tintings, and laminations designed to define and enhance your natural shape.",
+      gridTitle: "Select Your Brow Treatment",
+      image: "/images/brows_service.png"
+    },
+    es: {
+      title: "Diseño y Laminación de Cejas | Lashes & MGlamour",
+      badge: "✨ Definición Elegante",
+      heading: "Diseño y Perfilado de Cejas",
+      subheading: "Enmarca Tu Mirada.",
+      description: "Logra la simetría perfecta con nuestros diseños de cejas, tintes y laminaciones pensados para definir y realzar tu forma natural.",
+      gridTitle: "Selecciona Tu Tratamiento de Cejas",
+      image: "/images/brows_service.png"
+    }
+  },
+  skincare: {
+    en: {
+      title: "Rejuvenating Facials | Lashes & MGlamour",
+      badge: "✨ Fresh Glow",
+      heading: "Facials & Skin Care",
+      subheading: "Nourish Your Glow.",
+      description: "Pamper your face with deep hydration treatments and organic peeling options designed to clean and soothe your pores.",
+      gridTitle: "Select Your Facial Treatment",
+      image: "/images/skincare_service.png"
+    },
+    es: {
+      title: "Faciales Rejuvenecedores | Lashes & MGlamour",
+      badge: "✨ Brillo Fresco",
+      heading: "Faciales y Cuidado de la Piel",
+      subheading: "Nutre Tu Brillo.",
+      description: "Mima tu rostro con tratamientos de hidratación profunda y exfoliación orgánica diseñados para limpiar y suavizar tus poros.",
+      gridTitle: "Selecciona Tu Tratamiento Facial",
+      image: "/images/skincare_service.png"
+    }
+  },
+  waxing: {
+    en: {
+      title: "Waxing & Threading | Lashes & MGlamour",
+      badge: "✨ Silk Touch",
+      heading: "Waxing & Hair Removal",
+      subheading: "Soft, Sleek Skin.",
+      description: "Enjoy weeks of smooth, soft skin with our medical-grade waxing treatments and organic precision threadings.",
+      gridTitle: "Select Your Waxing Treatment",
+      image: "/images/before_after_eye.png"
+    },
+    es: {
+      title: "Depilación con Cera e Hilo | Lashes & MGlamour",
+      badge: "✨ Toque de Seda",
+      heading: "Depilación con Cera e Hilo",
+      subheading: "Piel Suave y Tersa.",
+      description: "Disfruta de semanas de piel suave y lisa con nuestros tratamientos de depilación con cera de grado médico e hilos de precisión.",
+      gridTitle: "Selecciona Tu Tratamiento de Depilación",
+      image: "/images/before_after_eye.png"
+    }
+  }
+};
+
+const pageText = texts[category][lang];
+const fallbacks = fallbackServices[category];
+let services = fallbacks[lang];
+
+try {
+  const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:8000/api/v1";
+  const response = await fetch(`${API_URL}/services`);
+  if (response.ok) {
+    const allServices = await response.json();
+    const dynamicServices = allServices.filter((s: any) => s.category_id === categoryId);
+    if (dynamicServices.length > 0) {
+      services = dynamicServices.map((apiServ: any) => {
+        const matchingLocal = fallbacks[lang].find((s: any) => s.id === apiServ.id || s.name.toLowerCase() === apiServ.name.toLowerCase());
+        if (matchingLocal) {
+          return {
+            ...apiServ,
+            name: matchingLocal.name,
+            description: matchingLocal.description
+          };
+        }
+        return apiServ;
+      });
+    }
+  }
+} catch (error) {
+  console.warn("Failed to fetch dynamic services from backend during build, using static fallback.");
+}
+---
+<Layout title={pageText.title} lang={lang}>
+  <!-- Hero Section -->
+  <section class="py-16 bg-gradient-to-tr from-brand-light-pink via-white to-brand-light-pink/40 border-b border-brand-border">
+    <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6 text-center lg:text-left">
+        <span class="inline-flex items-center space-x-2 border border-brand-pink/20 bg-brand-pink/5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-brand-pink">
+          {pageText.badge}
+        </span>
+        <h1 class="font-heading text-4xl sm:text-5xl text-brand-charcoal font-extrabold leading-tight">
+          {pageText.heading}
+          <span class="font-script text-brand-pink text-4xl sm:text-5xl lg:text-6xl block mt-2 normal-case font-normal leading-none">{pageText.subheading}</span>
+        </h1>
+        <p class="text-sm text-zinc-500 leading-relaxed">
+          {pageText.description}
+        </p>
+      </div>
+      <div class="hidden lg:block max-w-md ml-auto rounded-2xl overflow-hidden border border-brand-border/40 shadow-lg aspect-video">
+        <img src={pageText.image} alt={pageText.heading} class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Service List Grid -->
+  <section class="py-16 bg-white min-h-[50vh]">
+    <div class="container-custom">
+      <div class="text-center space-y-4 max-w-xl mx-auto mb-16">
+        <h2 class="font-heading text-3xl text-brand-charcoal font-bold">{pageText.gridTitle}</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map(service => (
+          <ServiceCard
+            id={service.id}
+            name={service.name}
+            description={service.description}
+            price_cents={service.price_cents}
+            duration_minutes={service.duration_minutes}
+            lang={lang}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
