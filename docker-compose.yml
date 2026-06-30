@@ -6,10 +6,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - PUBLIC_API_URL=${PUBLIC_API_URL}
+        - PUBLIC_API_URL=https://api.lashesmglamour.com/api/v1
     restart: always
-    ports:
-      - "3000:80"
+    expose:
+      - "80"
     depends_on:
       - backend
 
@@ -26,8 +26,8 @@ services:
       - SQUARE_LOCATION_ID=${SQUARE_LOCATION_ID}
       - SQUARE_ENVIRONMENT=${SQUARE_ENVIRONMENT}
       - SQUARE_WEBHOOK_SIGNATURE=${SQUARE_WEBHOOK_SIGNATURE}
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     depends_on:
       - db
       - cache
@@ -41,8 +41,8 @@ services:
       - POSTGRES_DB=lashes_db
     volumes:
       - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
 
   cache:
     image: redis:7-alpine
@@ -50,19 +50,8 @@ services:
     command: redis-server --appendonly yes
     volumes:
       - redisdata:/data
-    ports:
-      - "6379:6379"
-
-  nginx:
-    image: nginx:alpine
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - backend
+    expose:
+      - "6379"
 
 volumes:
   pgdata:
