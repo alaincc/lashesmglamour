@@ -1,0 +1,11 @@
+node_modules
+dist
+.astro
+.git
+.github
+.vscode
+.env
+.env.local
+.env.production
+README.md
+CHANGELOG.md

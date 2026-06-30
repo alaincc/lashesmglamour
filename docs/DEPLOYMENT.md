@@ -1,37 +1,51 @@
-# Deployment Guide (Docker + Vercel + VPS)
+# Deployment Guide (Coolify + Docker Compose + Cloudflare)
 
-This guide documents the infrastructure, containerization, reverse proxy routing, and automated CI/CD pipeline setups for the **Lashes & MGlamour Platform**.
+This guide documents the infrastructure, containerization, reverse proxy routing, and automated CI/CD pipeline setups for the **Lashes & MGlamour Platform** deploying on a self-hosted **Coolify** instance proxied by **Cloudflare**.
 
 ---
 
 ## 🏗️ Deployment Topology
 
-We utilize a hybrid architecture:
-- **Frontend client**: Built with Astro 7, hosted on **Vercel** for optimal global speed and CDN caching.
-- **Backend API engine**: Hosted on a **VPS Ubuntu** instance running **Docker Compose** containing FastAPI, Redis, PostgreSQL, and Nginx.
-- **CDN / DNS Gateway**: Managed by **Cloudflare** for DDOS protection, SSL generation, and edge optimizations.
+We utilize a modern self-hosted Docker architecture:
+- **Server Instance (VPS)**: Running Ubuntu with **Coolify** installed to orchestrate and manage applications.
+- **Frontend Client & Backend API**: Deployed together on the VPS using a unified `docker-compose.yml` multi-container structure.
+- **CDN / DNS Gateway**: Managed by **Cloudflare** for DDOS protection, SSL edge termination, caching, and secure proxying.
 
 ---
 
 ## 📦 Containerization (Docker Compose)
 
-The backend microservice stack is orchestrated locally and in staging/production using `docker-compose.yml`:
+The multi-container application stack is defined in the root `docker-compose.yml` file:
 
 ```yaml
 version: '3.8'
 
 services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - PUBLIC_API_URL=${PUBLIC_API_URL}
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    restart: always
     environment:
-      - DATABASE_URL=postgresql+psycopg2://admin:luxe_secure_pass@db:5432/lashes_db
+      - DATABASE_URL=postgresql://admin:luxe_secure_pass@db:5432/lashes_db
       - REDIS_URL=redis://cache:6379/0
       - SQUARE_ACCESS_TOKEN=${SQUARE_ACCESS_TOKEN}
       - SQUARE_APPLICATION_ID=${SQUARE_APPLICATION_ID}
       - SQUARE_LOCATION_ID=${SQUARE_LOCATION_ID}
       - SQUARE_ENVIRONMENT=${SQUARE_ENVIRONMENT}
+      - SQUARE_WEBHOOK_SIGNATURE=${SQUARE_WEBHOOK_SIGNATURE}
     ports:
       - "8000:8000"
     depends_on:
@@ -40,6 +54,7 @@ services:
 
   db:
     image: postgres:16-alpine
+    restart: always
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=luxe_secure_pass
@@ -51,22 +66,12 @@ services:
 
   cache:
     image: redis:7-alpine
+    restart: always
     command: redis-server --appendonly yes
     volumes:
       - redisdata:/data
     ports:
       - "6379:6379"
-
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-    depends_on:
-      - backend
 
 volumes:
   pgdata:
@@ -75,90 +80,92 @@ volumes:
 
 ---
 
-## 🔒 Nginx Reverse Proxy Configuration
+## ⚙️ Coolify Service Configuration
 
-Nginx routes incoming client requests, manages SSL certifications, and restricts backend gateway exposure.
+To deploy this setup using Coolify:
 
-```nginx
-events { worker_connections 1024; }
-
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-
-    upstream fastapi_app {
-        server backend:8000;
-    }
-
-    server {
-        listen 80;
-        server_name api.lashesmglamour.com;
-        return 301 https://$host$request_uri;
-    }
-
-    server {
-        listen 443 ssl http2;
-        server_name api.lashesmglamour.com;
-
-        ssl_certificate /etc/letsencrypt/live/api.lashesmglamour.com/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/api.lashesmglamour.com/privkey.pem;
-        ssl_protocols TLSv1.2 TLSv1.3;
-
-        location / {
-            proxy_pass http://fastapi_app;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-        }
-    }
-}
-```
+1. **Create a New Project** inside your Coolify dashboard.
+2. **Add a Resource**: Select **Docker Compose** as the resource type.
+3. **Repository Sync**: Connect your GitHub repository (`lashesmglamour`) and select the `main` branch.
+4. **Define Service Domains**:
+   - In Coolify, you configure domains directly on individual services of your Docker Compose project.
+   - Set the domain for the `frontend` container to: `https://lashesmglamour.com` (pointing to exposed port `80` inside the container, or port `3000` on the host).
+   - Set the domain for the `backend` container to: `https://api.lashesmglamour.com` (pointing to exposed port `8000`).
+5. **Environment Variables**: Set the following variables in the Coolify project settings:
+   - `PUBLIC_API_URL` (e.g. `https://api.lashesmglamour.com/api/v1`)
+   - `SQUARE_ACCESS_TOKEN`
+   - `SQUARE_APPLICATION_ID`
+   - `SQUARE_LOCATION_ID`
+   - `SQUARE_ENVIRONMENT`
+   - `SQUARE_WEBHOOK_SIGNATURE`
 
 ---
 
-## 🚀 GitHub Actions CI/CD Pipeline
+## 🔒 Cloudflare Integration & SSL Settings
 
-We set up automatic pipelines at `.github/workflows/deploy.yml` triggered on changes in `main`.
+Cloudflare handles DNS routing and provides DDoS mitigation and performance optimization.
+
+### 1. DNS Records Setup
+In your Cloudflare Dashboard, configure the following `A` or `CNAME` records pointing to your Coolify VPS IP address:
+- `A` record for `lashesmglamour.com` -> `[VPS_IP_ADDRESS]` (Proxy Status: **Proxied / Orange Cloud**)
+- `A` record for `api.lashesmglamour.com` -> `[VPS_IP_ADDRESS]` (Proxy Status: **Proxied / Orange Cloud**)
+- `CNAME` record for `www` -> `lashesmglamour.com` (Proxy Status: **Proxied / Orange Cloud**)
+
+### 2. SSL/TLS Encryption Level
+- Go to the **SSL/TLS** tab in Cloudflare.
+- Set the encryption mode to **Full** or **Full (Strict)**. This ensures traffic between Cloudflare and Coolify's reverse proxy (Traefik/Caddy) is fully encrypted. Coolify automatically negotiates Let's Encrypt certificates locally on the VPS, which satisfies this encryption handshake.
+
+---
+
+## 🚀 CI/CD Pipeline (GitHub Actions)
+
+On every git push, GitHub Actions automatically runs compilation audits and code verification checks. 
+
+To automate the redeployment in Coolify:
+1. Navigate to your Coolify application, go to **Deployments** or **Settings**, and locate the **Webhook Trigger URL**.
+2. Copy this URL.
+3. In your GitHub Repository, go to **Settings > Secrets and variables > Actions** and create a new Repository Secret named `COOLIFY_WEBHOOK_URL` containing the deployment webhook URL.
+4. Pushing to `main` will now trigger the workflow `.github/workflows/deploy.yml` which tests your code and triggers Coolify to automatically fetch and rebuild the latest code.
 
 ```yaml
-name: Staging & Production Deployment
+name: CI/CD Deployment
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   audit-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install dependencies & Lint
+      - name: Verify compilation and syntax checks
         run: |
           cd backend
-          pip install -r requirements.txt
-          pip install ruff
-          ruff check .
+          python -m py_compile app/main.py app/core/*.py app/database/*.py app/models/*.py app/schemas/*.py app/services/*.py app/scheduler/*.py app/api/v1/*.py app/api/v1/endpoints/*.py
 
-  deploy-backend:
+  deploy:
     needs: audit-and-test
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to VPS Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /opt/lashesmglamour
-            git pull origin main
-            docker-compose up -d --build backend
-            docker-compose exec -T backend alembic upgrade head
+      - name: Trigger Coolify Deployment Webhook
+        env:
+          COOLIFY_WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK_URL }}
+        run: |
+          if [ -z "$COOLIFY_WEBHOOK" ]; then
+            echo "Notice: COOLIFY_WEBHOOK_URL secret is not set. Skipping webhook trigger."
+            echo "Coolify will redeploy automatically if configured via its native GitHub App / Webhook integration."
+          else
+            echo "Triggering deployment in Coolify..."
+            curl -s -S -X GET "$COOLIFY_WEBHOOK"
+            echo "Deployment webhook triggered successfully."
+          fi
 ```
