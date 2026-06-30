@@ -15,6 +15,7 @@ class Settings(BaseSettings):
         "http://localhost:3000",
         "http://localhost:4321",  # Default Astro dev port
         "https://lashesmglamour.com",
+        "https://www.lashesmglamour.com",
     ]
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")

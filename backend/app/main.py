@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.app.core.config import settings
 from backend.app.api.v1.api import api_router
 from backend.app.scheduler.scheduler import start_scheduler, stop_scheduler
+from backend.app.database.init_db import init_db
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -17,6 +18,12 @@ async def lifespan(app: FastAPI):
     Handles startup synchronizers scheduler triggers and shutdowns.
     """
     logger.info("Initializing Lashes & MGlamour API startup events")
+    # Initialize database: create tables and seed initial data if empty
+    try:
+        init_db()
+        logger.info("Database initialized successfully")
+    except Exception as e:
+        logger.error(f"Database initialization failed: {e}")
     start_scheduler()
     yield
     logger.info("Initializing Lashes & MGlamour API shutdown events")
