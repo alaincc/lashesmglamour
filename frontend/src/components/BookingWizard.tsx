@@ -27,6 +27,15 @@ interface DaySlots {
   slots: string[];
 }
 
+const format12Hour = (timeStr: string) => {
+  if (!timeStr) return "";
+  const [hourStr, minStr] = timeStr.split(":");
+  const hour = parseInt(hourStr, 10);
+  const ampm = hour >= 12 ? "PM" : "AM";
+  const hour12 = hour % 12 || 12;
+  return `${hour12}:${minStr} ${ampm}`;
+};
+
 const serviceTranslations: Record<string, { name: string; description: string }> = {
   "classic lash extensions full set": {
     name: "Set Completo Clásico",
@@ -616,7 +625,7 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
                             onClick={() => handleSlotSelect(day.date, slot)}
                             className="border border-brand-pink/15 bg-brand-pink/5 text-brand-charcoal hover:bg-brand-pink hover:text-white text-xs font-semibold py-2 rounded transition-colors text-center"
                           >
-                            {slot.split(":").slice(0, 2).join(":")}
+                            {format12Hour(slot)}
                           </button>
                         ))}
                       </div>
@@ -769,7 +778,7 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
                       weekday: "short",
                       month: "short",
                       day: "numeric"
-                    })} {lang === "es" ? "a las" : "at"} {selectedSlot.split(":").slice(0, 2).join(":")}
+                    })} {lang === "es" ? "a las" : "at"} {format12Hour(selectedSlot)}
                   </span>
                 </div>
               )}
