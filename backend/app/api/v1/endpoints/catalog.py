@@ -1,4 +1,5 @@
 from datetime import date, datetime, time
+from zoneinfo import ZoneInfo
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
@@ -122,12 +123,14 @@ async def check_availability(
             staff_id=staff_id
         )
         
-        # Group slot times by date
+        # Group slot times by date, converting from UTC to business local timezone
+        local_tz = ZoneInfo("America/New_York")
         grouped: dict[date, List[str]] = {}
         for av in availabilities:
-            slot_dt = datetime.fromisoformat(av["start_at"].replace("Z", "+00:00"))
-            slot_date = slot_dt.date()
-            slot_time_str = slot_dt.time().isoformat()
+            utc_dt = datetime.fromisoformat(av["start_at"].replace("Z", "+00:00"))
+            local_dt = utc_dt.astimezone(local_tz)
+            slot_date = local_dt.date()
+            slot_time_str = local_dt.time().isoformat()
             
             if slot_date not in grouped:
                 grouped[slot_date] = []
