@@ -81,8 +81,14 @@ async def sync_square_data() -> bool:
             variations = item_data.get("variations", [])
             for var in variations:
                 var_id = var["id"]
-                active_service_ids.append(var_id)
                 var_data = var.get("item_variation_data", {})
+                
+                # Check if it is a bookable appointment service in Square
+                if not var_data.get("bookable", False):
+                    continue
+                
+                active_service_ids.append(var_id)
+
                 
                 # Retrieve version
                 version = var.get("version")
