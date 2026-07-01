@@ -27,12 +27,16 @@ export default function AdminDashboard() {
     }
     if (typeof window !== "undefined") {
       const hostname = window.location.hostname;
+      if (hostname.endsWith("lashesmglamour.com")) {
+        return "https://api.lashesmglamour.com/api/v1";
+      }
       if (hostname && hostname !== "localhost" && hostname !== "127.0.0.1") {
         return `http://${hostname}:8000/api/v1`;
       }
     }
     return "http://localhost:8000/api/v1";
   })();
+
 
 
   // Check if token exists in localStorage on mount
