@@ -416,9 +416,10 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
     setLoading(true);
     setError(null);
 
+    const [year, month, day] = selectedDate.split("-").map(Number);
     const [hour, minute] = selectedSlot.split(":");
-    const bookingDateTime = new Date(selectedDate);
-    bookingDateTime.setHours(parseInt(hour), parseInt(minute), 0);
+    const bookingDateTime = new Date(year, month - 1, day, parseInt(hour), parseInt(minute), 0);
+
 
     const payload = {
       service_id: selectedService.id,
@@ -624,12 +625,17 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
                   {availability.map(day => (
                     <div key={day.date} className="space-y-3">
                       <h3 className="text-xs font-bold uppercase tracking-widest text-brand-pink border-b border-brand-border pb-1">
-                        {new Date(day.date).toLocaleDateString(lang === "es" ? "es-ES" : "en-US", {
-                          weekday: "long",
-                          month: "short",
-                          day: "numeric",
-                        })}
+                        {(() => {
+                          const [y, m, d] = day.date.split("-").map(Number);
+                          const localDate = new Date(y, m - 1, d);
+                          return localDate.toLocaleDateString(lang === "es" ? "es-ES" : "en-US", {
+                            weekday: "long",
+                            month: "short",
+                            day: "numeric",
+                          });
+                        })()}
                       </h3>
+
                       <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
                         {day.slots.map(slot => (
                           <button
@@ -786,11 +792,16 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
                 <div className="border-b border-brand-pink/5 pb-3">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-brand-pink block">{t.summaryDate}</span>
                   <span className="font-semibold text-brand-charcoal block mt-1">
-                    {new Date(selectedDate).toLocaleDateString(lang === "es" ? "es-ES" : "en-US", {
-                      weekday: "short",
-                      month: "short",
-                      day: "numeric"
-                    })} {lang === "es" ? "a las" : "at"} {format12Hour(selectedSlot)}
+                    {(() => {
+                      const [y, m, d] = selectedDate.split("-").map(Number);
+                      const localDate = new Date(y, m - 1, d);
+                      return localDate.toLocaleDateString(lang === "es" ? "es-ES" : "en-US", {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric"
+                      });
+                    })()} {lang === "es" ? "a las" : "at"} {format12Hour(selectedSlot)}
+
                   </span>
                 </div>
               )}
