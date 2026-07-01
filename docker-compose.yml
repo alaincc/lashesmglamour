@@ -12,6 +12,11 @@ services:
       - "80"
     depends_on:
       - backend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.frontend.rule=Host(`lashesmglamour.com`) || Host(`www.lashesmglamour.com`)
+      - traefik.http.routers.frontend.entrypoints=http,https
+      - traefik.http.services.frontend.loadbalancer.server.port=80
 
   backend:
     build:
@@ -31,6 +36,11 @@ services:
     depends_on:
       - db
       - cache
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.backend.rule=Host(`api.lashesmglamour.com`)
+      - traefik.http.routers.backend.entrypoints=http,https
+      - traefik.http.services.backend.loadbalancer.server.port=8000
 
   db:
     image: postgres:16-alpine

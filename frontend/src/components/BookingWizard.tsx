@@ -277,7 +277,19 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
 
   const [bookingResult, setBookingResult] = useState<any>(null);
 
-  const API_BASE = import.meta.env.PUBLIC_API_URL || "http://localhost:8000/api/v1";
+  const API_BASE = (() => {
+    if (import.meta.env.PUBLIC_API_URL) {
+      return import.meta.env.PUBLIC_API_URL;
+    }
+    if (typeof window !== "undefined") {
+      const hostname = window.location.hostname;
+      if (hostname && hostname !== "localhost" && hostname !== "127.0.0.1") {
+        return `http://${hostname}:8000/api/v1`;
+      }
+    }
+    return "http://localhost:8000/api/v1";
+  })();
+
 
   // Load initial data: Categories and Services
   useEffect(() => {
