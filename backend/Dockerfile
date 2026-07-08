@@ -3,9 +3,12 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Install system packages required for compiling libraries
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     gcc \
     libpq-dev \
+    tzdata \
+    && ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file first to utilize Docker build layer caching
