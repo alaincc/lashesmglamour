@@ -84,7 +84,10 @@ async def sync_square_data() -> bool:
                 var_data = var.get("item_variation_data", {})
                 
                 # Check if it is a bookable appointment service in Square
-                if not var_data.get("bookable", False):
+                is_bookable = var_data.get("available_for_booking")
+                if is_bookable is None:
+                    is_bookable = var_data.get("bookable", True)
+                if not is_bookable:
                     continue
                 
                 active_service_ids.append(var_id)

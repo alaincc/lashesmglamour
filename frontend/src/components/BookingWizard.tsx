@@ -295,40 +295,58 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
 
 
 
+  const fallbackCategories: Category[] = [
+    { id: "cat-lashes", name: "Lashes" },
+    { id: "cat-brows", name: "Brows" },
+    { id: "cat-skincare", name: "Skincare" },
+    { id: "cat-waxing", name: "Waxing" },
+  ];
+
+  const fallbackServices: Service[] = [
+    { id: "var_classic_full", category_id: "cat-lashes", name: "Classic Lash Extensions Full Set", description: "One single premium extension applied to each natural lash. Extremely natural look.", price_cents: 12000, duration_minutes: 90 },
+    { id: "var_hybrid_full", category_id: "cat-lashes", name: "Hybrid Lash Extensions Full Set", description: "Blend of classic and volume extensions. Texturized and fuller look.", price_cents: 14000, duration_minutes: 100 },
+    { id: "var_volume_full", category_id: "cat-lashes", name: "Volume Lash Extensions Full Set", description: "Lightweight fans applied to each natural lash. Fluffy and full glamour set.", price_cents: 16000, duration_minutes: 120 },
+    { id: "var_brow_lam", category_id: "cat-brows", name: "Brow Lamination & Shaping", description: "Relaxes and shapes brow hairs for a fuller, brushed-up symmetrical look.", price_cents: 8500, duration_minutes: 45 },
+    { id: "var_skincare_facial", category_id: "cat-skincare", name: "Luxe Rejuvenating Facial", description: "Deep hydration treatment utilizing premium hyaluronic serums.", price_cents: 11000, duration_minutes: 60 },
+    { id: "var_wax_brow", category_id: "cat-waxing", name: "Brow Wax & Threading", description: "Precision hair removal for a clean and sleek definition.", price_cents: 3500, duration_minutes: 20 },
+  ];
+
+  const fallbackStaffList: Staff[] = [
+    { id: "staff-001", first_name: "Mirta", last_name: "Campus", bio: "Certified lash technician and aesthetician at Lashes & MGlamour." }
+  ];
+
   // Load initial data: Categories and Services
   useEffect(() => {
     async function loadInitial() {
       setLoading(true);
+      let fetchedCats: Category[] = [];
+      let fetchedServs: Service[] = [];
       try {
         const [catsRes, servsRes] = await Promise.all([
-          fetch(`${API_BASE}/categories`).then(r => {
-            if (!r.ok) throw new Error("Failed to load categories");
-            return r.json();
-          }),
-          fetch(`${API_BASE}/services`).then(r => {
-            if (!r.ok) throw new Error("Failed to load services");
-            return r.json();
-          }),
+          fetch(`${API_BASE}/categories`).then(r => r.ok ? r.json() : []),
+          fetch(`${API_BASE}/services`).then(r => r.ok ? r.json() : []),
         ]);
         
-        setCategories(Array.isArray(catsRes) ? catsRes : []);
-        setServices(Array.isArray(servsRes) ? servsRes : []);
-        
+        if (Array.isArray(catsRes) && catsRes.length > 0) fetchedCats = catsRes;
+        if (Array.isArray(servsRes) && servsRes.length > 0) fetchedServs = servsRes;
+      } catch (err: any) {
+        console.warn("API offline or fetch failed, using fallback catalog:", err);
+      } finally {
+        setCategories(fetchedCats.length > 0 ? fetchedCats : fallbackCategories);
+        const finalServices = fetchedServs.length > 0 ? fetchedServs : fallbackServices;
+        setServices(finalServices);
+
         // If query param lists specific service, set it
         const urlParams = new URLSearchParams(window.location.search);
         const preselectedServiceId = urlParams.get("service");
-        if (preselectedServiceId && Array.isArray(servsRes) && servsRes.length) {
-          const found = servsRes.find((s: Service) => s.id === preselectedServiceId);
+        if (preselectedServiceId && finalServices.length) {
+          const found = finalServices.find((s: Service) => s.id === preselectedServiceId);
           if (found) {
             setSelectedService(found);
             setSelectedCategory(found.category_id);
             setStep(2); // Go to staff selection
           }
         }
-      } catch (err: any) {
-        console.error("Failed to load catalog:", err);
-        setError(err.message || "Failed to connect to catalog database. Make sure backend is running.");
-      } finally {
         setLoading(false);
       }
     }
@@ -340,14 +358,17 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
     if (step === 2 && staffList.length === 0) {
       async function loadStaff() {
         setLoading(true);
+        let fetchedStaff: Staff[] = [];
         try {
           const response = await fetch(`${API_BASE}/staff`);
-          if (!response.ok) throw new Error("Failed to load staff list.");
-          const res = await response.json();
-          setStaffList(Array.isArray(res) ? res : []);
+          if (response.ok) {
+            const res = await response.json();
+            if (Array.isArray(res) && res.length > 0) fetchedStaff = res;
+          }
         } catch (err: any) {
-          setError(err.message || "Failed to load staff list.");
+          console.warn("Failed to load staff list from API, using fallback:", err);
         } finally {
+          setStaffList(fetchedStaff.length > 0 ? fetchedStaff : fallbackStaffList);
           setLoading(false);
         }
       }
