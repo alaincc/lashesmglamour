@@ -19,8 +19,8 @@ const {
 
 const t = useTranslations(lang);
 
-const defaultTitle = lang === "es" ? "Realza Tu Belleza Natural" : "Enhance Your Natural Glamour";
-const defaultSubtitle = lang === "es" ? "Experimenta los servicios más exclusivos de extensiones de pestañas y diseño de cejas en Miami en un ambiente lujoso y relajante." : "Experience Miami's most exclusive eyelash extensions and brow shaping services in a luxurious, relaxing atmosphere.";
+const defaultTitle = lang === "es" ? "Extensiones de Pestañas en Kendall, Miami" : "Eyelash Extensions in Kendall, Miami";
+const defaultSubtitle = lang === "es" ? "Pestañas Clásicas, Híbridas y de Volumen con Diseño Personalizado en West Kendall. Realza tu belleza natural en un ambiente lujoso y relajante." : "Classic, Hybrid & Volume Lashes with Personalized Lash Mapping in West Kendall. Enhance your natural glamour in a luxury, relaxing atmosphere.";
 const defaultCtaText = lang === "es" ? "Reservar Cita" : "Book Appointment";
 const defaultCtaLink = lang === "es" ? "/es/book" : "/book";
 
@@ -40,11 +40,11 @@ const activeCtaLink = ctaLink || defaultCtaLink;
     <!-- Copy Text Pillar -->
     <div class="space-y-8 text-center lg:text-left">
       <div class="inline-flex items-center space-x-2 border border-brand-pink/20 bg-brand-pink/5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-brand-pink">
-        {lang === "es" ? "✨ El Salón de Belleza Líder en Miami" : "✨ Premier Beauty Salon in Miami"}
+        {lang === "es" ? "✨ El Salón de Pestañas Líder en West Kendall" : "✨ West Kendall's Premier Lash Studio"}
       </div>
       
       <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-brand-charcoal leading-tight tracking-wide font-bold">
-        {lang === "es" ? "Realza Tu" : "Enhance Your"} <span class="font-script text-brand-pink text-5xl sm:text-6xl lg:text-7xl block mt-2 normal-case font-normal leading-none">{lang === "es" ? "Belleza Natural" : "Natural Glamour"}</span>
+        {activeTitle}
       </h1>
 
       <p class="text-zinc-600 text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
@@ -60,7 +60,7 @@ const activeCtaLink = ctaLink || defaultCtaLink;
           {lang === "es" ? "Llamar Ahora" : "Call Now"}
         </a>
         <a href="https://wa.me/17864606580" target="_blank" class="w-full sm:w-auto text-center border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white font-bold uppercase tracking-wider text-xs px-8 py-4 rounded transition-all">
-          {lang === "es" ? "WhatsApp Us" : "WhatsApp Us"}
+          {lang === "es" ? "Escríbenos por WhatsApp" : "Chat on WhatsApp"}
         </a>
       </div>
 
@@ -92,7 +92,7 @@ const activeCtaLink = ctaLink || defaultCtaLink;
             <h3 class="font-heading text-brand-pink text-sm font-semibold">{lang === "es" ? "Set de Pestañas de Volumen" : "Volume Lash Full Set"}</h3>
             <p class="text-[11px] text-zinc-500">{lang === "es" ? "Nuestro diseño glam más popular" : "Our most popular glam mapping"}</p>
           </div>
-          <span class="text-xs font-bold text-brand-pink tracking-wide">$150+</span>
+          <span class="text-xs font-bold text-brand-pink tracking-wide">$160</span>
         </div>
       </div>
     </div>

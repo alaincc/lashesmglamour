@@ -1,109 +1,141 @@
 {
-  "last_updated": "2026-08-11T18:03:00.917Z",
+  "last_updated": "2026-08-11T18:10:24.982Z",
   "urls": {
     "https://lashesmglamour.com/": {
-      "hash": "c3c24c4c559f7f9afd73ad69a5bc0d28",
-      "last_seen": "2026-08-11T18:03:00.911Z"
+      "hash": "536b36bcf25f256bbec3db6cf51d1177",
+      "last_seen": "2026-08-11T18:10:24.971Z"
     },
     "https://lashesmglamour.com/about/": {
-      "hash": "40a1dd3eb1d0e74e4f73cd321236398a",
-      "last_seen": "2026-08-11T18:03:00.912Z"
+      "hash": "0202cc1cfee02faf216c06b838964445",
+      "last_seen": "2026-08-11T18:10:24.973Z"
     },
     "https://lashesmglamour.com/blog/": {
-      "hash": "f74ecffe518adad4e107e3d0684c7255",
-      "last_seen": "2026-08-11T18:03:00.913Z"
+      "hash": "56a0720965ad5eea1775a16d5b9c7fd9",
+      "last_seen": "2026-08-11T18:10:24.973Z"
+    },
+    "https://lashesmglamour.com/blog/aftercare-guide/": {
+      "hash": "568e4ffcf79f89d087bbbc23c78d1adb",
+      "last_seen": "2026-08-11T18:10:24.973Z"
+    },
+    "https://lashesmglamour.com/blog/brow-lamination-guide/": {
+      "hash": "b1a952424edad2eaffae366e8047a16b",
+      "last_seen": "2026-08-11T18:10:24.973Z"
+    },
+    "https://lashesmglamour.com/blog/summer-skincare-miami/": {
+      "hash": "fa4a9f5eaae5f4e609afba3d7b509b39",
+      "last_seen": "2026-08-11T18:10:24.973Z"
     },
     "https://lashesmglamour.com/book/": {
-      "hash": "d3306b059d8d297b2eea058db4b1c5d3",
-      "last_seen": "2026-08-11T18:03:00.913Z"
+      "hash": "202d60a82e532b85c8e5a426871171c9",
+      "last_seen": "2026-08-11T18:10:24.974Z"
     },
     "https://lashesmglamour.com/contact/": {
-      "hash": "b2b83e26437f5d6e36410871ca096283",
-      "last_seen": "2026-08-11T18:03:00.913Z"
+      "hash": "0ec06cf4435dea6af4314ba66c4c3088",
+      "last_seen": "2026-08-11T18:10:24.974Z"
     },
     "https://lashesmglamour.com/es/": {
-      "hash": "418a136cc419009d74d9e67af0159e3a",
-      "last_seen": "2026-08-11T18:03:00.913Z"
+      "hash": "2e434a6858a686fb1b75383657a87ca4",
+      "last_seen": "2026-08-11T18:10:24.975Z"
     },
     "https://lashesmglamour.com/es/about/": {
-      "hash": "e606c77f0d281a970969e5a079a59820",
-      "last_seen": "2026-08-11T18:03:00.914Z"
+      "hash": "96d09e17244f54a57e0db6743a525cf6",
+      "last_seen": "2026-08-11T18:10:24.975Z"
     },
     "https://lashesmglamour.com/es/blog/": {
-      "hash": "236c3f5c4cce9e060ce87f7befe0305e",
-      "last_seen": "2026-08-11T18:03:00.914Z"
+      "hash": "fc3bf6fdfbe747d557a609b565d02d8c",
+      "last_seen": "2026-08-11T18:10:24.975Z"
+    },
+    "https://lashesmglamour.com/es/blog/guia-cuidados-pestanas/": {
+      "hash": "0001afff8fcb55b01e6837482c6638b5",
+      "last_seen": "2026-08-11T18:10:24.975Z"
+    },
+    "https://lashesmglamour.com/es/blog/rutina-piel-verano-miami/": {
+      "hash": "5ef9802fd6c6039e9ba5da5b04afafdd",
+      "last_seen": "2026-08-11T18:10:24.975Z"
+    },
+    "https://lashesmglamour.com/es/blog/todo-sobre-laminacion-cejas/": {
+      "hash": "e374a32b881775178d21974dea18e145",
+      "last_seen": "2026-08-11T18:10:24.976Z"
     },
     "https://lashesmglamour.com/es/book/": {
-      "hash": "ed23fd1fabe558e48e883a6efdfb12e2",
-      "last_seen": "2026-08-11T18:03:00.914Z"
+      "hash": "dc97a94faebed52b9b180b99648de603",
+      "last_seen": "2026-08-11T18:10:24.976Z"
     },
     "https://lashesmglamour.com/es/contact/": {
-      "hash": "e625edf5d053cc661c1bfc9e8a73c593",
-      "last_seen": "2026-08-11T18:03:00.914Z"
+      "hash": "a9966941ff9023db03ca9ff403fdd7d6",
+      "last_seen": "2026-08-11T18:10:24.977Z"
+    },
+    "https://lashesmglamour.com/es/extensiones-de-pestanas-kendall-miami/": {
+      "hash": "edc6f67906cf13f0f5ab72d62c2ad02e",
+      "last_seen": "2026-08-11T18:10:24.977Z"
     },
     "https://lashesmglamour.com/es/faq/": {
-      "hash": "a9f447637f8fbe0fb708ca1f7e60eff1",
-      "last_seen": "2026-08-11T18:03:00.914Z"
+      "hash": "8486fe652ba2baadfa11e9df5bd539b1",
+      "last_seen": "2026-08-11T18:10:24.978Z"
     },
     "https://lashesmglamour.com/es/gallery/": {
-      "hash": "c8e1e03b69051cdca79f047b18c375a5",
-      "last_seen": "2026-08-11T18:03:00.915Z"
+      "hash": "9e83b74d7657a60f3aa2b3f80e5236d4",
+      "last_seen": "2026-08-11T18:10:24.978Z"
     },
     "https://lashesmglamour.com/es/privacy/": {
-      "hash": "3ecfdc274687b484bf5826044d4a9fd8",
-      "last_seen": "2026-08-11T18:03:00.915Z"
+      "hash": "ec178c386a218118679fe39139996715",
+      "last_seen": "2026-08-11T18:10:24.978Z"
     },
     "https://lashesmglamour.com/es/services/": {
-      "hash": "54ce86a79f3a1a86824ae8c4b8aa9b16",
-      "last_seen": "2026-08-11T18:03:00.915Z"
+      "hash": "0054f2b93a5f8a8a8a10bd101ee25901",
+      "last_seen": "2026-08-11T18:10:24.978Z"
     },
     "https://lashesmglamour.com/es/services/brows/": {
-      "hash": "29e1ae91ad37ed13ff61f14b7ee30168",
-      "last_seen": "2026-08-11T18:03:00.915Z"
+      "hash": "8228f87c6eef485cd0c149f1ef3a0aa1",
+      "last_seen": "2026-08-11T18:10:24.978Z"
     },
     "https://lashesmglamour.com/es/services/lashes/": {
-      "hash": "5594a176b7382d70fc0d859458eb6585",
-      "last_seen": "2026-08-11T18:03:00.915Z"
+      "hash": "406c8777b90284e971bb5e74f3ae0759",
+      "last_seen": "2026-08-11T18:10:24.979Z"
     },
     "https://lashesmglamour.com/es/services/skincare/": {
-      "hash": "72381e297afd652a7cc01875236a6f2a",
-      "last_seen": "2026-08-11T18:03:00.915Z"
+      "hash": "aa813384892051fd3acb8cd740a94ea8",
+      "last_seen": "2026-08-11T18:10:24.979Z"
     },
     "https://lashesmglamour.com/es/services/waxing/": {
-      "hash": "7d0f8dba8f490e801e4b851e2c1802f0",
-      "last_seen": "2026-08-11T18:03:00.915Z"
+      "hash": "3c4d9fa497f7738e549d9cfa5d26e932",
+      "last_seen": "2026-08-11T18:10:24.979Z"
+    },
+    "https://lashesmglamour.com/eyelash-extensions-kendall-miami/": {
+      "hash": "fccd0199b94186dadff894c84f555876",
+      "last_seen": "2026-08-11T18:10:24.979Z"
     },
     "https://lashesmglamour.com/faq/": {
-      "hash": "18994348f9ab835eb688dec3a2892183",
-      "last_seen": "2026-08-11T18:03:00.916Z"
+      "hash": "93032aa83f9e644d49ee07a6ddfb5ef1",
+      "last_seen": "2026-08-11T18:10:24.979Z"
     },
     "https://lashesmglamour.com/gallery/": {
-      "hash": "2fd15b72ecda08730a2cb188e9f83663",
-      "last_seen": "2026-08-11T18:03:00.916Z"
+      "hash": "c93d919c52f830717a621d7e9f84b52c",
+      "last_seen": "2026-08-11T18:10:24.979Z"
     },
     "https://lashesmglamour.com/privacy/": {
-      "hash": "bfd3590c4d88abda8560501fa159ed64",
-      "last_seen": "2026-08-11T18:03:00.916Z"
+      "hash": "f5e66f95c693365bef11ef967c6d3b55",
+      "last_seen": "2026-08-11T18:10:24.980Z"
     },
     "https://lashesmglamour.com/services/": {
-      "hash": "bc7a11244e50065db9af4bd2044047ba",
-      "last_seen": "2026-08-11T18:03:00.917Z"
+      "hash": "c5912f00edc48a5e81a622361d190ebe",
+      "last_seen": "2026-08-11T18:10:24.980Z"
     },
     "https://lashesmglamour.com/services/brows/": {
-      "hash": "b66c26da6487545b34fe164786f1ebcc",
-      "last_seen": "2026-08-11T18:03:00.917Z"
+      "hash": "12dd8ce7eba365f7385c9368c390fb9e",
+      "last_seen": "2026-08-11T18:10:24.980Z"
     },
     "https://lashesmglamour.com/services/lashes/": {
-      "hash": "6d193bace7a7728bdbf0322fd6321bc4",
-      "last_seen": "2026-08-11T18:03:00.917Z"
+      "hash": "424da46335cbcd004d00c53b285f86ff",
+      "last_seen": "2026-08-11T18:10:24.980Z"
     },
     "https://lashesmglamour.com/services/skincare/": {
-      "hash": "a38668c3888400dd366edd53d7ad5629",
-      "last_seen": "2026-08-11T18:03:00.917Z"
+      "hash": "06f3b954131a5cecc656eedff1d3dc91",
+      "last_seen": "2026-08-11T18:10:24.981Z"
     },
     "https://lashesmglamour.com/services/waxing/": {
-      "hash": "418c0ff73883b41623fbdb31b603289d",
-      "last_seen": "2026-08-11T18:03:00.917Z"
+      "hash": "cc30912102a5f015172add189ed8daad",
+      "last_seen": "2026-08-11T18:10:24.982Z"
     }
   }
 }

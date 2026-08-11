@@ -1,0 +1,86 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+export function getStaticPaths() {
+  return [
+    {
+      params: { slug: "aftercare-guide" },
+      props: {
+        title: "The Ultimate Eyelash Extensions Aftercare Guide",
+        date: "June 25, 2026",
+        category: "Lashes",
+        content: `
+          <p>Proper aftercare is essential for extending the life of your lash extensions and keeping your natural lashes healthy. Follow these expert tips from our West Kendall studio specialists:</p>
+          <h3>1. Keep Them Dry for the First 24 Hours</h3>
+          <p>Avoid water, steam rooms, heavy sweating, and saunas immediately following your appointment. This allows the medical-grade adhesive to fully cure.</p>
+          <h3>2. Clean Your Lashes Daily</h3>
+          <p>Use an oil-free, lash-safe foam cleanser every evening. Gently massage the root line with a soft lash brush and rinse thoroughly with cool water.</p>
+          <h3>3. Brush Daily</h3>
+          <p>Use a clean spoolie wand to brush your extensions twice daily—once in the morning and once after showering—to keep them untangled and fluffy.</p>
+          <h3>4. Schedule Regular Fills Every 2 to 3 Weeks</h3>
+          <p>Natural lashes shed 2-5 lashes per day. Booking a 60-minute fill every 2-3 weeks ensures your full set remains voluminous and flawless.</p>
+        `
+      }
+    },
+    {
+      params: { slug: "brow-lamination-guide" },
+      props: {
+        title: "Everything You Need to Know About Brow Lamination",
+        date: "June 22, 2026",
+        category: "Brows",
+        content: `
+          <p>Brow lamination is the revolutionary semi-permanent beauty treatment that smooths, relaxes, and sets brow hairs into a uniform, lifted shape.</p>
+          <h3>What Is Brow Lamination?</h3>
+          <p>Often referred to as a brow perm, brow lamination uses gentle keratin solutions to realign your brow hair pattern. This creates a fuller, fluffier appearance that lasts 6-8 weeks.</p>
+          <h3>Who Is It Best For?</h3>
+          <p>It's ideal for anyone with unruly brow hairs, gaps, or downward-growing brows who wants a sleek, styled look without microblading.</p>
+        `
+      }
+    },
+    {
+      params: { slug: "summer-skincare-miami" },
+      props: {
+        title: "Daily Skincare Routines for Summer in Miami",
+        date: "June 18, 2026",
+        category: "Skin Care",
+        content: `
+          <p>Miami's heat and humidity can lead to excess oil production, clogged pores, and sun damage. Protect your skin barrier with these aesthetician-approved steps:</p>
+          <h3>1. Hydrate with Hyaluronic Serums</h3>
+          <p>Lightweight hyaluronic serums lock in moisture without feeling heavy under Miami's summer sun.</p>
+          <h3>2. Double Cleanse Every Night</h3>
+          <p>Remove SPF and environmental pollutants thoroughly with an oil cleanser followed by a hydrating gentle wash.</p>
+        `
+      }
+    }
+  ];
+}
+
+const { slug } = Astro.params;
+const { title, date, category, content } = Astro.props;
+---
+
+<Layout title={`${title} | Lashes & MGlamour Blog`} description={title} canonical={`https://lashesmglamour.com/blog/${slug}/`} lang="en">
+  <article class="py-20 bg-white">
+    <div class="container-custom max-w-3xl mx-auto space-y-8">
+      <div>
+        <a href="/blog" class="text-xs font-bold uppercase text-brand-pink hover:underline">← Back to Blog</a>
+        <div class="mt-4 flex items-center space-x-3 text-xs text-zinc-400">
+          <span class="bg-brand-pink/10 text-brand-pink font-bold px-2 py-0.5 rounded">{category}</span>
+          <span>📅 {date}</span>
+        </div>
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-brand-charcoal mt-3">{title}</h1>
+      </div>
+
+      <div class="prose prose-zinc max-w-none text-sm text-zinc-600 leading-relaxed space-y-4" set:html={content} />
+
+      <div class="pt-8 border-t border-brand-border flex justify-between items-center">
+        <a href="/book" class="bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase text-xs px-6 py-3 rounded transition-all shadow-md">
+          Book Appointment Now
+        </a>
+        <a href="https://wa.me/17864606580" target="_blank" rel="noopener noreferrer" class="border border-brand-gold text-brand-gold font-bold text-xs uppercase px-6 py-3 rounded hover:bg-brand-gold hover:text-white transition-all">
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,82 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+export function getStaticPaths() {
+  return [
+    {
+      params: { slug: "guia-cuidados-pestanas" },
+      props: {
+        title: "La Guía Definitiva para el Cuidado de las Extensiones de Pestañas",
+        date: "25 de junio, 2026",
+        category: "Pestañas",
+        content: `
+          <p>Un cuidado posterior adecuado es esencial para prolongar la vida de tus extensiones de pestañas y mantener sanas tus pestañas naturales. Sigue estos consejos profesionales de nuestras especialistas en West Kendall:</p>
+          <h3>1. Manténlas Secas las Primeras 24 Horas</h3>
+          <p>Evita el agua, saunas, vapor y sudoración intensa inmediatamente después de tu cita. Esto permite que el adhesivo profesional se fije completamente.</p>
+          <h3>2. Limpia tus Pestañas Diariamente</h3>
+          <p>Utiliza un limpiador en espuma especial sin aceites todas las noches. Limpia suavemente la base con un cepillo suave y enjuaga con agua fresca.</p>
+          <h3>3. Cepilla Diariamente</h3>
+          <p>Usa un cepillo spoolie limpio para cepillar tus extensiones dos veces al día para mantenerlas desenredadas y esponjosas.</p>
+          <h3>4. Programa Retoques Cada 2 a 3 Semanas</h3>
+          <p>Las pestañas naturales mudan entre 2 y 5 pestañas diarias. Agendar un retoque cada 2-3 semanas garantiza un volumen perfecto.</p>
+        `
+      }
+    },
+    {
+      params: { slug: "todo-sobre-laminacion-cejas" },
+      props: {
+        title: "Todo lo que Necesitas Saber sobre la Laminación de Cejas",
+        date: "22 de junio, 2026",
+        category: "Cejas",
+        content: `
+          <p>La laminación de cejas es el tratamiento semipermanente revolucionario que alisa, relaja y fija los vellos de las cejas en una forma uniforme y peinada.</p>
+          <h3>¿Qué es la Laminación de Cejas?</h3>
+          <p>A menudo llamada permanente de cejas, la laminación utiliza soluciones suaves de queratina para alinear la dirección del vello, creando un aspecto más denso y simétrico que dura de 6 a 8 semanas.</p>
+        `
+      }
+    },
+    {
+      params: { slug: "rutina-piel-verano-miami" },
+      props: {
+        title: "Rutinas Diarias de Cuidado de la Piel para el Verano en Miami",
+        date: "18 de junio, 2026",
+        category: "Piel",
+        content: `
+          <p>El calor y la humedad de Miami pueden generar exceso de grasa y poros obstruidos. Protege tu piel con estos pasos aprobados por esteticistas:</p>
+          <h3>1. Hidrata con Sueros de Ácido Hialurónico</h3>
+          <p>Los sueros de ácido hialurónico sellan la humedad sin sentirse pesados bajo el sol del verano de Miami.</p>
+        `
+      }
+    }
+  ];
+}
+
+const { slug } = Astro.params;
+const { title, date, category, content } = Astro.props;
+---
+
+<Layout title={`${title} | Blog MGlamour`} description={title} canonical={`https://lashesmglamour.com/es/blog/${slug}/`} lang="es">
+  <article class="py-20 bg-white">
+    <div class="container-custom max-w-3xl mx-auto space-y-8">
+      <div>
+        <a href="/es/blog" class="text-xs font-bold uppercase text-brand-pink hover:underline">← Volver al Blog</a>
+        <div class="mt-4 flex items-center space-x-3 text-xs text-zinc-400">
+          <span class="bg-brand-pink/10 text-brand-pink font-bold px-2 py-0.5 rounded">{category}</span>
+          <span>📅 {date}</span>
+        </div>
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-brand-charcoal mt-3">{title}</h1>
+      </div>
+
+      <div class="prose prose-zinc max-w-none text-sm text-zinc-600 leading-relaxed space-y-4" set:html={content} />
+
+      <div class="pt-8 border-t border-brand-border flex justify-between items-center">
+        <a href="/es/book" class="bg-brand-pink hover:bg-brand-pink-hover text-white font-bold uppercase text-xs px-6 py-3 rounded transition-all shadow-md">
+          Reservar Cita Ahora
+        </a>
+        <a href="https://wa.me/17864606580" target="_blank" rel="noopener noreferrer" class="border border-brand-gold text-brand-gold font-bold text-xs uppercase px-6 py-3 rounded hover:bg-brand-gold hover:text-white transition-all">
+          Escríbenos por WhatsApp
+        </a>
+      </div>
+    </div>
+  </article>
+</Layout>
