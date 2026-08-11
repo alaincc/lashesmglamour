@@ -103,3 +103,81 @@ def get_api_status(db: Session = Depends(get_db)):
         "cached_services_count": cached_services_count,
         "square_environment": settings.SQUARE_ENVIRONMENT
     }
+
+
+@router.get("/seo/status")
+async def get_seo_status():
+    """
+    Returns live SEO Indexing status, manifest details, and recent submission logs.
+    """
+    import os, json
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../../"))
+    frontend_dir = os.path.join(root_dir, "frontend")
+    log_path = os.path.join(frontend_dir, "seo-submission.log")
+    manifest_path = os.path.join(frontend_dir, "seo-manifest.json")
+    dist_sitemap = os.path.join(frontend_dir, "dist", "sitemap.xml")
+
+    logs = []
+    if os.path.exists(log_path):
+        with open(log_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            logs = [line.strip() for line in lines[-20:] if line.strip()]
+
+    urls = []
+    manifest_data = {}
+    if os.path.exists(manifest_path):
+        try:
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                manifest_data = json.load(f)
+                urls = list(manifest_data.get("urls", {}).keys())
+        except Exception:
+            pass
+
+    return {
+        "sitemap_exists": os.path.exists(dist_sitemap),
+        "indexnow_key": os.getenv("INDEXNOW_KEY", "9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d"),
+        "site_url": os.getenv("SITE_URL", "https://lashesmglamour.com"),
+        "tracked_url_count": len(urls),
+        "urls": urls,
+        "recent_logs": logs
+    }
+
+
+@router.post("/seo/submit")
+async def trigger_seo_submission(payload: dict = None):
+    """
+    Triggers search engine indexing submission via node scripts/seo-engine.js.
+    """
+    import asyncio, os
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../../"))
+    frontend_dir = os.path.join(root_dir, "frontend")
+    script_path = os.path.join(frontend_dir, "scripts", "seo-engine.js")
+
+    cmd = ["node", script_path, "submit"]
+    if payload:
+        target_url = payload.get("url")
+        provider = payload.get("provider")
+        if target_url:
+            cmd.append(target_url)
+        if provider:
+            cmd.append(f"--provider={provider}")
+
+    try:
+        process = await asyncio.create_subprocess_exec(
+            *cmd,
+            cwd=frontend_dir,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        stdout, stderr = await process.communicate()
+        out_text = stdout.decode() if stdout else ""
+        err_text = stderr.decode() if stderr else ""
+
+        return {
+            "status": "success" if process.returncode == 0 else "warning",
+            "exit_code": process.returncode,
+            "output": out_text + ("\n" + err_text if err_text else "")
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to execute SEO engine: {str(e)}")
+

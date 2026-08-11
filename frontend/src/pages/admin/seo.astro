@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import fs from "node:fs";
+import path from "node:path";
+
+const htmlFilePath = path.resolve("./local/SEOINDEX/seo-indexing-center-lashes-mglamour.html");
+let dashboardHtml = "";
+
+if (fs.existsSync(htmlFilePath)) {
+  const fullHtml = fs.readFileSync(htmlFilePath, "utf8");
+  // Extract body content or render directly
+  dashboardHtml = fullHtml;
+}
+---
+
+{dashboardHtml ? (
+  <Fragment set:html={dashboardHtml} />
+) : (
+  <Layout title="SEO Indexing Center | Lashes & MGlamour">
+    <section class="py-20 text-center">
+      <h1 class="text-2xl font-bold">SEO Indexing Center</h1>
+      <p class="text-zinc-500">Dashboard template loading error.</p>
+    </section>
+  </Layout>
+)}
