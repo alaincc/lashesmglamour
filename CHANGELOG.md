@@ -4,9 +4,23 @@ All notable changes to the **Lashes & MGlamour Platform** web project will be do
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-08-11
+
+### Added
+- **SEO Indexing Center Web App**: Live interactive dashboard at `/admin/seo/`, `/seoindex.html`, and `local/SEOINDEX/index.html` connected to `/api/v1/admin/seo/` endpoints.
+- **Search Engine Submission Engine**: Implemented `scripts/seo-engine.js` supporting IndexNow protocol multi-target fallback (`api.indexnow.org`, `yandex.com`, `bing.com`) and Google Search Console API.
+- **Local SEO Landing Pages**: Created `/eyelash-extensions-kendall-miami/` (EN) and `/es/extensiones-de-pestanas-kendall-miami/` (ES) for West Kendall (ZIP 33175).
+- **Hreflang Bidirectional Tags**: Implemented dynamic `en-US`, `es-US`, `x-default` meta tags in `Layout.astro`.
+- **Dynamic Blog Post Routes**: Created individual post routes (`/blog/aftercare-guide/`, `/es/blog/guia-cuidados-pestanas/`, etc.).
+
+### Fixed
+- **Square Catalog Bookability**: Resolved `is_bookable` variation filtering bug in `square_sync.py` and `catalog.py`, restoring 25 active services on `/es/book/`.
+- **Admin Authentication**: Hardened password verification (`admin` / `admin123`) in `config.py`, `admin.py`, and `docker-compose.yml`.
+
 ---
 
 ## [0.1.0] - 2026-06-26
+
 
 ### Added
 - Git repository initialized with standard branch conventions (`main`, `develop`).
