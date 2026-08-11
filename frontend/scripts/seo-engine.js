@@ -228,21 +228,44 @@ async function submitIndexNow(urls) {
       urlList: batch
     };
 
-    try {
-      const response = await fetch('https://api.indexnow.org/indexnow', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify(payload)
-      });
+    const indexnowEndpoints = [
+      'https://api.indexnow.org/indexnow',
+      'https://yandex.com/indexnow',
+      'https://www.bing.com/indexnow'
+    ];
 
-      const text = await response.text();
-      const isSuccess = response.status >= 200 && response.status < 300;
+    let lastStatus = 0;
+    let lastIsSuccess = false;
+    let lastText = '';
 
-      writeLog('IndexNow', batch.length, batch, response.status, isSuccess, text || 'OK');
-    } catch (err) {
-      writeLog('IndexNow', batch.length, batch, 0, false, `Network error: ${err.message}`);
+    for (const ep of indexnowEndpoints) {
+      try {
+        const response = await fetch(ep, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const text = await response.text();
+        const isSuccess = response.status >= 200 && response.status < 300;
+
+        lastStatus = response.status;
+        lastIsSuccess = isSuccess;
+        lastText = text || 'OK';
+
+        if (isSuccess) {
+          writeLog(`IndexNow (${new URL(ep).hostname})`, batch.length, batch, response.status, true, text || 'OK');
+          break;
+        }
+      } catch (err) {
+        lastText = `Network error: ${err.message}`;
+      }
+    }
+
+    if (!lastIsSuccess) {
+      writeLog('IndexNow', batch.length, batch, lastStatus, false, lastText);
     }
   }
 }
