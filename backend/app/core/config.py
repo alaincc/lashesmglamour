@@ -43,7 +43,7 @@ class Settings(BaseSettings):
 
     # Admin portal login configuration
     ADMIN_USERNAME: str = "admin"
-    ADMIN_PASSWORD_HASH: str = "$2b$12$EixZaYVK1fsYi1FnQsOgleJ9o.Edf0w7nI96W5E.1/U2d2z2c.W4W"  # default: 'admin123'
+    ADMIN_PASSWORD_HASH: str = "$2b$12$OncVUZJLHiYLxvGV39xbheVh1IlHtNP116SlVPW8V9NG2JQtKqLNO"  # default: 'admin123'
 
     # SMTP configurations
     SMTP_HOST: Optional[str] = None
