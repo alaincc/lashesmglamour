@@ -1,5 +1,8 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
 
+Sitemap: https://lashesmglamour.com/sitemap.xml
 Sitemap: https://lashesmglamour.com/sitemap-index.xml

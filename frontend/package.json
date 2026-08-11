@@ -8,8 +8,14 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "node scripts/seo-engine.js sitemap",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "seo:sitemap": "node scripts/seo-engine.js sitemap",
+    "seo:submit": "node scripts/seo-engine.js submit",
+    "seo:submit:indexnow": "node scripts/seo-engine.js submit --provider=indexnow",
+    "seo:submit:google": "node scripts/seo-engine.js submit --provider=google",
+    "seo:verify": "node scripts/seo-engine.js verify"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.0",

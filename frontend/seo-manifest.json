@@ -1,0 +1,109 @@
+{
+  "last_updated": "2026-08-11T18:03:00.917Z",
+  "urls": {
+    "https://lashesmglamour.com/": {
+      "hash": "c3c24c4c559f7f9afd73ad69a5bc0d28",
+      "last_seen": "2026-08-11T18:03:00.911Z"
+    },
+    "https://lashesmglamour.com/about/": {
+      "hash": "40a1dd3eb1d0e74e4f73cd321236398a",
+      "last_seen": "2026-08-11T18:03:00.912Z"
+    },
+    "https://lashesmglamour.com/blog/": {
+      "hash": "f74ecffe518adad4e107e3d0684c7255",
+      "last_seen": "2026-08-11T18:03:00.913Z"
+    },
+    "https://lashesmglamour.com/book/": {
+      "hash": "d3306b059d8d297b2eea058db4b1c5d3",
+      "last_seen": "2026-08-11T18:03:00.913Z"
+    },
+    "https://lashesmglamour.com/contact/": {
+      "hash": "b2b83e26437f5d6e36410871ca096283",
+      "last_seen": "2026-08-11T18:03:00.913Z"
+    },
+    "https://lashesmglamour.com/es/": {
+      "hash": "418a136cc419009d74d9e67af0159e3a",
+      "last_seen": "2026-08-11T18:03:00.913Z"
+    },
+    "https://lashesmglamour.com/es/about/": {
+      "hash": "e606c77f0d281a970969e5a079a59820",
+      "last_seen": "2026-08-11T18:03:00.914Z"
+    },
+    "https://lashesmglamour.com/es/blog/": {
+      "hash": "236c3f5c4cce9e060ce87f7befe0305e",
+      "last_seen": "2026-08-11T18:03:00.914Z"
+    },
+    "https://lashesmglamour.com/es/book/": {
+      "hash": "ed23fd1fabe558e48e883a6efdfb12e2",
+      "last_seen": "2026-08-11T18:03:00.914Z"
+    },
+    "https://lashesmglamour.com/es/contact/": {
+      "hash": "e625edf5d053cc661c1bfc9e8a73c593",
+      "last_seen": "2026-08-11T18:03:00.914Z"
+    },
+    "https://lashesmglamour.com/es/faq/": {
+      "hash": "a9f447637f8fbe0fb708ca1f7e60eff1",
+      "last_seen": "2026-08-11T18:03:00.914Z"
+    },
+    "https://lashesmglamour.com/es/gallery/": {
+      "hash": "c8e1e03b69051cdca79f047b18c375a5",
+      "last_seen": "2026-08-11T18:03:00.915Z"
+    },
+    "https://lashesmglamour.com/es/privacy/": {
+      "hash": "3ecfdc274687b484bf5826044d4a9fd8",
+      "last_seen": "2026-08-11T18:03:00.915Z"
+    },
+    "https://lashesmglamour.com/es/services/": {
+      "hash": "54ce86a79f3a1a86824ae8c4b8aa9b16",
+      "last_seen": "2026-08-11T18:03:00.915Z"
+    },
+    "https://lashesmglamour.com/es/services/brows/": {
+      "hash": "29e1ae91ad37ed13ff61f14b7ee30168",
+      "last_seen": "2026-08-11T18:03:00.915Z"
+    },
+    "https://lashesmglamour.com/es/services/lashes/": {
+      "hash": "5594a176b7382d70fc0d859458eb6585",
+      "last_seen": "2026-08-11T18:03:00.915Z"
+    },
+    "https://lashesmglamour.com/es/services/skincare/": {
+      "hash": "72381e297afd652a7cc01875236a6f2a",
+      "last_seen": "2026-08-11T18:03:00.915Z"
+    },
+    "https://lashesmglamour.com/es/services/waxing/": {
+      "hash": "7d0f8dba8f490e801e4b851e2c1802f0",
+      "last_seen": "2026-08-11T18:03:00.915Z"
+    },
+    "https://lashesmglamour.com/faq/": {
+      "hash": "18994348f9ab835eb688dec3a2892183",
+      "last_seen": "2026-08-11T18:03:00.916Z"
+    },
+    "https://lashesmglamour.com/gallery/": {
+      "hash": "2fd15b72ecda08730a2cb188e9f83663",
+      "last_seen": "2026-08-11T18:03:00.916Z"
+    },
+    "https://lashesmglamour.com/privacy/": {
+      "hash": "bfd3590c4d88abda8560501fa159ed64",
+      "last_seen": "2026-08-11T18:03:00.916Z"
+    },
+    "https://lashesmglamour.com/services/": {
+      "hash": "bc7a11244e50065db9af4bd2044047ba",
+      "last_seen": "2026-08-11T18:03:00.917Z"
+    },
+    "https://lashesmglamour.com/services/brows/": {
+      "hash": "b66c26da6487545b34fe164786f1ebcc",
+      "last_seen": "2026-08-11T18:03:00.917Z"
+    },
+    "https://lashesmglamour.com/services/lashes/": {
+      "hash": "6d193bace7a7728bdbf0322fd6321bc4",
+      "last_seen": "2026-08-11T18:03:00.917Z"
+    },
+    "https://lashesmglamour.com/services/skincare/": {
+      "hash": "a38668c3888400dd366edd53d7ad5629",
+      "last_seen": "2026-08-11T18:03:00.917Z"
+    },
+    "https://lashesmglamour.com/services/waxing/": {
+      "hash": "418c0ff73883b41623fbdb31b603289d",
+      "last_seen": "2026-08-11T18:03:00.917Z"
+    }
+  }
+}
