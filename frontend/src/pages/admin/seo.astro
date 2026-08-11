@@ -3,13 +3,19 @@ import Layout from "../../layouts/Layout.astro";
 import fs from "node:fs";
 import path from "node:path";
 
-const htmlFilePath = path.resolve("./local/SEOINDEX/seo-indexing-center-lashes-mglamour.html");
 let dashboardHtml = "";
 
-if (fs.existsSync(htmlFilePath)) {
-  const fullHtml = fs.readFileSync(htmlFilePath, "utf8");
-  // Extract body content or render directly
-  dashboardHtml = fullHtml;
+const possiblePaths = [
+  path.resolve("./public/seoindex.html"),
+  path.resolve("../local/SEOINDEX/seo-indexing-center-lashes-mglamour.html"),
+  path.resolve("./local/SEOINDEX/seo-indexing-center-lashes-mglamour.html")
+];
+
+for (const p of possiblePaths) {
+  if (fs.existsSync(p)) {
+    dashboardHtml = fs.readFileSync(p, "utf8");
+    break;
+  }
 }
 ---
 
