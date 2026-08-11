@@ -87,7 +87,8 @@ async def sync_square_data() -> bool:
                 is_bookable = var_data.get("available_for_booking")
                 if is_bookable is None:
                     is_bookable = var_data.get("bookable", True)
-                if not is_bookable:
+                if is_bookable is False:
+                    # Only skip if explicitly set to False in Square catalog
                     continue
                 
                 active_service_ids.append(var_id)
@@ -143,11 +144,13 @@ async def sync_square_data() -> bool:
                     )
                     db.add(db_service)
 
-        # Deactivate services no longer active in Square catalog
-        db.query(Service).filter(Service.id.notin_(active_service_ids)).update(
-            {"is_active": False}, synchronize_session=False
-        )
+        # Deactivate services no longer active in Square catalog ONLY if active_service_ids is non-empty
+        if active_service_ids:
+            db.query(Service).filter(Service.id.notin_(active_service_ids)).update(
+                {"is_active": False}, synchronize_session=False
+            )
         db.commit()
+
 
         # 2. Fetch and save Team Members (Staff)
         team_members = await client.fetch_team_members()

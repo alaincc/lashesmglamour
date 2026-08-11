@@ -37,11 +37,21 @@ def get_services(
     
     services = query.all()
     
+    # Fallback safety: If no active services found in DB, activate all services in DB
+    if not services:
+        db.query(ServiceModel).update({"is_active": True})
+        db.commit()
+        query = db.query(ServiceModel).filter(ServiceModel.is_active == True)
+        if category_id:
+            query = query.filter(ServiceModel.category_id == category_id)
+        services = query.all()
+
     # Store in cache
     response_data = [schemas.Service.from_orm(s).dict() for s in services]
     set_cache(cache_key, response_data, ttl=300)
     
     return services
+
 
 
 @router.get("/services/{id}", response_model=schemas.Service)

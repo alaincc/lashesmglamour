@@ -300,6 +300,8 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
     { id: "cat-brows", name: "Brows" },
     { id: "cat-skincare", name: "Skincare" },
     { id: "cat-waxing", name: "Waxing" },
+    { id: "cat-facial", name: "Facial" },
+    { id: "cat-acne", name: "Acne" },
   ];
 
   const fallbackServices: Service[] = [
@@ -309,6 +311,8 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
     { id: "var_brow_lam", category_id: "cat-brows", name: "Brow Lamination & Shaping", description: "Relaxes and shapes brow hairs for a fuller, brushed-up symmetrical look.", price_cents: 8500, duration_minutes: 45 },
     { id: "var_skincare_facial", category_id: "cat-skincare", name: "Luxe Rejuvenating Facial", description: "Deep hydration treatment utilizing premium hyaluronic serums.", price_cents: 11000, duration_minutes: 60 },
     { id: "var_wax_brow", category_id: "cat-waxing", name: "Brow Wax & Threading", description: "Precision hair removal for a clean and sleek definition.", price_cents: 3500, duration_minutes: 20 },
+    { id: "var_facial_1", category_id: "cat-facial", name: "Facial - 1 Seccion", description: "Una sesión de tratamiento facial especializado adaptado a las necesidades de tu tipo de piel.", price_cents: 12000, duration_minutes: 60 },
+    { id: "var_acne_1", category_id: "cat-acne", name: "Acne Treatment - 1 Session", description: "Sesión de limpieza clínica facial especializada para reducir la inflamación y controlar el acné activo.", price_cents: 13000, duration_minutes: 60 },
   ];
 
   const fallbackStaffList: Staff[] = [
@@ -332,9 +336,11 @@ export default function BookingWizard({ lang = "en" }: { lang?: "en" | "es" }) {
       } catch (err: any) {
         console.warn("API offline or fetch failed, using fallback catalog:", err);
       } finally {
-        setCategories(fetchedCats.length > 0 ? fetchedCats : fallbackCategories);
         const finalServices = fetchedServs.length > 0 ? fetchedServs : fallbackServices;
+        const finalCategories = fetchedCats.length > 0 && fetchedServs.length > 0 ? fetchedCats : fallbackCategories;
+        setCategories(finalCategories);
         setServices(finalServices);
+
 
         // If query param lists specific service, set it
         const urlParams = new URLSearchParams(window.location.search);
